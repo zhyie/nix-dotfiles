@@ -7,17 +7,17 @@
 
   services.dwm-status = {
     enable = true;
-    package = pkgs.dwm-status.overrideAttrs {
-      src = ../../../config/dwm-status;
-    };
+    #package = pkgs.dwm-status.overrideAttrs {
+    #  src = ../../../config/dwm-status;
+    #};
 
     #settings = {
-    #  order = [ "battery" "time" ];
-    #  time = { 
-    #	format = "%A, %B %d, %Y %H:%M:%S";
-    #	update_seconds = false;
-    #  };
-    # };
+      order = [ "battery" "time" ];
+      #time = { 
+	#format = "%A, %B %d, %Y %H:%M:%S";
+	#update_seconds = false;
+      #};
+    #};
   };
 
   # home.file.".config/dwm-status" = {
