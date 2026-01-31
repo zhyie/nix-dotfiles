@@ -5,18 +5,17 @@
   services.xserver = {
 
     enable = true;
-    windowManager.dwm.enable = true;
-
-    videoDrivers = [ "modesetting" ];
-
-    deviceSection = ''
-      "Option" "DRI" "2"
-      "Option" "TearFree" "true"
-    '';
-
+    windowManager.dwm = {
+      enable = true;
+      package = pkgs.dwm.overrideAttrs {
+	src = ../../../config/dwm;
+      };
+    };
   };
 
-  nixpkgs.overlays = [ (self: super: {
-    dwm = super.dwm.overrideAttrs (oldAttrs: {
-      src = ../../../.config/dwm; }); }) ];
+  #environment.systemPackages = with pkgs; [ dwm-status ];
+  #nixpkgs.overlays = [ (self: super: {
+   # dwm = super.dwm.overrideAttrs (oldAttrs: {
+    #  src = ../../../.config/dwm; }); }) ];
+
 }

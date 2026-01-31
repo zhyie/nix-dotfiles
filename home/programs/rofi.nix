@@ -1,19 +1,20 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
 
   home.packages = with pkgs; [ rofi ];
 
+  home.file.".config/rofi" = {
+    source = ../../config/rofi;
+    recursive = true;
+  };
+
   programs.rofi = {
     enable = true;
-    theme = "sidebar";
-    font = "sans-serif";
-    package = pkgs.rofi;
     modes = [
       "drun"
       "run"
       "window"
-      "ssh"  
     ];
     extraConfig = {
       show-icons = true;

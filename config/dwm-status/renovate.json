@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "config:recommended"
+  ],
+  "ignoreDeps": [
+    "config",
+    "dbus",
+    "uom"
+  ]
+}

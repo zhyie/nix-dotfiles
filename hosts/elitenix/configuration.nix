@@ -38,20 +38,7 @@
   time.timeZone = "Asia/Manila";
  
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";  
-  # i18n.extraLocaleSettings = {
-  #   LC_CTYPE 	   = usLocale;
-  #   LC_ADDRESS 	   = phLocale;
-  #   LC_MEASUREMENT = phLocale;
-  #   LC_MESSAGES    = usLocale;
-  #   LC_MONETARY    = phLocale;
-  #   LC_NAME 	   = phLocale;
-  #   LC_NUMERIC 	   = usLocale;
-  #   LC_PAPER 	   = phLocale;
-  #   LC_TELEPHONE   = phLocale;
-  #   LC_TIME 	   = phLocale;
-  #   LC_COLLATE 	   = phLocale;
-  # };
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Console settings.
   console = {
@@ -59,6 +46,8 @@
     keyMap = "us";
     # useXkbConfig = true; # use xkb.options in tty.
   };
+
+
 
 
   # Enable CUPS to print documents.
@@ -98,7 +87,6 @@
     st
     pcmanfm
 
-    #actkbd
   ];
 
 

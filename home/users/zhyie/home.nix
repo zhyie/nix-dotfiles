@@ -4,13 +4,19 @@
   # List of help at 
   # https://nix-community.github.io/home-manager/options.xhtml
   
+  # Home configurations.
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
     stateVersion = "25.11";
+
+    # file.".config" = {
+    #  source = ../../../config;
+    #  recursive = true;
+    # };
   };
 
-  # Home Manager manage itself
+  # Home Manager manage itself.
   programs.home-manager.enable = true;
 
 
@@ -24,6 +30,8 @@
     ../../programs/yazi.nix
 
     ../../services/picom.nix
+    ../../services/dwm-status.nix
+    #../../services/dwmblocks.nix
 
     # ../../modules/misc/fonts/fonts.nix
     ../../fonts/fonts.nix

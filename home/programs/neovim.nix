@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
 
   #home.packages = with pkgs; [ neovim ];
-  home.file."./.config/nvim/" = {
-    source = ../../.config/nvim;
+  home.file.".config/nvim" = {
+    source = ../../config/nvim;
     recursive = true;
   };
 
