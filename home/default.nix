@@ -1,15 +1,40 @@
-{ config, pkgs, lib, username, stateVersion, ... }:
+{ inputs, outputs, ... }:
 
-{
-  # More informations and options in
-  # https://nix-community.github.io/home-manager/options.xhtml
+{ username, stateVersion }:
+
+let
+
+  pkgs = outputs.pkgs;
+  home-manager = inputs.home-manager.lib.homeManagerConfiguration;
+
+  home = import ../${username}/home.nix { inherit username stateVersion };
+
+in home-manager {
+
+  inherit pkgs;
   
-  home = {
-    username = "${username}";
-    homeDirectory = "/home/${username}";
-    stateVersion = "${stateVersion}";
-  };
+  modules = [ home ];
 
-  # Home Manager manage itself
-  programs.home-manager.enable = true;
 }
+
+/*
+
+let 
+
+  # assume pkgs and stateVersion are defined
+
+  mkHome = import ./home { inherit inputs outputs }
+
+  users = { "alice", "emma" }
+
+in {
+
+  homeConfigurations = {
+
+    "username@hostname" = mkHome { "username", stateVersion };
+
+  }
+
+}
+
+*/

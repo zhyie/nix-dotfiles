@@ -1,9 +1,9 @@
 { config, pkgs, lib, username, ... }:
 
 {
-  # List of help at 
+  # List of help at
   # https://nix-community.github.io/home-manager/options.xhtml
-  
+
   # Home configurations.
   home = {
     username = "${username}";
@@ -23,13 +23,16 @@
   # Import packages.
   imports = [
 
+    ../../programs/bash.nix
     ../../programs/git.nix
     ../../programs/neovim.nix
     ../../programs/kitty.nix
     ../../programs/rofi.nix
     ../../programs/yazi.nix
+    ../../programs/qimgv.nix
+    ../../programs/feh.nix
 
-    ../../services/picom.nix
+    ../../../modules/picom.nix
     ../../services/dwm-status.nix
     #../../services/dwmblocks.nix
 

@@ -4,9 +4,12 @@ let
 
   hostname = "elitenix";
   username = "zhyie";
-  
+
   # NixOS hardware quirks
-  nixos-hardware = inputs.nixos-hardware.nixosModules.hp-elitebook-830g6;
+  hardware-modules = inputs.nixos-hardware.nixosModules.hp-elitebook-830g6;
+  intel-gpu = inputs.nixos-hardware.nixosModules.common-gpu-intel;
+
+  # Home Manager
   home-manager = inputs.home-manager.nixosModules;
 
 in lib.nixosSystem {
@@ -20,17 +23,18 @@ in lib.nixosSystem {
     ./configuration.nix
 
     # Hardware quirks
-    nixos-hardware
+    hardware-modules
+    intel-gpu
 
     # Home manager as module to NixOS
     home-manager.home-manager {
       home-manager = {
 
         useGlobalPkgs = true;
-	useUserPackages = true;
-	extraSpecialArgs = { inherit username; };
-	backupFileExtension = "backup";
-	users.${username} = ../../home/users/${username};
+	      useUserPackages = true;
+	      extraSpecialArgs = { inherit username; };
+	      backupFileExtension = "backup";
+	      users.${username} = ../../home/users/${username};
       };
 
     }

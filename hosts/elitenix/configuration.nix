@@ -7,17 +7,28 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ../hardware/laptop/hardware-configuration.nix
+      ./hardware-configuration.nix
 
-      ../default.nix
-      ./modules/boot.nix
-      ./modules/xserver.nix
+      ./nix.nix
+      ./boot.nix
+      ./xserver.nix
       #./modules/locale.nix
       #./modules/libinput.nix
       #./modules/user.nix
-      
-      ../../home/services/pipewire.nix
-      ../../home/hardware/specialkey.nix
+
+      # ../../modules/boot.nix
+      # ../../modules/networking.nix
+      # ../../modules/powermanagement.nix
+
+
+      # ../../modules/printing.nix
+      # ../../modules/libinput.nix
+      ../../modules/pipewire.nix
+      # ../../modules/bluetooth.nix
+      # ../../modules/special-keymap.nix
+
+      # ../../modules/console.nix
+      # ../../modules/environment.nix
     ];
 
   networking = {
@@ -36,7 +47,7 @@
 
   # Set time zone.
   time.timeZone = "Asia/Manila";
- 
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -88,6 +99,9 @@
     pcmanfm
 
   ];
+
+
+  services.upower.enable = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are

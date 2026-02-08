@@ -7,8 +7,8 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrainsMono Nerd Font Mono:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=12" };
+static const char dmenufont[]       = "JetBrainsMono Nerd Font Mono:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -42,8 +42,8 @@ static const int refreshrate = 120;  /* refresh rate (per second) for client mov
 
 static const Layout layouts[] = {
 	/* symbol	arrange function */
-	{ "[ ]", 	tile },    /* first entry is default */
-	{ "> <", 	NULL },    /* no layout function means floating behavior */
+	{ "[]", 	tile },    /* first entry is default */
+	{ "<>", 	NULL },    /* no layout function means floating behavior */
 	{ "[M]", 	monocle },
 };
 
@@ -83,50 +83,50 @@ static const char *lightup[]   = { "light", "-A", "5", NULL };
 static const char *lightdown[] = { "light", "-U", "5", NULL };
 
 static const Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	/* modifier                     key         function        argument */
+	{ MODKEY,                       XK_p,       spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_o,       spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_b,       togglebar,      {0} },
+	{ MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_i,       incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,       incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_h,       setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,       setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_z,       zoom,           {0} },
+	{ MODKEY,                       XK_Tab,     view,           {0} },
+	{ MODKEY,                       XK_q,       killclient,     {0} },
+	{ MODKEY,                       XK_t,       setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,       setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,       setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,   setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_space,   togglefloating, {0} },
+	{ MODKEY,                       XK_0,       view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,       tag,            {.ui = ~0 } },
+	{ MODKEY,                       XK_comma,   focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_period,  focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,   tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period,  tagmon,         {.i = +1 } },
+	TAGKEYS(                        XK_1,                       0)
+	TAGKEYS(                        XK_2,                       1)
+	TAGKEYS(                        XK_3,                       2)
+	TAGKEYS(                        XK_4,                       3)
+	TAGKEYS(                        XK_5,                       4)
+	{ MODKEY|ShiftMask,             XK_q,       quit,           {0} },
 
 	/*** execute application key ***/
-	{ MODKEY,			XK_Return, spawn,	   {.v = kittycmd } },
-	{ MODKEY,			XK_space,  spawn, 	   SHCMD("rofi -show drun") },
-	{ MODKEY,			XK_r,	   spawn,          SHCMD("rofi -show run") },
+	{ MODKEY,                       XK_Return,  spawn,          {.v = kittycmd } },
+	{ MODKEY,			                  XK_d,       spawn, 	        {.v = rofidrun } },
+	{ MODKEY,			                  XK_r,	      spawn,          {.v = rofirun } },
 
 	/*** audio related keys ***/
-	{ 0,                       	XF86XK_AudioLowerVolume, 	spawn, 	{.v = downvol } },
-	{ 0,                       	XF86XK_AudioMute, 		spawn, 	{.v = mutevol } },
-	{ 0,                       	XF86XK_AudioRaiseVolume, 	spawn, 	{.v = upvol   } },
-	{ 0, 				XF86XK_AudioMicMute, 		spawn, 	{.v = mutemic } },
+	{ 0,        XF86XK_AudioLowerVolume, 	  spawn, 	  {.v = downvol } },
+	{ 0,        XF86XK_AudioMute, 		      spawn, 	  {.v = mutevol } },
+	{ 0,        XF86XK_AudioRaiseVolume, 	  spawn, 	  {.v = upvol   } },
+	{ 0, 				XF86XK_AudioMicMute, 		    spawn, 	  {.v = mutemic } },
 	/*** screen brightness keys ***/
-	{ 0,				XF86XK_MonBrightnessUp,		spawn,	{.v = lightup 	} },
-	{ 0,				XF86XK_MonBrightnessDown,	spawn,	{.v = lightdown } },
+	{ 0,				XF86XK_MonBrightnessUp,		  spawn,	  {.v = lightup 	} },
+	{ 0,				XF86XK_MonBrightnessDown,	  spawn,	  {.v = lightdown } },
 };
 
 /* button definitions */

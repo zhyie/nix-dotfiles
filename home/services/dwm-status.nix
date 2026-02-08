@@ -1,28 +1,34 @@
 { pkgs, ... }:
 
 {
+  #-------------------------------------------------
+  # Package repository and configuration options: 
+  # https://github.com/Gerschtli/dwm-status
+  #-------------------------------------------------
+  # Nixpkgs package:
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/dw/dwm-status/package.nix
+  #-------------------------------------------------
+  # Nixpkgs module:
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/misc/dwm-status.nix
+  #-------------------------------------------------
+  # Home Manager module
+  # https://github.com/nix-community/home-manager/blob/master/modules/services/dwm-status.nix
+  #-------------------------------------------------
+  
+  home.packages = with pkgs; [ 
+    dwm-status
+    
+    # The following are dependencies:
+    alsa-utils
+    dig
+    wirelesstools
+  ];
 
-  home.packages = with pkgs; [ dwm-status ];
-  #environment.systemPackages = with pkgs; [ dwm-status ];
-
+  # Configure in nix-way or import json config file
   services.dwm-status = {
     enable = true;
-    #package = pkgs.dwm-status.overrideAttrs {
-    #  src = ../../../config/dwm-status;
-    #};
-
-    #settings = {
-      order = [ "battery" "time" ];
-      #time = { 
-	#format = "%A, %B %d, %Y %H:%M:%S";
-	#update_seconds = false;
-      #};
-    #};
+    # order = [ "battery" "time" ];
+    extraConfig = builtins.fromJSON (builtins.readFile ./dwm-status/dwm-status.json);
   };
-
-  # home.file.".config/dwm-status" = {
-  #   source = ../../.config/dwm-status;
-  #   recursive = true;
-  # }
 
 }
