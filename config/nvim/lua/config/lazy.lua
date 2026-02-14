@@ -1,4 +1,11 @@
 ----------------------------------------------
+-- lazy.nvim
+----------------------------------------------
+-- A modern plugin manager for Neovim.
+-- https://github.com/folke/lazy.nvim
+----------------------------------------------
+--
+----------------------------------------------
 -- Bootstrap lazy.nvim
 ----------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -22,7 +29,7 @@ vim.opt.rtp:prepend(lazypath)
 ------------------------------------------
 require("lazy").setup({
     spec = {
-        -- import your plugins
+        -- import the plugins
         { import = "plugins" },
     },
 

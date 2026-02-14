@@ -8,27 +8,26 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./laptop-behavior.nix
 
       ./nix.nix
       ./boot.nix
       ./xserver.nix
-      #./modules/locale.nix
+      ./locale.nix
       #./modules/libinput.nix
       #./modules/user.nix
+      # ../../modules/core
 
-      # ../../modules/boot.nix
-      # ../../modules/networking.nix
-      # ../../modules/powermanagement.nix
-
-
-      # ../../modules/printing.nix
-      # ../../modules/libinput.nix
+      ../../modules/hardwares/printing.nix
+      ../../modules/hardwares/libinput.nix
       ../../modules/pipewire.nix
-      # ../../modules/bluetooth.nix
-      # ../../modules/special-keymap.nix
+      ../../modules/hardwares/bluetooth.nix
+      ../../modules/services/avahi.nix
 
-      # ../../modules/console.nix
-      # ../../modules/environment.nix
+      # ../../modules/consolenix
+      ./environment.nix
+      ./special-keymap.nix
+      ../../modules/picom.nix
     ];
 
   networking = {
@@ -44,36 +43,12 @@
     # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
 
-
-  # Set time zone.
-  time.timeZone = "Asia/Manila";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
   # Console settings.
   console = {
     font = "sun12x22";
     keyMap = "us";
     # useXkbConfig = true; # use xkb.options in tty.
   };
-
-
-
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  # Enable bluetooth support
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
-  };
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.zhyie = {
@@ -83,25 +58,6 @@
       tree
     ];
   };
-
-  # Enable firefox.
-  programs.firefox.enable = true;
-
-  # List packages installed in system profile.
-  # https://search.nixos.org/ to find more packages.
-  environment.systemPackages = with pkgs; [
-    # Nano editor is installed by default.
-    wget
-    neovim
-
-    dmenu
-    st
-    pcmanfm
-
-  ];
-
-
-  services.upower.enable = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are

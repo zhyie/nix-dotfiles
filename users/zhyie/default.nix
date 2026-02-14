@@ -1,9 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, username, ... }:
 
 {
-
-  users.users.zhyie = {
-    description = "Zhyie, the baddest of all.";
+  users.users.${username} = {
+    description = "${username}, the baddest of all.";
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -21,5 +20,3 @@
 
 
   };
-
-}

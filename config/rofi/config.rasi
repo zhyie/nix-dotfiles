@@ -24,7 +24,7 @@ configuration {
 
   // APPEARANCE SETTINGS ///////////////
   //fixed-num-lines: true;
-  font: "JetBrainsMono Nerd Font 16";
+  font: "JetBrainsMono Nerd Font 12";
   show-icons: true;
   icon-theme: "Papirus";
   //application-fallback-icon: ;
@@ -74,8 +74,8 @@ configuration {
   steal-focus: false;
   scroll-method: 1;
   //eh: 1;
-  m: "-2";
-  dpi: 1;
+  //m: "-2";
+  //dpi: 1;
   //preview-cmd: ;
   terminal: "kitty";
 /*	pid: "/run/user/1000/rofi.pid";*/
@@ -196,4 +196,4 @@ configuration {
   }
 }
 
-@theme "themes/rose-pine/rose-pine-moon"
+@theme "themes/rose-pine-moon"

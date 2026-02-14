@@ -9,6 +9,7 @@
     # Nix packages for NixOS
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     # NixOS modules for hardware quirks
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -18,6 +19,9 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Catppuccin
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
 
   };
 
@@ -37,7 +41,7 @@
       lib = nixpkgs.lib;
       pkgs = nixpkgs.legacyPackages.${system};
 
-
+      #extraModules = [  ];
 
 
     in {

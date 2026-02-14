@@ -1,10 +1,10 @@
 local M = {}
 
-local diagnostic_signs = {
-	Error = "",
-	Warn = "",
+local signs = {
+	Error = "",
+	Warn = "",
 	Hint = "",
-	Info = "",
+	Info = "",
 }
 
 M.setup = function()
@@ -20,10 +20,10 @@ M.setup = function()
         },
 		signs = {
 			text = {
-				[vim.diagnostic.severity.ERROR] = diagnostic_signs.Error,
-				[vim.diagnostic.severity.WARN] = diagnostic_signs.Warn,
-				[vim.diagnostic.severity.INFO] = diagnostic_signs.Info,
-				[vim.diagnostic.severity.HINT] = diagnostic_signs.Hint,
+				[vim.diagnostic.severity.ERROR] = signs.Error,
+				[vim.diagnostic.severity.WARN] = signs.Warn,
+				[vim.diagnostic.severity.INFO] = signs.Info,
+				[vim.diagnostic.severity.HINT] = signs.Hint,
 			},
 		},
 	})

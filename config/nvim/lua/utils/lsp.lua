@@ -1,5 +1,7 @@
 local M = {}
 
+-- M.servers = { "lua_ls", "nixd", "clangd", }
+
 -- capabilities
 local capabilities = require("blink.cmp").get_lsp_capabilities()
 M.capabilities = capabilities
@@ -9,6 +11,7 @@ function M.on_attach(client, bufnr)
     local map = function(mode, lhs, rhs, desc)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
     end
+
     map("n", "gd", vim.lsp.buf.definition, "Go to definition")
     map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
     map("n", "gr", vim.lsp.buf.references, "References")
@@ -18,7 +21,7 @@ function M.on_attach(client, bufnr)
     map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
     map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
-    map("n", "<leader>e", vim.diagnostic.open_float, "Line diagnostics")
+    map("n", "<leader>d", vim.diagnostic.open_float, "Line diagnostics")
 
     -- Telescope keymap here:
     -- ---

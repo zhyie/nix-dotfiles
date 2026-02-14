@@ -1,0 +1,80 @@
+{ pkgs, ... }:
+
+{
+  # home.file.".config/picom" = {
+  #   source = ../config/picom;
+  # };
+
+  services.picom = {
+    enable = true;
+
+    # GENERAL SETTINGS
+    vSync = true;
+    backend = "glx";
+    #wintypes = [  ];
+
+    # SHADOW SETTINGS
+    shadow = true;
+    shadowOpacity = 0.75;
+    shadowOffsets = [ (-7) (-7) ];
+    #shadowExclude = [ "" "" ];
+
+    # FADING SETTINGS
+    fade = true;
+    fadeSteps = [ 0.03 0.03 ];
+    fadeDelta = 5;
+    #fadeExclude = [ "" "" ];
+
+    # OPACITY SETTINGS
+    activeOpacity = 0.9;
+    inactiveOpacity = 0.5;
+    menuOpacity = 0.9;
+    #opacityRules = [  ];
+
+    # OTHER SETTINGS
+    settings = {
+      # CORNERS
+      corner-radius = 20;
+      #rounded-corners-exclude = [];
+
+      # BLUR
+      blur-method = "dual-kawase";
+      blur-strength = 5;
+      blur-background = true;
+      blur-background-fized = true;
+      #blur-background-exclude= [];
+
+      dithered-present = true;
+      detect-rounded-corners = true;
+      detect-client-opacity = true;
+      use-ewmh-active-win = true;
+      detect-transient = true;
+      detect-client-leader = true;
+      use-damage = true;
+      log-level = "warn";
+
+      # GLX BACKEND
+      glx-no-stencil = true;
+      glx-no-rebind-pixmap = false;
+      #glx-copy-from-front = false;
+
+      # WINDOW RULES SETTINGS
+      # Following is a list of options superseded by window rules:
+      #
+      # active-opacity OPACITY,
+      # inactive-opacity=OPACITY, inactive-opacity-override, inactive-dim VALUE,
+      # shadow-ignore-shaped, shadow-exclude CONDITION,
+      # fade-exclude CONDITION, focus-exclude CONDITION,
+      # rounded-corners-exclude CONDITION, corner-radius-rules RADIUS:CONDITION,
+      # blur-background-exclude CONDITION, opacity-rule OPACITY:CONDITION,
+      # As well as the wintypes configuration option.
+      #
+      #rules = (
+        #{  },
+        #{  },
+        # ... and so on
+      #)
+    };
+  };
+
+}

@@ -2,7 +2,7 @@
 
 {
   #-------------------------------------------------
-  # Package repository and configuration options: 
+  # Package repository and configuration options:
   # https://github.com/Gerschtli/dwm-status
   #-------------------------------------------------
   # Nixpkgs package:
@@ -14,10 +14,10 @@
   # Home Manager module
   # https://github.com/nix-community/home-manager/blob/master/modules/services/dwm-status.nix
   #-------------------------------------------------
-  
-  home.packages = with pkgs; [ 
+
+  home.packages = with pkgs; [
     dwm-status
-    
+
     # The following are dependencies:
     alsa-utils
     dig

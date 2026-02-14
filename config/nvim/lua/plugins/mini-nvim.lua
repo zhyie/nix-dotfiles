@@ -4,17 +4,12 @@
 
 return {
     -- { 'nvim-mini/mini.nvim', version = false },
-    { 'nvim-mini/mini.comment', version = '*' },
-    { 'nvim-mini/mini.move', version = '*' },
-    { 'nvim-mini/mini.pairs', version = '*' },
-    { 'nvim-mini/mini.surround', version = '*' },
-    { 'nvim-mini/mini.indentscope', version = '*' },
-
-    config = function()
-        require('mini.comment').setup()
-        require('mini.move').setup()
-        require('mini.pairs').setup()
-        require('mini.surround').setup()
-        require('mini.indentscope').setup()
-    end
+    { 'nvim-mini/mini.comment', version = '*', opts = {} },
+    { 'nvim-mini/mini.pairs', version = '*', opts = {} },
+    { 'nvim-mini/mini.surround', version = '*', opts = {} },
+    { 'nvim-mini/mini.indentscope', version = '*', opts = {} },
+    -- { 'nvim-mini/mini.move', version = '*', opts = {} },
+    { 'nvim-mini/mini.hipatterns', version = '*', opts = {} },
+    { 'nvim-mini/mini.animate', version = '*', opts = {} },
 }
+

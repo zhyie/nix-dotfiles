@@ -4,7 +4,7 @@
   "separator": " | ",
 
   "cpu_load": {
-    "template": "{CL1} {CL5} {CL15} {{CL1}{NPROC}*100}%",
+    "template": "{CL15}",
     "update_interval": 30
   },
 

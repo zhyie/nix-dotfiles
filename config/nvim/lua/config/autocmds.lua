@@ -1,4 +1,6 @@
+----------------------------------------
 -- Restore last cursor position when reopening a file
+----------------------------------------
 local last_cursor_group = vim.api.nvim_create_augroup("LastCursorGroup", {})
 vim.api.nvim_create_autocmd("BufReadPost", {
 	group = last_cursor_group,
@@ -11,7 +13,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+----------------------------------------
 -- Highlight the yanked text for 200ms
+----------------------------------------
 local highlight_yank_group = vim.api.nvim_create_augroup("HighlightYank", {})
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = highlight_yank_group,

@@ -19,6 +19,11 @@
   # Home Manager manage itself.
   programs.home-manager.enable = true;
 
+  catppuccin.firefox = {
+    enable = true;
+    flavor = "macchiato";
+    accent = "lavender";
+  };
 
   # Import packages.
   imports = [
@@ -32,12 +37,13 @@
     ../../programs/qimgv.nix
     ../../programs/feh.nix
 
-    ../../../modules/picom.nix
+    #../../../modules/picom.nix
     ../../services/dwm-status.nix
     #../../services/dwmblocks.nix
 
     # ../../modules/misc/fonts/fonts.nix
-    ../../fonts/fonts.nix
-
+    ../../themes/fonts.nix
+    ../../themes/cursors.nix
+    ../../themes/icons.nix
   ];
 }

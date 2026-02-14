@@ -10,7 +10,10 @@ let
   intel-gpu = inputs.nixos-hardware.nixosModules.common-gpu-intel;
 
   # Home Manager
-  home-manager = inputs.home-manager.nixosModules;
+  home-manager = inputs.home-manager.nixosModules.home-manager;
+
+  # Catppuccin
+  catppuccin = inputs.catppuccin.homeModules.catppuccin;
 
 in lib.nixosSystem {
 
@@ -27,14 +30,19 @@ in lib.nixosSystem {
     intel-gpu
 
     # Home manager as module to NixOS
-    home-manager.home-manager {
+    home-manager {
       home-manager = {
 
         useGlobalPkgs = true;
 	      useUserPackages = true;
 	      extraSpecialArgs = { inherit username; };
 	      backupFileExtension = "backup";
-	      users.${username} = ../../home/users/${username};
+	      users.${username} = {
+          imports = [
+            ../../home/users/${username}
+            catppuccin
+          ];
+        };
       };
 
     }
