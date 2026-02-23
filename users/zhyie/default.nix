@@ -2,7 +2,7 @@
 
 {
   users.users.${username} = {
-    description = "${username}, the baddest of all.";
+    description = "${username} is the baddest of all.";
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -12,11 +12,11 @@
     ];
     packages = with pkgs; [
       tree
-      
+
     ];
   }
 
   environment.sessionVariables = {
 
-
   };
+}

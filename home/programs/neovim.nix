@@ -1,8 +1,12 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+# let
+#
+#   outLink = config.lib.file.mkOutOfStoreSymlink;
+#   homePath = config.home.homeDirectory;
+#
+# in
 {
-
-  #home.packages = with pkgs; [ neovim ];
   home.file.".config/nvim" = {
     source = ../../config/nvim;
     recursive = true;
@@ -10,9 +14,7 @@
 
   programs.neovim = {
     enable = true;
-
+    defaultEditor = true;
     viAlias = true;
-    vimAlias = true;
   };
-
 }

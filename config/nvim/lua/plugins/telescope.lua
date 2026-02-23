@@ -10,7 +10,6 @@ return {
         local telescope = require('telescope')
         local builtin = require('telescope.builtin')
 
-
         -- Load telescope
         telescope.setup()
 

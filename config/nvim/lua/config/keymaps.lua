@@ -15,7 +15,7 @@ set("n", "<leader>bn", "<Cmd>bnext<CR>", { desc = "Next buffer" })
 set("n", "<leader>bp", "<Cmd>bprevious<CR>", { desc = "Previous buffer" })
 
 ----------------------------------------
--- Better window navigation
+-- Window navigation
 ----------------------------------------
 set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
@@ -35,7 +35,7 @@ set("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase window w
 ----------------------------------------
 -- Better J behavior
 ----------------------------------------
-set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
+-- set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
 ----------------------------------------
 -- Remain visual mode when indenting
@@ -47,4 +47,4 @@ set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Nvim Tree explorer
 ----------------------------------------
 set("n", "<leader>e", "<Cmd>NvimTreeFocus<CR>", { desc = "Focus on File Explorer" })
-set("n", "<leader>ee", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
+set("n", "<leader>E", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })

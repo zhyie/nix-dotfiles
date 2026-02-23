@@ -6,7 +6,7 @@ return {
 
     config = function()
         -- local treesitter = require('nvim-treesitter')
-        local filetypes = { 'lua', 'nix', 'c' },
+        local filetypes = { 'lua', 'nix', },
 
         -- treesitter.install(filetypes)
         require'nvim-treesitter.configs'.setup {

@@ -43,8 +43,8 @@
 
       #extraModules = [  ];
 
-
     in {
+      # devShell.${system}.default = import ./shell.nix { inherit pkgs; };
 
       nixosConfigurations = {
 

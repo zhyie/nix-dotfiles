@@ -12,10 +12,7 @@
   environment.systemPackages = with pkgs; [
     # Nano editor is installed by default.
     wget
-    neovim
-
-    st
-    dmenu
-    pcmanfm
+    unzip
+    libnotify
   ];
 }

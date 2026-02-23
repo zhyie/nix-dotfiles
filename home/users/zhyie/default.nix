@@ -1,9 +1,5 @@
 {
-
   imports = [
-
     ./home.nix
   ];
-
-
 }

@@ -8,7 +8,7 @@ return {
 
         lualine.setup({
             options = {
-                themes = 'modus-vivendi',
+                -- themes = 'modus-vivendi',
                 section_separators = '',
                 component_separators = '',
             },

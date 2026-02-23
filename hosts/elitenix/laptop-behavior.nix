@@ -3,10 +3,17 @@
 {
   # Enable screensaver
   services.xscreensaver.enable = true;
+  # Enable autolock
+  services.xserver.xautolock = {
+    enable = true;
+    time = 20;
+    enableNotifier = true;
+    notifier = "${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'";
+    extraOptions = [];
+  };
 
-  # Laptop power key and lid behavior
+  # Laptop power key and lid handler
   services.logind.settings.Login = {
-
     # Suspend when lid is closed
     HandleLidSwitch = "suspend";
     # Suspend when lid is closed and connected to power
@@ -19,30 +26,44 @@
     # Power off when power key is pressed longer
     HandlePowerKeyLongPress = "poweroff";
 
-    # IdleAction = "suspend";
-    # IdleActionSec = "30m";
+    IdleAction = "suspend";
+    IdleActionSec = "30m";
   };
 
   # Power management
   powerManagement = {
     enable = true;
+    cpuFreqGovernor = "powersave";
+    # Auto tuning on startup
     powertop.enable = true;
   };
 
-  # performance scaling
+  services.upower = {
+    enable = true;
+    # Policy for warnings and action based on battery levels
+    usePercentageForPolicy = true;
+    percentageLow = 20;
+    percentageCritical = 10;
+    percentageAction = 5;
+  };
+
+  # Prevents overheating on Intel CPUs
+  services.thermald.enable = true;
+
+  # Performance scaling
   services.tlp = {
     enable = true;
     settings = {
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 60;
+      CPU_MAX_PERF_ON_BAT = 20;
 
       # Optional helps save long term battery health
       START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
@@ -54,5 +75,4 @@
       TLP_PERSISTENT_DEFAULT = 1;
     };
   };
-
 }

@@ -7,7 +7,7 @@ local signs = {
 	Info = "",
 }
 
-M.setup = function()
+function M.setup()
 	vim.diagnostic.config({
         virtual_text = true,
         severity_sort = true,
@@ -27,6 +27,10 @@ M.setup = function()
 			},
 		},
 	})
+end
+
+function M.keymap()
+
 end
 
 return M

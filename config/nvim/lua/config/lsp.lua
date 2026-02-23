@@ -1,13 +1,20 @@
--- local servers = { "lua_ls", "nixd", "clangd", }
-local servers = require("servers").servers
+local servers = { "lua_ls", "nixd", "clangd", }
 
-local lsp = require("utils.lsp")
-local on_attach = lsp.on_attach
-local capabilities = lsp.capabilities
+local utils_lsp = require("utils.lsp")
+local on_attach = utils_lsp.on_attach
+local capabilities = utils_lsp.capabilities
 
 -- diagnostic setup
-local diagnostic = require("utils.diagnostic")
-diagnostic.setup()
+local diagnostics = require("utils.diagnostics")
+diagnostics.setup()
+
+-- on_attach and capabilities for all servers
+-- for _, server in ipairs(servers) do
+--     vim.lsp.config(server, {
+    --     on_attach = on_attach,
+    --     capabilities = capabilities,
+    --     })
+-- end
 
 -- on attach function
 local group = vim.api.nvim_create_augroup("LspMappings", { clear = true })
@@ -16,13 +23,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = on_attach,
 })
 
--- capabilities for all servers
--- for _, server in ipairs(servers) do
---     vim.lsp.config(server, { capabilities = capabilities, })
--- end
-
 -- capabilitites for servers
 vim.lsp.config("*", { capabilities = capabilities, })
 
 -- enable servers
 vim.lsp.enable(servers)
+print(servers)

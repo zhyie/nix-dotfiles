@@ -1,6 +1,7 @@
 local M = {}
 
--- M.servers = { "lua_ls", "nixd", "clangd", }
+local diagnostics = require("utils.diagnostics")
+
 
 -- capabilities
 local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -23,9 +24,7 @@ function M.on_attach(client, bufnr)
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
     map("n", "<leader>d", vim.diagnostic.open_float, "Line diagnostics")
 
-    -- Telescope keymap here:
-    -- ---
-
+    diagnostics.setup()
 
     -- Inlay hints
     if vim.lsp.inlay_hint then
