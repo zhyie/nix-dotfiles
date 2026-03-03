@@ -5,22 +5,19 @@
     enable = true;
 
     shellAliases = {
-      ".." = "cd ..";
-      "..." = "cd ../../";
-      "...." = "cd ../../../";
-      "....." = "cd ../../../../";
       "cp" = "cp -irv --debug";
       "mv" = "mv -iv --debug";
       "rm" = "rm -Irv";
       "cat" = "cat -n";
-      "fcheck" = "nix flake check";
-      "fshow" = "nix flake show";
-      "nrsf" = "sudo nixos-rebuild switch --flake";
+      ".." = "cd ..";
+      "..." = "cd ../../";
+      "...." = "cd ../../../";
+      "....." = "cd ../../../../";
+      "dots" = "cd ~/.dotfiles";
       "gs" = "git status";
       "ga" = "git add";
       "gc" = "git commit";
       "gp" = "git push github";
-      "dots" = "cd ~/.dotfiles";
     };
 
     # Customize bash prompt easily with the link below

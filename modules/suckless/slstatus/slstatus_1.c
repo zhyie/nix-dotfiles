@@ -96,7 +96,7 @@ main(int argc, char *argv[])
 	struct sigaction act;
 	struct timespec start, current, diff, intspec, wait;
 	unsigned int iter = 0;
-  int i, ret;
+	int i, ret;
 
 	ARGBEGIN {
 	case 'v':
@@ -117,12 +117,9 @@ main(int argc, char *argv[])
 
 	memset(&act, 0, sizeof(act));
 	act.sa_handler = sighandler;
-  // act.sa_flag = SA_SIGINFO; /* + added */
 	sigaction(SIGINT,  &act, NULL);
 	sigaction(SIGTERM, &act, NULL);
 	sigaction(SIGUSR1, &act, NULL);
-	// for (i = SIGRTMIN; i <= SIGRTMAX; i++)
-	// 	sigaction(i+signal, &act, NULL);
 	for (i = SIGRTMIN; i <= SIGRTMAX; i++)
 		sigaction(i, &act, NULL);
 

@@ -1,9 +1,19 @@
 { pkgs, ... }:
 
+let
+  setXdg = import ../../lib/xdg.nix;
+in
+
 {
-  #home.file.".config/feh" = {
-   # source = ../../config/feh;
-  #};
+  # home.file.".config/feh" = {
+  #   source = builtins.readFile ../../config/feh;
+  #   recursive = true;
+  # };
+
+  # setXdg.configFile = {
+  #   name = "feh";
+  #   type = ".conf";
+  # };
 
   programs.feh = {
     enable = true;

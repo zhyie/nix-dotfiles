@@ -1,41 +1,49 @@
-# ############################################
-# suckless.org
-# --------------------------------------------
-# software that sucks less
-# https://suckless.org/
-# --------------------------------------------
-# dwm: https://dwm.suckless.org/
-# slstatus: https://tools.suckless.org/dmenu/
-# dmenu: https://tools.suckless.org/slstatus/
-# st: https://st.suckless.org/
-# ############################################
-
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  packdwm      = pkgs.dwm.overrideAttrs { src = ./dwm; };
-  packslstatus = pkgs.slstatus.overrideAttrs { src = ./slstatus; };
-  packdmenu    = pkgs.dmenu.overrideAttrs { src = ./dmenu; };
-  packst       = pkgs.st.overrideAttrs { src = ./st; };
-in {
-  services.xserver.windowManager.dwm = {
-    enable = true;
-    package = packdwm;
-  };
+  inherit (lib) mkEnableOption mkIf mkMerge;
 
-  environment.systemPackages = [
-    packslstatus
-    packdmenu
-    packst
-  ];
+  dwm       = pkgs.dwm.overrideAttrs { src = ./dwm; };
+  slstatus  = pkgs.slstatus.overrideAttrs { src = ./slstatus; };
+  dmenu     = pkgs.dmenu.overrideAttrs { src = ./dmenu; };
+  st        = pkgs.st.overrideAttrs { src = ./st; };
+  cfg       = config.suckless;
+in
 
-  systemd.user.services.slstatus = {
-    enable = true;
-    description = "Status service for DWM";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.packslstatus}/bin/slstatus &";
+{
+  options = {
+    suckless = {
+      dwm = mkEnableOption "dwm";
+      slstatus = mkEnableOption "slstatus";
+      dmenu = mkEnableOption "dmenu";
+      st = mkEnableOption "st";
     };
   };
+
+  config = mkMerge [
+    (mkIf cfg.dwm {
+      services.xserver.windowManager.dwm = {
+        enable = true;
+        package = dwm;
+      };
+    })
+    (mkIf cfg.dmenu {
+      environment.systemPackages = [ dmenu ];
+    })
+    (mkIf cfg.st {
+      environment.systemPackages = [ st ];
+    })
+    (mkIf cfg.slstatus {
+      environment.systemPackages = [ slstatus ];
+      services.xserver.windowManager.dwm = {
+        extraSessionCommands = "${slstatus}/bin/slstatus &";
+      };
+    })
+  ];
+
+  # environment.systemPackages = [
+  #   slstatus
+  #   dmenu
+  #   st
+  # ];
 }

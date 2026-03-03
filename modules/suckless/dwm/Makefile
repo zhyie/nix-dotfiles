@@ -3,7 +3,9 @@
 
 include config.mk
 
-SRC = drw.c dwm.c util.c
+# BTNS = buttons/*.c
+#BTNS = $(shell find buttons -name "*.c")
+SRC = drw.c dwm.c util.c #${BTNS}
 OBJ = ${SRC:.c=.o}
 
 all: dwm

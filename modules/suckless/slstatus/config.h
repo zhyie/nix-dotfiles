@@ -86,13 +86,15 @@ const size_t notifiable_levels_count = sizeof(notifiable_levels) / sizeof(notifi
  *************************************************************************************/
 static const struct arg args[] = {
 	/* function         format      argument            turn  signal */
-  { netspeed_tx,      "  %s ",   "wlp58s0",          5,    -1 },
-  { netspeed_rx,      "  %s ",   "wlp58s0",          5,    -1 },
-  { alsa_master_vol,  " 󰕾 %s ",   NULL,               60,    2 },
-  { backlight_perc,   " 󰃠 %s ",   "intel_backlight",  60,    1 },
-  { battery_perc,     "  %s",    "BAT0",             60,   -1 },
-  { battery_state,    "%s ",      "BAT0",             5,    -1 },
-  { battery_notify,   "",         "BAT0",             60,   -1 },
+  { netspeed_tx,      "  %s ",   "wlp58s0",          2,    -1 },
+  { netspeed_rx,      "  %s ",   "wlp58s0",          2,    -1 },
+  { cpu_freq,         "  %s ",   NULL,               2,    -1 },
+  { ram_total,        "  %s ",   NULL,               2,    -1 },
+  { alsa_master_vol,  " 󰕾 %s ",   NULL,               5,    2 },
+  { backlight_perc,   " 󰃠 %s ",   "intel_backlight",  5,    1 },
+  { battery_perc,     "\x05  %s",    "BAT0",             60,   -1 },
+  { battery_state,    "%s ",      "BAT0",             2,    -1 },
+  { battery_notify,   "",         "BAT0",             2,    -1 },
   { datetime,         " 󰃭 %s ",   "%a %b %d %H:%M",   5,    -1 },
 };
 

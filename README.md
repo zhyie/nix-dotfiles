@@ -1,12 +1,7 @@
-Nix Flake Configuration
-==============================
+
+===
 
 *"I just love when things are made for me."*
-
-My personal flake-based configuration for NixOS and Home Manager.
-This is setup with a modular directory structure for managing multiple
-hosts and user environments. This separates system-wide and user configs,
-with reusable modules for each.
 
 Mantained by @[zhyie](https://github.com/zhyie)
 
@@ -15,9 +10,20 @@ Specifically for:
 - daily driving and workflow
 - family home desktop
 
+---
+
+Nix Flake Configuration
+=======================
+
+My personal flake-based configuration for NixOS and Home Manager.
+This is setup with a modular directory structure for managing multiple
+hosts and user environments. This separates system-wide and user configs,
+with reusable modules for each.
+
+---
 
 BASE DIRECTORY STRUCTURE
-------------------------------
+------------------------
 
 ```
 .
@@ -44,41 +50,42 @@ BASE DIRECTORY STRUCTURE
 - `modules/`    : system wide environment configurations
 - `home/`       : user environment configuration
 
-For more information and full directory structure, see [docs/TREE.md](docs/TREE.md).
-
+*For more information and full directory structure, see [docs/TREE.md](docs/TREE.md).*
 
 ENVIRONMENT
-------------------------------
+-----------
 
-### WINDOW MANAGER
+#### WINDOW MANAGER
 
-### DESKTOP MANAGER
+#### DESKTOP MANAGER
 
-### DISPLAY MANAGER
+#### DISPLAY MANAGER
 
-### TOOLS
+#### TOOLS
 
-### PROGRAMS
+#### PROGRAMS
 
-### SERVICES
+#### SERVICES
 
-### THEMES
+#### THEMES
 
 There are 2 themes used in this setup
 
 Main theming: Catppuccin
 Catppuccin is used mostly in everything that has to do with themes
 
-
-For more information and full environment, see [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md).
+*For more information and full environment, see [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md).*
 
 
 FUTURE PLANS
 ------------------------------
+
 [] Secret management with sops
+
 [ ] Desktop ricing
+
 []
 
----
 
-*Built for me -- by me.*
+------------------------------
+> ***Built for me -- by me.***

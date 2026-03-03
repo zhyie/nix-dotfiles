@@ -38,12 +38,12 @@ static const char *colors[SchemeLast][2] = {
 /*******************************************************/
 /* -l options; number of lines in grid if > 0          */
 /*******************************************************/
-static unsigned int lines   = 0;
+static unsigned int lines   = 10;
 
 /*******************************************************/
 /* -g options; number of columns in grid if > 0        */
 /*******************************************************/
-static unsigned int columns = 0;
+static unsigned int columns = 3;
 
 /*******************************************************/
 /* Characters not considered part of a word            */

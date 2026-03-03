@@ -6,6 +6,8 @@
   # Enable backlight.
   programs.light.enable = true;
 
+  programs.dconf.enable = true;
+
   # Enable upower.
   services.upower.enable = true;
 

@@ -1,26 +1,31 @@
-# EditorConfig configuration
-# http://EditorConfig.org
+# EditorConfig
+# http://editorconfig.org
 
 # Top-most EditorConfig file
 root = true
 
-# Unix-style newlines with a newline ending every file, UTF-8 charset
+# Unix-style newlines with a newline ending every file
+# UTF-8 charset
 [*]
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
 
-# Match Nix files
-[*.nix]
+# Match file types, 2 space identation
+[*.{nix,c,h,yaml,conf,rasi}]
 indent_style = space
 indent_size = 2
 
-# Match other file type
-[*.{c,h,sh,conf,rasi}]
-indent_style = space
-indent_size = 2
+# Match file types, 4 indent size
+[*.{md,sh}]
+indent_size = 4
 
 # Match diffs, avoid to trim trailing whitespace
 [*.{diff,patch}]
 trim_trailing_whitespace = false
+
+# Match Makefile, tab identation
+[Makefile]
+indent_style = tab
+indent_size = 4

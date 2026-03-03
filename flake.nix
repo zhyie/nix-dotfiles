@@ -1,5 +1,5 @@
 {
-  description = "Zhyie's NixOs Flake Configuration";
+  description = "Zhyie's Nix Flake Configuration";
 
   #################### INPUTS ####################
   inputs = {
@@ -26,12 +26,13 @@
   #################### OUTPUTS ####################
   outputs = { self, nixpkgs, ... } @ inputs:
   let
-    # Inherit lib from nixpkgs
     inherit (nixpkgs) lib;
+    #inherit (lib) mapAttrs mapAttrs' nameValuePair;
 
     # List of hosts and their specifications
     hosts = import ./hosts { inherit inputs; };
     users = import ./users;
+    # Nixos and home modules
     modules = import ./modules;
     home = import ./home;
 
@@ -46,13 +47,23 @@
     xlib = import ./lib (xinherits);
 
     # Get the systems within hosts attrs, lib.unique to prevent duplicates
-    # Return => [ "" "" ]
-    # systems = lib.unique (lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts));
-    # pkgs = nixpkgs.legacyPackages.${system};
+    systems = lib.unique (lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts));
+    forAllSystems = lib.genAttrs systems;
   in {
-    # devShell.${system}.default = import ./shell.nix { inherit pkgs; };
+    # Custom packages
+    # packages = forAllSystems (system: import ./packages nixpkgs.legacyPackages.${system});
+    # Formatter for nix files
+    # formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+    # Nixpkgs overlays
+    overlays = import ./overlays { inherit inputs; };
 
+    # devShell = forAllSystem (system: ${system}.default = import ./shell.nix { inherit pkgs; });
+
+    # HOSTS|HOME|SYSTEM CONFIGURATION GENERATION
     nixosConfigurations = lib.mapAttrs xlib.mkHost hosts;
-    homeConfigurations = lib.flattenAttrs (lib.mapAttrs')
+    # darwinConfigurations = lib.mapAttrs xlib.mkHost hosts;
+    # homeConfigurations = mapAttrs' (n: v: nameValuePair (
+    #   genAttrs' v.userList ()
+    # ) (xlib.mkHome)) hosts;
   };
 }

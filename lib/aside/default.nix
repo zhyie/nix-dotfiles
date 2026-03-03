@@ -1,3 +1,0 @@
-{
-  mkHost = import ./mkHost.nix;
-}

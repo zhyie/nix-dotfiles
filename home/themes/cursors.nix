@@ -1,13 +1,20 @@
 { pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ catppuccin-cursors.mochaMauve ];
+
+  xsession = { enable = true; };
+
   home.pointerCursor = {
     enable = true;
-    package = pkgs.catppuccin-cursors.mochaPink;
-    name = "catppuccin-mocha-pink-cursors";
-    size = 16;
+    package = pkgs.catppuccin-cursors.mochaMauve;
+    name = "catppuccin-mocha-mauve-cursors";
+    size = 24;
 
-    x11.enable = true;
+    x11 = {
+      enable = true;
+      defaultCursor = "default";
+    };
     gtk.enable = true;
   };
 }

@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 let
-  inherit (inputs.nixos-hardware) nixosModules;
+  inherit (inputs) nixos-hardware;
 in
 
 {
@@ -10,19 +10,20 @@ in
     userList = [ "zhyie" ];
     moduleList = [
       ./elitenix
-      nixosModules.hp-elitebook-830g6
-      nixosModules.common-gpu-intel
+      nixos-hardware.nixosModules.hp-elitebook-830g6
+      nixos-hardware.nixosModules.common-gpu-intel
     ];
     stateVersion = "25.11";
   };
   # asunix = {
-  #   system = "x86_64-linux";
-  #   users = [ "absky" ];
-  #   modules = [];
+  #   system = "xi686-linux";
+  #   userList = [ "absky" ];
+  #   moduleList = [];
+  #   stateVersion = "";
   # };
   # samnix = {
   #   system = "x86_64-linux";
-  #   users = [ "absky" ];
-  #   modules = [];
+  #   userList = [ "absky" ];
+  #   moduleList = [];
   # };
 }
