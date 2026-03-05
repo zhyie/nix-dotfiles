@@ -14,7 +14,7 @@ alsa_master_vol(const char *unused)
 	char tmp_buf[TMP_BUF_SIZE];
 	short b;
 	unsigned short i = 0;
-	
+
 	FILE *fp = popen("amixer get Master | tail -c13", "r");
 	char ch;
 	while ((ch = fgetc(fp)) != EOF && i < TMP_BUF_SIZE)
@@ -34,7 +34,7 @@ alsa_master_vol(const char *unused)
 		}
 		b--;
 	}
-	
+
 	if (MASTER_IS_MUTED) return bprintf("MUTE");
 	else
 	{
@@ -42,23 +42,23 @@ alsa_master_vol(const char *unused)
 		while (b >= 0)
 		{
 			if ('[' == tmp_buf[b])
-				break;	
+				break;
 			b--;
 		}
-		
+
 		i = 0;
 		while (i < VOL_BUF_SIZE)
 		{
 			b++;
 			if (']' == tmp_buf[b])
 			{
-				vol_buf[i] = '\0'; 
+				vol_buf[i] = '\0';
 				break;
 			}
 			else
 				vol_buf[i++] = tmp_buf[b];
 		}
-		
+
 		return bprintf("%s", vol_buf);
 	}
 }

@@ -3,7 +3,7 @@
     ./bash.nix
     ./direnv.nix
     ./feh.nix
-    ./git.nix
+    # ./git.nix
     ./kitty.nix
     ./neovim.nix
     ./qimgv.nix

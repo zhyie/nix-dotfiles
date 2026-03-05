@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }: with pkgs;
 
 let
   inherit (lib) mkEnableOption mkIf mkMerge;
@@ -11,13 +11,11 @@ let
 in
 
 {
-  options = {
-    suckless = {
-      dwm = mkEnableOption "dwm";
-      slstatus = mkEnableOption "slstatus";
-      dmenu = mkEnableOption "dmenu";
-      st = mkEnableOption "st";
-    };
+  options.suckless = {
+    dwm = mkEnableOption "dwm";
+    slstatus = mkEnableOption "slstatus";
+    dmenu = mkEnableOption "dmenu";
+    st = mkEnableOption "st";
   };
 
   config = mkMerge [
@@ -27,12 +25,15 @@ in
         package = dwm;
       };
     })
+
     (mkIf cfg.dmenu {
       environment.systemPackages = [ dmenu ];
     })
+
     (mkIf cfg.st {
       environment.systemPackages = [ st ];
     })
+
     (mkIf cfg.slstatus {
       environment.systemPackages = [ slstatus ];
       services.xserver.windowManager.dwm = {
@@ -40,10 +41,4 @@ in
       };
     })
   ];
-
-  # environment.systemPackages = [
-  #   slstatus
-  #   dmenu
-  #   st
-  # ];
 }

@@ -7,9 +7,9 @@ local indent = 4
 opt.tabstop = indent
 opt.shiftwidth = indent
 opt.softtabstop = indent
-opt.expandtab = true
+opt.expandtab = false
 opt.autoindent = true
-opt.smartindent = true
+opt.smartindent = false
 
 ----------------------------------------
 -- search settings

@@ -1,34 +1,36 @@
 {
-  inputs, lib, xmodules, users, modules, home,
+  inputs, lib, xmodules, users, modules, home, dots, scripts,
   host, system, userList, moduleList ? [], stateVersion,
   ...
 }:
 
 let
-  inherit (inputs)  home-manager;
+  inherit (inputs) home-manager;
+  inherit (lib) genAttrs attrValues flatten nixosSystem;
 
-  extraArgs = {
-    inherit inputs modules home host userList stateVersion;
+  specialArgs = {
+    inherit inputs modules home dots scripts
+      host userList stateVersion;
   };
 
-  userModules = lib.genAttrs userList (user: [ users.${user}.default ]);
-  extraModules = xmodules ++ moduleList ++ (lib.attrValues userModules);
+  userModules = genAttrs userList (user: [ users.${user}.default ]);
+  extraModules = flatten (xmodules ++ moduleList ++ (attrValues userModules));
 
-  # home-manager = nixosModules.home-manager;
+  homeManager = home-manager.nixosModules.home-manager;
 in
 
-lib.nixosSystem {
-  inherit system;
-  specialArgs = extraArgs;
+nixosSystem {
+  inherit system specialArgs;
+  # specialArgs = extraArgs;
 
-  modules = lib.flatten (extraModules ++ [
-    home-manager.nixosModules.home-manager {
+  modules = extraModules ++ [
+    homeManager {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
         backupFileExtension = "backup";
-        extraSpecialArgs = extraArgs;
-        users = lib.genAttrs userList (user: {
+        extraSpecialArgs = specialArgs;
+        users = genAttrs userList (user: {
           imports = [
             (home.default { inherit user; })
             users.${user}.home
@@ -36,5 +38,6 @@ lib.nixosSystem {
         });
       };
     }
-  ]);
+    # (homeManager (home.nixos {inherit lib userList; }))
+  ];
 }

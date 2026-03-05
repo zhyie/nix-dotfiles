@@ -1,0 +1,3 @@
+{
+  mkXdg = import ./mkXdg.nix;
+}

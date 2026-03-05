@@ -1,15 +1,25 @@
-{ lib, pkgs, home, ... }:
+{ lib, pkgs, home, scripts, ... }:
+
+let
+  inherit (lib) attrValues;
+  sc = scripts { inherit pkgs; };
+in
 
 {
-  home.packages = with pkgs; [
-    (writeScriptBin "hello" ''
-      ${builtins.readFile ../../scripts/hello.sh}
-    '')
-  ];
+  # home.packages = with pkgs; [
+  #   (writeScriptBin "hello" ''
+  #     ${builtins.readFile ../../scripts/hello.sh}
+  #   '')
+  # ];
+  home.packages = attrValues {
+    inherit (pkgs) qutebrowser;
+    inherit (sc) hello;
+  };
 
-  home.sessionPath = [ "$HOME/.dotfiles/scripts/top" ];
+  home.file = {
+    ".gitconfig" = { source = ./.gitconfig; };
+  };
 
-  # Import packages.
   imports = [
     home.programs.default
     home.services.default

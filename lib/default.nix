@@ -1,11 +1,11 @@
-{ ... } @ xinherits:
+{ ... } @ xargs:
 
 # let
-#   inherit (xinherits) lib;
+#   inherit (xargs) lib;
 # in
 
 {
-  mkHost = host: cfg: import ./mkHost.nix (xinherits // {
+  mkHost = host: cfg: import ./mkHost.nix (xargs // {
     inherit host;
     inherit (cfg) system userList moduleList stateVersion;
   });
@@ -15,7 +15,7 @@
   #     (lib.genAttrs usrsList (user:
   #       lib. () )) + "@${host}")
   #
-  #   import ./mkHome.nix ( xinherits // {
+  #   import ./mkHome.nix ( xargs // {
   #     inherit cfg;
   #   }
   # );

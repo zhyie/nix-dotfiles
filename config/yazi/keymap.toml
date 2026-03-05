@@ -1,11 +1,4 @@
 # vim:fileencoding=utf-8:foldmethod=marker
-
-# keymap.toml documentation can be viewed here: 
-# https://yazi-rs.github.io/docs/configuration/keymap/
-# 
-# Preset for keymap can be retrieved here:]
-# https://github.com/sxyazi/yazi/tree/shipped/yazi-config/preset
-
 "$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
 
 [mgr]
@@ -21,7 +14,6 @@ keymap = [
 	# Hopping
 	{ on = "k", run = "arrow prev", desc = "Previous file" },
 	{ on = "j", run = "arrow next", desc = "Next file" },
-
 	{ on = "<Up>",   run = "arrow prev", desc = "Previous file" },
 	{ on = "<Down>", run = "arrow next", desc = "Next file" },
 
@@ -29,7 +21,6 @@ keymap = [
 	{ on = "<C-d>", run = "arrow 50%",   desc = "Move cursor down half page" },
 	{ on = "<C-b>", run = "arrow -100%", desc = "Move cursor up one page" },
 	{ on = "<C-f>", run = "arrow 100%",  desc = "Move cursor down one page" },
-
 	{ on = "<S-PageUp>",   run = "arrow -50%",  desc = "Move cursor up half page" },
 	{ on = "<S-PageDown>", run = "arrow 50%",   desc = "Move cursor down half page" },
 	{ on = "<PageUp>",     run = "arrow -100%", desc = "Move cursor up one page" },
@@ -41,7 +32,6 @@ keymap = [
 	# Navigation
 	{ on = "h", run = "leave", desc = "Back to the parent directory" },
 	{ on = "l", run = "enter", desc = "Enter the child directory" },
-
 	{ on = "<Left>",  run = "leave", desc = "Back to the parent directory" },
 	{ on = "<Right>", run = "enter", desc = "Enter the child directory" },
 

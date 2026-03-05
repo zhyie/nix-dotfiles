@@ -3,12 +3,12 @@
 /*****************************************/
 /*              APPEARANCE               */
 /*****************************************/
-static const unsigned int borderpx  = 2;  /* border pixel of windows */
-static const unsigned int snap      = 24; /* snap pixel */
+static const unsigned int borderpx  = 0;  /* border pixel of windows */
+static const unsigned int snap      = 16; /* snap pixel */
 static const unsigned int gappih    = 20; /* horiz inner gap between windows */
-static const unsigned int gappiv    = 10; /* vert inner gap between windows */
-static const unsigned int gappoh    = 10; /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 10; /* vert outer gap between windows and screen edge */
+static const unsigned int gappiv    = 20; /* vert inner gap between windows */
+static const unsigned int gappoh    = 20; /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 20; /* vert outer gap between windows and screen edge */
 static       int smartgaps          = 0;  /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;  /* 0 means no bar */
 static const int topbar             = 1;  /* 0 means bottom bar */
@@ -23,7 +23,7 @@ static const char col_lavender[]    = "#b7bdf8";
 static const char *colors[][3]      = {
   /*               foreground   background    border   */
   [SchemeNorm] = { col_rose,    col_base,     col_overlay },
-  [SchemeSel]  = { col_pink,    col_surface,  col_lavender  },
+  [SchemeSel]  = { col_pink,    col_base,  col_lavender  },
 };
 
 /*****************************************/
@@ -35,10 +35,10 @@ static const Rule rules[] = {
    *	  WM_CLASS(STRING) = instance, class
    *	  WM_NAME(STRING) = title
    */
-  /* class                        instance    title     tags mask   isfloating   monitor */
-  { "St",                         NULL,       NULL,     0,          1,           -1 },
-  { "blueman",   NULL,       NULL,     0,          1,           -1 },
-  { "Firefox",                    NULL,       NULL,     1 << 1,     0,           -1 },
+  /* class          instance    title     tags mask   isfloating   monitor */
+  { "st",           NULL,       NULL,     0,          1,           -1 },
+  { "blueman",      NULL,       NULL,     0,          1,           -1 },
+  { "Firefox",      NULL,       NULL,     1 << 1,     0,           -1 },
 };
 
 /*****************************************/
@@ -207,7 +207,7 @@ static const Key keys[] = {
 /*****************************************/
 /*          BUTTON DEFINITIONS           */
 /*****************************************/
-#include "buttons/buttons.h"
+// #include "buttons/buttons.h"
 //#define STATUSBAR "slstatus" /* for statuscmd signal patch */
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
@@ -224,6 +224,7 @@ static const StatusCmd statuscmds[] = {
 	// { net_rx,       4 },
 };
 static const char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL };
+// static const char *open[]  = { "kitty", "-e", "", NULL };
 
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {

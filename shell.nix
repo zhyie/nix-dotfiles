@@ -1,8 +1,14 @@
-{ pkgs ? import <nixpkgs> {} }:
+# { pkgs ? import <nixpkgs> {} }:
+let
+  pkgs = import <nixpkgs> {};
+in
 
 pkgs.mkShell {
   packages = with pkgs; [
-    sops age
-    cargo nodejs
+    git
+    sops
+    age
+    cargo
+    nodejs
   ];
 }

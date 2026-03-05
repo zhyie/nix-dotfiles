@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [ catppuccin-cursors.mochaMauve ];
 
-  xsession = { enable = true; };
+  # xsession = { enable = true; };
 
   home.pointerCursor = {
     enable = true;
@@ -13,7 +13,7 @@
 
     x11 = {
       enable = true;
-      defaultCursor = "default";
+      defaultCursor = "left_ptr";
     };
     gtk.enable = true;
   };

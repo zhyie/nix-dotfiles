@@ -3,7 +3,7 @@
 /*********************************************/
 /* interval between updates (in ms)          */
 /*********************************************/
-const unsigned int interval = 5000;
+const unsigned int interval = 1000;
 
 /*********************************************/
 /* text to show if no value can be retrieved */
@@ -85,17 +85,16 @@ const size_t notifiable_levels_count = sizeof(notifiable_levels) / sizeof(notifi
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  *************************************************************************************/
 static const struct arg args[] = {
-	/* function         format      argument            turn  signal */
-  { netspeed_tx,      "  %s ",   "wlp58s0",          2,    -1 },
-  { netspeed_rx,      "  %s ",   "wlp58s0",          2,    -1 },
-  { cpu_freq,         "  %s ",   NULL,               2,    -1 },
-  { ram_total,        "  %s ",   NULL,               2,    -1 },
-  { alsa_master_vol,  " 󰕾 %s ",   NULL,               5,    2 },
-  { backlight_perc,   " 󰃠 %s ",   "intel_backlight",  5,    1 },
-  { battery_perc,     "\x05  %s",    "BAT0",             60,   -1 },
-  { battery_state,    "%s ",      "BAT0",             2,    -1 },
-  { battery_notify,   "",         "BAT0",             2,    -1 },
-  { datetime,         " 󰃭 %s ",   "%a %b %d %H:%M",   5,    -1 },
+	/* function         format        argument              turn  signal */
+  { wifi_perc,        "  %s ",     "wlp58s0",            1,    -1 },
+  { cpu_freq,         "  %s ",     NULL,                 1,    -1 },
+  { ram_total,        "  %s ",     NULL,                 1,    -1 },
+  { alsa_master_vol,  " 󰕾 %s ",     NULL,                 1,    -1 },
+  { backlight_perc,   " 󰃠 %s ",     "intel_backlight",    1,    -1 },
+  { battery_state,    "\x05 %s",    "BAT0",               1,    -1 },
+  { battery_perc,     " %s\x05 ",   "BAT0",               1,    -1 },
+  { battery_notify,   "",           "BAT0",               1,    -1 },
+  { datetime,         " 󰃭 %s ",     "%a %b %d %H:%M",     1,    -1 },
 };
 
 /*********************************************/

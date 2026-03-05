@@ -66,7 +66,7 @@ gen: ## Display generations
 ##########################################
 # Git Utils                              #
 ##########################################
-.PHONY: git push
+.PHONY: git commit github
 
 git: ## Display git status
 	git status

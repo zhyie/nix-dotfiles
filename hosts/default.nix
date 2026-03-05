@@ -2,6 +2,7 @@
 
 let
   inherit (inputs) nixos-hardware;
+  hardware = nixos-hardware.nixosModules;
 in
 
 {
@@ -10,8 +11,8 @@ in
     userList = [ "zhyie" ];
     moduleList = [
       ./elitenix
-      nixos-hardware.nixosModules.hp-elitebook-830g6
-      nixos-hardware.nixosModules.common-gpu-intel
+      hardware.hp-elitebook-830g6
+      hardware.common-gpu-intel
     ];
     stateVersion = "25.11";
   };

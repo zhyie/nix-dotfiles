@@ -3,7 +3,6 @@ configurations that suck less
 
 *suckless configurations for my taste*
 
-
 Software
 --------
 - [dwm](https://dwm.suckless.org)

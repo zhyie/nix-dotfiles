@@ -1,6 +1,10 @@
 {
   # HOME ENTRY
   default = import ./home.nix;
+  # as nixos module
+  nixos = import ./nixos.nix;
+  # home utils
+  utils = import ./utils;
 
   # PROGRAMS
   programs = {

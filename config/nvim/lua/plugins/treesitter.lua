@@ -8,7 +8,7 @@ return {
         local filetypes = { 'lua', 'nix', 'c', },
 
         treesitter.setup({})
-        treesitter.install(filetypes)
+        treesitter.install({ filetypes })
 
         vim.api.nvim_create_autocmd('FileType', {
           pattern = { '*' },
