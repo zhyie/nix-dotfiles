@@ -1,5 +1,7 @@
 { dots, ... }:
 
+
+
 {
   xdg.configFile = dots.configFile "yazi";
 
