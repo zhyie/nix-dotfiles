@@ -1,5 +1,5 @@
 {
-  description = "Zhyie's Nix Flake Configuration";
+  description = "zhyie's Nix Flake Configuration";
 
   ########## INPUTS ##########
   inputs = {
@@ -13,46 +13,45 @@
 
     # HOME MANAGER FOR NIX
     home-manager = { url = "github:nix-community/home-manager/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs"; };
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # SECRET MANAGEMENT
     sops-nix = { url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs"; };
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # CATPUCCIN THEMES
     catppuccin.url = "github:catppuccin/nix/release-25.11";
+
+    # PERSONAL REPO
+    suckless.url = "github:zrhive/suckless";
   };
 
   ########## OUTPUTS ##########
-  outputs = { self, nixpkgs, ... } @ inputs:
-  let
+  outputs = { self, nixpkgs, ... } @ inputs: let
     inherit (nixpkgs) lib;
     #inherit (lib) mapAttrs mapAttrs' nameValuePair;
 
     # List of hosts and their specifications
     hosts = import ./hosts { inherit inputs; };
-    users = import ./users;
+    users = import ./users { inherit inputs; };
     # Nixos and home modules
-    modules = import ./modules;
-    home = import ./home;
-    dots = import ./config;
+    nixos = import ./modules/nixos;
+    home = import ./modules/home;
+    dots = import ./dotfiles;
     scripts = import ./scripts;
 
-    # extra modules to be added for host created
-    xmodules = with inputs; [
-      sops-nix.nixosModules.sops
-      catppuccin.nixosModules.catppuccin
-    ];
-    # set of args to pass in
-    xargs = { inherit inputs lib xmodules hosts users modules home dots scripts; };
-    # Helper functions to build hosts and for clean structure
-    xlib = import ./lib xargs;
-
     # Get the systems within hosts attrs, lib.unique to prevent duplicates
-    systems = lib.unique (lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts));
+    # systems = lib.unique (lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts));
+    systems = lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts);
     forAllSystems = lib.genAttrs systems;
-  in
 
+    # set of args to pass in
+    xargs = { inherit self inputs lib hosts users nixos home dots scripts; };
+    # function to build hosts
+    xlib = import ./lib xargs;
+  in
   {
     # Formatter for nix files
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
@@ -60,15 +59,11 @@
     # packages = forAllSystems (system: import ./packages nixpkgs.legacyPackages.${system});
     # Nixpkgs overlays
     overlays = import ./overlays { inherit inputs; };
-    # perSystemPkgs = forAllSystem (system: import nixpkgs { inherit system; });
-
     # devShell = forAllSystem (system: ${system}.default = import ./shell.nix { inherit pkgs; });
 
-    # HOSTS|HOME|SYSTEM CONFIGURATION GENERATION
+    # GENERATE HOSTS|HOMES CONFIGURATION
     nixosConfigurations = lib.mapAttrs xlib.mkHost hosts;
-    # darwinConfigurations = lib.mapAttrs xlib.mkHost hosts;
-    # homeConfigurations = mapAttrs' (n: v: nameValuePair (
-    #   genAttrs' v.userList ()
-    # ) (xlib.mkHome)) hosts;
+    # darwinConfigurations = lib.mapAttrs mkHost hosts;
+    # homeConfigurations = lib.mapAttrs' xlib.mkHome hosts;
   };
 }

@@ -111,7 +111,8 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "suckless": "suckless"
       }
     },
     "sops-nix": {
@@ -131,6 +132,21 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "suckless": {
+      "locked": {
+        "lastModified": 1772834881,
+        "narHash": "sha256-XO5rdBrENaIqW5ISB2cL/lNDwmZGA8vxuZbyJekNiFw=",
+        "owner": "zrhive",
+        "repo": "suckless",
+        "rev": "2fa6d0be6c3de195e5b9a9b0242f1c515cbbe7ed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zrhive",
+        "repo": "suckless",
         "type": "github"
       }
     }

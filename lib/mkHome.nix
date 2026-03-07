@@ -1,4 +1,4 @@
-{ inputs, home, system, ... };
+{ inputs, lib, home, system, ... };
 
 let
   inherit (inputs) nixpkgs home-manager;
@@ -17,6 +17,5 @@ homeConfiguration {
   inherit pkgs;
   extraSpecialArgs = extraArgs;
   modules = [
-    ()
   ];
 }

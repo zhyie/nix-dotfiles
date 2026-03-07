@@ -1,8 +1,8 @@
 {
   imports = [
     ./configuration.nix
+    ./hardware-configuration.nix
     ./laptop.nix
-    ./locale.nix
     ./environment.nix
   ];
 }

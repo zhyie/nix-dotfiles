@@ -1,14 +1,14 @@
-{ config, lib, pkgs, modules, ... }:
+{ pkgs, nixos, ... }:
 
 {
   imports = [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      modules.core
-      modules.hardware
-      modules.services
-      modules.suckless
+    nixos.core
+    nixos.hardware
+    nixos.services
   ];
+
+  time.timeZone = "Asia/Manila";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # suckless software
   suckless = {
@@ -40,11 +40,9 @@
   #######################################
   # Do NOT change, unless all the changes it would make to a configuration
   # have been manually inspected and the data is migrated accordingly.
-  #
   # For more information, see `man configuration.nix` or
   # https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion.
   system.stateVersion = "25.11";
-
   # Help is available in the configuration.nix(5) man page, on
   # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 }

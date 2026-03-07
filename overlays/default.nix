@@ -8,4 +8,6 @@
       config.allowUnfree = true;
     };
   };
+
+  additions = final: _prev: import ../packages final.pkgs;
 }

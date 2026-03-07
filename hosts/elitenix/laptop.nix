@@ -68,10 +68,10 @@
       START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
       STOP_CHARGE_THRESH_BAT0 = 80;  # 80 and above it stops charging
 
-      # Laptop runs hot when on power but not on battery
-      # This tells tlp to always run in battery mode
-      TLP_DEFAULT_MODE = "BAT";
-      TLP_PERSISTENT_DEFAULT = 1;
+      # # Laptop runs hot when on power but not on battery
+      # # This tells tlp to always run in battery mode
+      # TLP_DEFAULT_MODE = "BAT";
+      # TLP_PERSISTENT_DEFAULT = 1;
     };
   };
 }

@@ -80,12 +80,10 @@ Catppuccin is used mostly in everything that has to do with themes
 FUTURE PLANS
 ------------------------------
 
-[] Secret management with sops
-
-[ ] Desktop ricing
-
-[]
+- [] Secret management with sops
+- [ ] Desktop ricing
+- []
 
 
 ------------------------------
-> ***Built for me -- by me.***
+***Built for me -- by me.***
