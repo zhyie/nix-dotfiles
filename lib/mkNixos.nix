@@ -13,7 +13,7 @@ let
   };
 
   specialArgs = {
-    inherit self inputs pkgs host nixos userList stateVersion;
+    inherit self inputs host nixos userList stateVersion;
   };
 
   extraSpecialArgs = {
@@ -36,7 +36,9 @@ lib.nixosSystem {
   modules = extraModules ++ [
     # homeManager(xargs // cfg) ];
     # home.nixos { inherit args; }
-    inputs.home-manager.nixosModules.home-manager {
+    { nixpkgs.pkgs = pkgs; }
+    inputs.home-manager.nixosModules.home-manager
+    {
       home-manager = {
         inherit extraSpecialArgs;
         useGlobalPkgs = true;
