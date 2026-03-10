@@ -3,14 +3,15 @@
 let
   inherit (lib) mkDefault;
 
-  homepath = config.home.homeDirectory;
+  homePath = config.home.homeDirectory;
+  outLink = config.lib.file.mkOutOfStoreSymlink;
 in
 
 name: cfg:
   "${name}" = {
     enable = mkDefault true;
-    target = mkDefault "${homepath}/${name}";
-    source = mkDefault dots.${name};
+    target = mkDefault "${homePath}/${name}";
+    source = mkDefault (outLink dots.${name});
     recursive = mkDefault true;
     force = mkDefault false;
     ignorelinks = mkDefault false;

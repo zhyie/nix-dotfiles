@@ -15,7 +15,7 @@
     dwm = true;
     dmenu = true;
     slstatus = true;
-    # st = true;
+    st = true;
   };
 
   # intel -- said to remove screen tearing

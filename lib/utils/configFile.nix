@@ -1,14 +1,15 @@
-{ lib, dots, ... }:
+{ config, lib, dots, ... }:
 
 let
   inherit (lib) mkDefault;
+  outLink = config.lib.file.mkOutOfStoreSymlink;
 in
 
 name: cfg: {
   "${name}" = {
     enable = mkDefault true;
     target = mkDefault "${name}";
-    source = mkDefault dots.${name};
+    source = mkDefault (outLink dots.${name});
     recursive = mkDefault true;
     force = mkDefault false;
     ignorelinks = mkDefault false;

@@ -1,7 +1,13 @@
+{ config, ... }:
+
+let
+  outLink = config.lib.file.mkOutOfStoreSymlink;
+in
+
 {
   configFile = name: {
     "${name}" = {
-      source = ./${name};
+      source = outLink ./${name};
       recursive = true;
     };
   };

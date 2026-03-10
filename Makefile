@@ -72,7 +72,7 @@ git: ## Display git status
 	git status
 
 commit: ## Commit changes to branch
-	git commit
+	git add . && git commit
 
 github: ## Push to commit to github master
 	git push github master

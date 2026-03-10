@@ -37,8 +37,8 @@
     hosts = import ./hosts { inherit inputs; };
     users = import ./users { inherit inputs; };
     # Nixos and home modules
-    nixos = import ./modules/nixos;
-    home = import ./modules/home;
+    nixos = import ./nixos;
+    home = import ./home;
     dots = import ./dotfiles;
     scripts = import ./scripts;
 
