@@ -24,5 +24,5 @@
   #   inherit cfg;
   # });
 
-  utils = import ./utils.nix;
+  nixdots = import ./nixdots.nix;
 }

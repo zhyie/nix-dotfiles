@@ -42,7 +42,7 @@ flake: ## Display the flake outputs
 	nix flake show
 
 check: ## Evaluate flake and run tests
-	git add . && nix flake check
+	git add . && nix flake check --show-trace
 
 update: ## Update flake dependencies
 	nix flake update

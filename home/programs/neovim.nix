@@ -9,7 +9,7 @@ in
 
 {
   xdg.configFile."nvim" = {
-    source = outLink "${homePath}/.dotfiles/dotfiles/nvim";
+    source = outLink "${homePath}/.os/dotfiles/nvim";
     recursive = true;
   };
 

@@ -18,13 +18,6 @@
     st = true;
   };
 
-  # intel -- said to remove screen tearing
-  # services.xserver.videoDrivers = [ "intel" ];
-  # services.xserver.deviceSection = ''
-  #   Option "DRI" "2"
-  #   Option "TearFree" "true"
-  # '';
-
   # hardware-related
   boot.kernelParams = [ "i915.enable_guc=2" ];
   hardware.intelgpu.vaapiDriver = "intel-media-driver";

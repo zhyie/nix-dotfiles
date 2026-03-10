@@ -6,7 +6,7 @@
     ./git.nix
     ./kitty.nix
     ./neovim.nix
-    ./qimgv.nix
+    ./medias.nix
     ./rofi.nix
     ./yazi.nix
   ];

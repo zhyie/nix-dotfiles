@@ -1,5 +1,4 @@
 { ... }:
-
 {
   users.users.zhyie = {
     extraGroups = [
@@ -8,4 +7,6 @@
       "video"
     ];
   };
+
+  #home-manager.users.zhyie.imports = [ home.default ./home.nix ];
 }

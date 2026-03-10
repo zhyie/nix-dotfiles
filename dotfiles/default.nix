@@ -1,22 +1,11 @@
-{ config, ... }:
-
-let
-  outLink = config.lib.file.mkOutOfStoreSymlink;
-in
-
 {
-  configFile = name: {
-    "${name}" = {
-      source = outLink ./${name};
-      recursive = true;
-    };
-  };
+  configFile = import ./configFile.nix;
 
   dunst   = ./dunst;
-	feh     = ./feh;
-	kitty   = ./kitty;
-	nvim    = ./nvim;
-	picom   = ./picom;
-	rofi    = ./rofi;
+  feh     = ./feh;
+  kitty   = ./kitty;
+  nvim    = ./nvim;
+  picom   = ./picom;
+  rofi    = ./rofi;
   yazi    = ./yazi;
 }

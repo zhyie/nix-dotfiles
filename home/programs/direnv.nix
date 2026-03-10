@@ -1,9 +1,8 @@
 { pkgs, ... }:
-
 {
   programs.direnv = {
-      enable = true;
-      enableBashIntegration = true;
-      nix-direnv.enable = true;
-    };
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
 }

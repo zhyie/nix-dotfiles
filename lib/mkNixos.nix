@@ -54,5 +54,4 @@ lib.nixosSystem {
       };
     }
   ];
-
 }

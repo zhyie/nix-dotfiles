@@ -1,10 +1,15 @@
-{ dots, pkgs, ... }:
+{ config, dots, pkgs, ... }:
 
 {
-  xdg.configFile = dots.configFile "yazi";
+  # # xdg.configFile = dots.configFile { name = "yazi"; };
+  # xdg.configFile."yazi" = {
+  #   source = config.lib.file.mkOutOfStoreSymlink dots.yazi;
+  #   recursive = true;
+  # };
 
-  programs.yazi = {
-    enable = true;
-    package = pkgs.yazi;
-  };
+  home.packages = [ pkgs.yazi ];
+  # programs.yazi = {
+  #   enable = true;
+  #   package = pkgs.yazi;
+  # };
 }

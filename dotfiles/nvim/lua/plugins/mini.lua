@@ -6,12 +6,11 @@
 -- -------------------------------------- --
 
 return {
-    -- { 'nvim-mini/mini.nvim', version = false },
-    { 'nvim-mini/mini.comment', version = '*', opts = {} },
-    { 'nvim-mini/mini.pairs', version = '*', opts = {} },
-    { 'nvim-mini/mini.surround', version = '*', opts = {} },
-    { 'nvim-mini/mini.indentscope', version = '*', opts = {} },
-    -- { 'nvim-mini/mini.hipatterns', version = '*', opts = {} },
-    -- { 'nvim-mini/mini.animate', version = '*', opts = {} },
+	-- { 'nvim-mini/mini.nvim', version = false },
+	{ 'nvim-mini/mini.comment',     version = '*', opts = {} },
+	{ 'nvim-mini/mini.pairs',       version = '*', opts = {} },
+	{ 'nvim-mini/mini.surround',    version = '*', opts = {} },
+	{ 'nvim-mini/mini.indentscope', version = '*', opts = {} },
+	{ 'nvim-mini/mini.hipatterns',  version = '*', opts = {} },
+	{ 'nvim-mini/mini.animate',     version = '*', opts = {} },
 }
-

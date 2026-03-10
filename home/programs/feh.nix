@@ -1,9 +1,7 @@
 { pkgs, ... }:
-
 {
   programs.feh = {
     enable = true;
-
     # Mouse buttons
     buttons = {
       rotate = "C-1";
@@ -12,7 +10,6 @@
       zoom_in  = "C-4";
       zoom_out = "C-5";
     };
-
     # Key binds
     keybindings = {
       next_img = [ "l" "Right" ];
@@ -23,14 +20,12 @@
       scroll_down   = [ "J" "S-Down" ];
       toggle_pause = "p";
       save_filelist = "S";
-
       # menu keys
       menu_up = "k";
       menu_down = "j";
       menu_left = "h";
       menu_right = "l";
     };
-
     # Themes
     themes = {
       booth = [
