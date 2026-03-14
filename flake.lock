@@ -113,7 +113,8 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",
         "suckless": "suckless",
-        "zecrets": "zecrets"
+        "zecrets": "zecrets",
+        "zotfiles": "zotfiles"
       }
     },
     "sops-nix": {
@@ -160,6 +161,19 @@
         "type": "path"
       },
       "parent": []
+    },
+    "zotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773494311,
+        "narHash": "sha256-rdtzorpHlvqxNstsPTWQXqVIvZeZuUoBnB26eQ/GNn8=",
+        "path": "/home/zhyie/.dotfiles",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/zhyie/.dotfiles",
+        "type": "path"
+      }
     }
   },
   "root": "root",

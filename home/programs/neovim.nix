@@ -22,7 +22,7 @@ in
     extraPackages = builtins.attrValues {
       inherit (pkgs)
         cargo clang
-        ripgrep fzf
+        ripgrep fzf xclip
         lua-language-server stylua
         nixd nixfmt-tree deadnix
       ;

@@ -1,7 +1,4 @@
-{ config, pkgs, ... }:
-let
-  out = config.lib.file.mkOutOfStoreSymlink;
-in
+{ pkgs, ... }:
 {
   services.dunst = {
     enable = true;
@@ -10,10 +7,6 @@ in
       name = "Papirus-Light";
       size = "32x32";
     };
-  };
-
-  xdg.configFile.dunst = {
-    source = "../../dotfiles/dunst";
-    recursive = true;
+    configFile = builtins.toString ../../dotfiles/dunst/dunstrc;
   };
 }

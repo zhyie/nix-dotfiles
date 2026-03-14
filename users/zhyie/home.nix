@@ -1,14 +1,14 @@
-{ config, lib, pkgs, home, dots, scripts, ... }:
+{ lib, pkgs, home, dots, scripts, ... }:
 
 let
   inherit (lib) attrValues;
   sc = scripts { inherit pkgs; };
 
-  outLink = config.lib.file.mkOutOfStoreSymlink;
+  # outLink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
   home.file = {
-    ".gitconfig" = { source = outLink "${config.home.homeDirectory}/.gitconfig"; };
+    ".gitconfig" = { source = builtins.toString ./.gitconfig; };
   };
 
   dotfiles.configFiles = [
@@ -24,5 +24,12 @@ in
   ];
   home.packages = attrValues {
     inherit (sc) hello;
+
+    inherit (pkgs)
+    mediainfo
+    imagemagick
+    trash-cli
+    nushell
+    ;
   };
 }

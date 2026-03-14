@@ -19,7 +19,7 @@
     # PERSONAL REPO
     # suckless.url = "github:zrhive/suckless";
     suckless = { url = "path:/home/zhyie/.suckless"; flake = false; };
-    #zotfiles = { url = "path:./dotfiles"; flake = false; };
+    zotfiles = { url = "path:/home/zhyie/.dotfiles"; flake = false; };
     zecrets = {
       url = "git@github.com:zhyie/nix-secrets.git";
       flake = false;
