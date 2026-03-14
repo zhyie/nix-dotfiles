@@ -26,4 +26,6 @@ in
   # host = ./hosts { inherit (flake) inputs; };
   hosts = builtins.attrNames (builtins.readDir ./hosts);
   users = builtins.attrNames (builtins.readDir ./users);
+
+  inherit path;
 }

@@ -22,7 +22,7 @@ in
   config = {
     xdg.configFile = genAttrs cfg.configFiles (name: {
       source = outLink "${config.home.homeDirectory}/.os/dotfiles/${name}";
-      recursive = true;
+      # recursive = true;
     });
   };
 }

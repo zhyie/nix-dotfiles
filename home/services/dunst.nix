@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
+let
+  out = config.lib.file.mkOutOfStoreSymlink;
+in
 {
   services.dunst = {
     enable = true;
@@ -10,7 +13,7 @@
   };
 
   xdg.configFile.dunst = {
-    source = ${config.home.homeDirectory}/.os/dotfiles/dunst;
+    source = "../../dotfiles/dunst";
     recursive = true;
   };
 }
