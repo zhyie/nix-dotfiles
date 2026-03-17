@@ -18,13 +18,15 @@ in
     viAlias = true;
     withNodeJs = true;
 
-    extraPackages = builtins.attrValues {
+    extraPackages = [
+      pkgs.lua54Packages.luacheck
+    ]
+    ++ (builtins.attrValues {
       inherit (pkgs)
         ripgrep
         fzf
         xclip
         lua-language-server
-        luacheck
         stylua
         nixd
         nixfmt-tree
@@ -33,7 +35,7 @@ in
         clang-tools
         cargo
         ;
-    };
+    });
 
     # plugins = builtins.attrValues {
     #   inherit (pkgs.vimPlugins)

@@ -40,12 +40,12 @@
     { self, nixpkgs, ... }@inputs:
     let
       inherit (nixpkgs) lib;
-      systems = lib.systems.flakeExposed;
-      eachSystem = lib.genAttrs systems;
+      # systems = lib.systems.flakeExposed;
+      # eachSystem = lib.genAttrs systems;
 
       # List of hosts and their specifications
-      hosts = import ./hosts { inherit inputs; };
-      users = import ./users { inherit inputs; };
+      hosts = import ./hosts;
+      users = import ./users;
       # Nixos and home modules
       nixos = import ./modules/nixos;
       home = import ./modules/home;
@@ -55,7 +55,8 @@
 
       # Get the systems within hosts attrs, lib.unique to prevent duplicates
       # systems = lib.unique (lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts));
-      # systems = lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts);
+      systems = lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts);
+      eachSystem = lib.genAttrs systems;
 
       # set of args to pass in
       args = {
@@ -63,21 +64,20 @@
           self
           inputs
           lib
+          hosts
           users
           nixos
           home
           scripts
           ;
       };
-      # function to build hosts
       _lib = import ./lib args;
     in
     {
       formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
-      # Custom packages
       # packages = forAllSystems (system: import ./packages nixpkgs.legacyPackages.${system});
       overlays = import ./overlays { inherit inputs; };
-      devShell = eachSystem (system: import ./shell.nix { inherit system; });
+      # devShell = eachSystem (system: import ./shell.nix { inherit system; });
 
       # nixosModules = { default = ./nixos; };
       # homeModules = { default = ./home; };

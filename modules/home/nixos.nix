@@ -25,8 +25,7 @@ in
       imports = [
         (home.default { inherit user; })
         users.${user}.home
-      ]
-      ++ users.${user}.moduleList;
+      ];
     });
   };
 }

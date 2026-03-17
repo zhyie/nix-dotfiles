@@ -4,11 +4,8 @@ let
   inherit (args) lib;
 in
 {
-  utils = import ./utils;
-
   # mkHost = host: cfg: import ./mkNixos.nix (args // {
-  #   inherit host;
-  #   inherit (cfg) system userList moduleList stateVersion;
+  #   inherit host cfg;
   # });
 
   mkHost =
@@ -25,8 +22,7 @@ in
       import ./mkDarwin.nix (
         args
         // {
-          inherit host;
-          inherit (cfg) system userList moduleList;
+          inherit host cfg;
         }
       );
 

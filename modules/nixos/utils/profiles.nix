@@ -2,10 +2,6 @@
 
 let
   inherit (lib) mkOption types map;
-
-  importProfile = {
-    minimal = import ./minimal.nix;
-  };
 in
 {
   options.vars = {
@@ -16,5 +12,5 @@ in
     };
   };
 
-  imports = map (profile: importProfile.${profile}) config.vars.profiles;
+  config.importProfiles = map (profile: import ./${profile}.nix) config.vars.profiles;
 }
