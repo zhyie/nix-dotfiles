@@ -3,7 +3,7 @@
   programs.ssh = {
     enable = true;
 
-    matchBlocks."github.com" = {
+    matchBlocks."*" = {
       addKeysToAgent = "yes";
     };
   };

@@ -31,6 +31,7 @@
     ];
     firewall = {
       enable = true;
+      allowedTCCPorts = [ 7238 ];
     };
   };
 }
