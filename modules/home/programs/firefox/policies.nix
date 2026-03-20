@@ -1,3 +1,4 @@
+{ inputs }:
 {
   ## General
   DontCheckDefaultBrowser = true;
@@ -79,9 +80,9 @@
   };
 
   ## Extensions
-  "3rdParty" = {
+  "3rdparty" = {
     Extensions = {
-      "uBlock0@raymondhill.net".adminSettings = (builtins.readFile ./ublock.txt);
+      "uBlock0@raymondhill.net".adminSettings = builtins.readFile (inputs.dotfiles "/firefox/ublock.txt");
     };
   };
   ExtensionSettings = {
@@ -110,13 +111,7 @@
     "browser.aboutConfig.showWarning" = false;
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
-    # studies
-    "app.shield.optoutstudies.enabled" = false;
-    "app.normandy.enabled" = false;
-    "app.normandy.api_url" = "";
-
     # crash reports
-    "breakpad.reportURL" = "";
     "browser.tabs.crashReporting.sendReport" = false;
     "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
 
@@ -137,10 +132,6 @@
 
     # privacy
     "browser.formfill.enable" = false;
-    "privacy.clearSiteData.cache" = true;
-    "privacy.clearSiteData.formdata" = true;
-    "privacy.clearHistory.cache" = true;
-    "privacy.clearHistory.formdata" = true;
     "extensions.formautofill.creditCards.enabled" = false;
     "extensions.formautofill.addresses.enabled" = false;
     # "privacy.resistFingerprinting" = true;
@@ -160,18 +151,5 @@
     "browser.discovery.enabled" = false;
     "extensions.getAddons.showPane" = false;
     "extensions.htmlaboutaddons.recommendations.enabled" = false;
-
-    ## telemetry
-    "toolkit.telemetry.unified" = false;
-    "toolkit.telemetry.enabled" = false;
-    "toolkit.telemetry.server" = "data:,";
-    "toolkit.telemetry.newProfilePing.enabled" = false;
-    "toolkit.telemetry.shutdownPingSender.enabled" = false;
-    "toolkit.telemetry.updatePing.enabled" = false;
-    "toolkit.telemetry.bhrPing.enabled" = false;
-    "toolkit.telemetry.firstShutdownPing.enabled" = false;
-    "toolkit.telemetry.coverage.opt-out" = true;
-    "toolkit.coverage.opt-out" = true;
-    "toolkit.coverage.endpoint.base" = "";
   };
 }

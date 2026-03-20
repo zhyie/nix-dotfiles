@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # home.file.".mozilla/profile1/chrome" = {
   #   source = inputs.dotfiles + "/firefox/cascade";
@@ -12,7 +12,7 @@
     ];
 
     ## POLICIES
-    policies = import ./policies.nix;
+    policies = import ./policies.nix { inherit inputs; };
 
     ## PROFILES
     profiles = {
@@ -30,12 +30,16 @@
       profile1 = {
         id = 0;
         name = "profile1";
-        userChrome = builtins.readFile ./userChrome.css;
+        userChrome = builtins.readFile (inputs.dotfiles + "/firefox/userChrome.css");
         settings = {
           "browser.startup.page" = 3;
           "privacy.clearSiteData.cookiesAndStorage" = true;
           "privacy.clearHistory.cookiesAndStorage" = true;
           "places.history.enabled" = false;
+          "privacy.clearSiteData.cache" = true;
+          "privacy.clearSiteData.formdata" = true;
+          "privacy.clearHistory.cache" = true;
+          "privacy.clearHistory.formdata" = true;
           # "privacy.window.maxInnerWidth" = 1920;
           # "privacy.window.maxInnerHeight" = 1080;
           # "privacy.resistFingerprinting.block_mozAddonManager" = true;
