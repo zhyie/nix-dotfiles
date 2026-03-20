@@ -11,12 +11,10 @@ let
     url = "https://github.com/${n.owner}/${n.repo}/archive/${n.rev}.tar.gz";
     sha256 = n.narHash;
   };
-
-  system = builtins.currentSystem;
-  overlays = [ ];
+  # system = builtins.currentSystem;
+  # overlays = [ ];
+  # pkgs = import nixpkgs { inherit system overlays; };
 in
 {
-  pkgs = import nixpkgs { inherit system overlays; };
-
   inherit path nixpkgs;
 }
