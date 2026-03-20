@@ -3,12 +3,11 @@
 let
   inherit (args)
     inputs
-    lib
     users
     home
     scripts
     ;
-  inherit (lib) genAttrs;
+  inherit (inputs.nixpkgs.lib) genAttrs;
   # inherit (cfg) userList stateVersion;
 
   extraSpecialArgs = {

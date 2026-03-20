@@ -1,7 +1,7 @@
 { ... }@args:
 
 let
-  inherit (args) lib;
+  inherit (args.inputs.nixpkgs) lib;
 in
 {
   # mkHost = host: cfg: import ./mkNixos.nix (args // {

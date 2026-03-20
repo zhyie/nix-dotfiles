@@ -4,14 +4,18 @@ let
   inherit (args)
     self
     inputs
-    lib
     hosts
     nixos
     home
     users
     ;
   inherit (cfg) system userList;
-  inherit (lib) genAttrs attrValues flatten;
+  inherit (inputs.nixpkgs.lib)
+    genAttrs
+    attrValues
+    flatten
+    nixosSystem
+    ;
 
   specialArgs = {
     inherit
@@ -31,4 +35,4 @@ let
   ++ hosts.${host}.imports
   ++ (flatten (attrValues userModule));
 in
-lib.nixosSystem { inherit system specialArgs modules; }
+nixosSystem { inherit system specialArgs modules; }

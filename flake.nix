@@ -44,27 +44,25 @@
       # Nixos and home modules
       nixos = self.nixosModules;
       home = self.homeModules;
-
-      inherit (nixpkgs) lib;
-      # systems = lib.systems.flakeExposed;
-      # Get the systems within hosts attrs, lib.unique to prevent duplicates
-      # systems = lib.unique (lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts));
-      systems = lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts);
-      eachSystem = lib.genAttrs systems;
-
       # set of args to pass in
       args = {
         inherit
           self
           inputs
-          lib
           hosts
           users
           nixos
           home
           ;
       };
-      _lib = import ./lib args;
+      # _lib = import ./lib args;
+
+      lib = nixpkgs.lib // import ./lib args;
+      # systems = lib.systems.flakeExposed;
+      # Get the systems within hosts attrs, lib.unique to prevent duplicates
+      # systems = lib.unique (lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts));
+      systems = lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts);
+      eachSystem = lib.genAttrs systems;
     in
     {
       formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
@@ -76,7 +74,7 @@
       homeModules = import ./modules/home;
 
       # GENERATE HOSTS|HOMES CONFIGURATION
-      nixosConfigurations = lib.mapAttrs _lib.mkHost hosts;
+      nixosConfigurations = lib.mapAttrs lib.mkHost hosts;
       # darwinConfigurations = lib.mapAttrs _lib.mkHost hosts;
       # homeConfigurations = lib.mapAttrs' _lib.mkHome hosts;
     };
