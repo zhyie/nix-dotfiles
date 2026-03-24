@@ -67,7 +67,7 @@
     {
       formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
       overlays = import ./overlays { inherit inputs; };
-      # packages = forAllSystems (system: import ./packages nixpkgs.legacyPackages.${system});
+      packages = eachSystem (system: import ./packages nixpkgs.legacyPackages.${system} inputs);
       # devShell = eachSystem (system: import ./shell.nix nixpkgs.legacyPackages.${system});
 
       nixosModules = import ./modules/nixos;
