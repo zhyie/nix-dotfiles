@@ -1,3 +1,5 @@
+nix-dotfiles
+============
 
 ===
 
@@ -12,8 +14,8 @@ Specifically for:
 
 ---
 
-Nix Flake Configuration
-=======================
+NixOS Configuration
+===================
 
 My personal flake-based configuration for NixOS and Home Manager.
 This is setup with a modular directory structure for managing multiple
@@ -57,10 +59,6 @@ ENVIRONMENT
 
 #### WINDOW MANAGER
 
-#### DESKTOP MANAGER
-
-#### DISPLAY MANAGER
-
 #### TOOLS
 
 #### PROGRAMS
@@ -80,10 +78,9 @@ Catppuccin is used mostly in everything that has to do with themes
 FUTURE PLANS
 ------------------------------
 
-- [] Secret management with sops
+- [ ] Secret management with sops
 - [ ] Desktop ricing
-- []
-
+- [ ]
 
 ------------------------------
 ***Built for me -- by me.***
