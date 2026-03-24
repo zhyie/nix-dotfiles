@@ -13,7 +13,6 @@
       wget
       unzip
       libnotify
-      alsa-utils
       ;
   };
 
