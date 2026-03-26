@@ -5,6 +5,5 @@
     ./boot.nix
     ./networking.nix
     ./user.nix
-    ./libinput.nix
   ];
 }

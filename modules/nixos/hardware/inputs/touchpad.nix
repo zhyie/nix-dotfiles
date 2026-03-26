@@ -18,24 +18,5 @@
       horizontalScrolling = true;
       naturalScrolling = false;
     };
-
-    # Mouse Settings
-    mouse = {
-      accelProfile = "adaptive";
-      accelSpeed = "0.0";
-
-      # tapping = true;
-      tappingDragLock = false;
-      middleEmulation = false;
-      horizontalScrolling = true;
-      naturalScrolling = true;
-    };
-  };
-
-  # Enable configuration for trackpoints.
-  hardware.trackpoint = {
-    enable = true;
-    press_to_select = true;
-    emulateWheel = true;
   };
 }
