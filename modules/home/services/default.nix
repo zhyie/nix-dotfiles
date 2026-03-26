@@ -1,7 +1,7 @@
 {
   imports = [
     ./dunst
-    ./flameshot.nix
+    ./flameshot
     ./picom.nix
     ./udiskie.nix
   ];
