@@ -4,15 +4,12 @@
   programs.light.enable = true;
   # Enable gtk settings
   programs.dconf.enable = true;
-  # Enable upower.
-  services.upower.enable = true;
 
   environment.systemPackages = builtins.attrValues {
     # Nano editor is installed by default.
     inherit (pkgs)
       wget
       unzip
-      libnotify
       ;
   };
 
