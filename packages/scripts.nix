@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs }:
 
 let
   inherit (builtins)
@@ -11,18 +11,13 @@ let
     ;
 
   dir = inputs.dotfiles + "/scripts";
-  scripts = attrNames (readDir dir);
+  scripts' = attrNames (readDir dir);
+  scripts = map (s: replaceStrings [ ".sh" ] [ "" ] s) scripts';
   mkScript = name: pkgs.writeScriptBin name (readFile (dir + "/${name}.sh"));
 in
 listToAttrs (
-  map (
-    script:
-    let
-      name' = replaceStrings [ ".sh" ] [ "" ] script;
-    in
-    {
-      name = name';
-      value = mkScript name';
-    }
-  ) scripts
+  map (script: {
+    name = script;
+    value = mkScript script;
+  }) scripts
 )
