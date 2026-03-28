@@ -3,31 +3,25 @@
 
   inputs = {
     self.submodules = true;
-
     ## NIXPKGS --------------------------------------------------
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
     ## HARDWARE MODULES -----------------------------------------
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
     ## HOME MANAGER ---------------------------------------------
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
     ## SECRET MANAGEMENT ----------------------------------------
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
-    ## CATPUCCIN THEMES -----------------------------------------
+    ## THEMES ---------------------------------------------------
     catppuccin.url = "github:catppuccin/nix/release-25.11";
-
     ## PERSONAL REPO --------------------------------------------
     suckless.url = "path:/home/zhyie/.suckless";
-    dotfiles.url = "path:./dotfiles";
-    secrets.url = "path:./.secrets";
     suckless.flake = false;
+    dotfiles.url = "path:./dotfiles";
     dotfiles.flake = false;
+    secrets.url = "path:./.secrets";
     secrets.flake = false;
   };
 
@@ -60,18 +54,11 @@
         genAttrs
         attrValues
         unique
-        # mkHost
         ;
       # systems = lib.systems.flakeExposed;
 
       ## Get the systems within hosts attrs, lib.unique to prevent duplicates
       systems = unique (attrValues (mapAttrs (_: h: h.system) hosts));
-      # systems = lib.attrValues (lib.mapAttrs (_: cfg: cfg.system) hosts);
-      # eachSystem = genAttrs systems;
-      # eachSystem = f: genAttrs systems (system: f {
-      #   inherit system inputs;
-      #   pkgs = nixpkgs.legacyPackages.${system};
-      # });
       eachSystem = f: genAttrs systems (system: f nixpkgs.legacyPackages.${system});
     in
     {
