@@ -6,6 +6,7 @@
         tree
         nixfmt
         nixfmt-tree
+        alejandra
         ;
     };
   };

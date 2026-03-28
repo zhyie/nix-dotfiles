@@ -54,8 +54,9 @@
         genAttrs
         attrValues
         unique
+        # systems
         ;
-      # systems = lib.systems.flakeExposed;
+      # systems = systems.flakeExposed;
 
       ## Get the systems within hosts attrs, lib.unique to prevent duplicates
       systems = unique (attrValues (mapAttrs (_: h: h.system) hosts));
@@ -63,7 +64,7 @@
     in
     {
       overlays = import ./overlays { inherit inputs; };
-      formatter = eachSystem (pkgs: pkgs.nixfmt-tree);
+      formatter = eachSystem (pkgs: pkgs.alejandra);
       packages = eachSystem (pkgs: import ./packages { inherit pkgs inputs; });
       devShells = eachSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
