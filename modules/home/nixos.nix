@@ -5,13 +5,12 @@ let
     inputs
     users
     home
-    scripts
     ;
   inherit (inputs.nixpkgs.lib) genAttrs;
   # inherit (cfg) userList stateVersion;
 
   extraSpecialArgs = {
-    inherit inputs home scripts;
+    inherit inputs home;
   };
 in
 {

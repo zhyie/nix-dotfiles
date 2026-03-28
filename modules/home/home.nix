@@ -1,13 +1,12 @@
-# More informations and options in
-# https://nix-community.github.io/home-manager
+## More informations and options in
+## https://nix-community.github.io/home-manager
 
 # { user, stateVersion, ... }:
 { user, ... }:
-
 {
   # Information for the Home Manager
   home = {
-    # User(s) for Home Manager
+    # User for Home Manager
     username = "${user}";
 
     # The path Home Manager should manage.
