@@ -1,17 +1,16 @@
 { pkgs, ... }:
 {
-  # Enable backlight.
-  programs.light.enable = true;
-  # Enable gtk settings
-  programs.dconf.enable = true;
-
   environment.systemPackages = builtins.attrValues {
     # Nano editor is installed by default.
     inherit (pkgs)
       wget
       unzip
+      xclip
       ;
   };
+
+  # Enable gtk settings
+  programs.dconf.enable = true;
 
   # suckless software
   suckless = {
@@ -19,6 +18,21 @@
     dmenu = true;
     slstatus = true;
     st = true;
+  };
+
+  services.xserver = {
+    serverFlagsSection = ''
+      Option "BlankTime" "0"
+      Option "StandbyTime" "10"
+      Option "SuspendTime" "20"
+      Option "OffTime" "30"
+    '';
+  };
+
+  modules.nixos.backlight = {
+    min = 5;
+    upKey = 233;
+    downKey = 232;
   };
 
   time.timeZone = "Asia/Manila";

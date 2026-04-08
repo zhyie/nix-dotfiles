@@ -1,6 +1,6 @@
 {
   elitenix = {
-    imports = [ ./elitenix ];
+    module = [ ./elitenix ];
     userList = [ "zhyie" ];
     # profiles = [ "graphical" "workstation" ];
     system = "x86_64-linux";
