@@ -95,6 +95,22 @@
         "type": "github"
       }
     },
+    "nix-flatpak": {
+      "locked": {
+        "lastModified": 1767983141,
+        "narHash": "sha256-7ZCulYUD9RmJIDULTRkGLSW1faMpDlPKcbWJLYHoXcs=",
+        "owner": "gmodena",
+        "repo": "nix-flatpak",
+        "rev": "440818969ac2cbd77bfe025e884d0aa528991374",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gmodena",
+        "ref": "latest",
+        "repo": "nix-flatpak",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1774018263,
@@ -165,6 +181,7 @@
         "direnv-instant": "direnv-instant",
         "dotfiles": "dotfiles",
         "home-manager": "home-manager",
+        "nix-flatpak": "nix-flatpak",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
@@ -176,11 +193,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "path": "./.secrets",
+        "path": "git@github.com:zhyie/nix-secrets.git",
         "type": "path"
       },
       "original": {
-        "path": "./.secrets",
+        "path": "git@github.com:zhyie/nix-secrets.git",
         "type": "path"
       },
       "parent": []
@@ -206,16 +223,19 @@
       }
     },
     "suckless": {
-      "flake": false,
       "locked": {
-        "lastModified": 1774418969,
-        "narHash": "sha256-6cgPDQ6NRB1sNNVAVgPBA82F5TMxk6plU7TeTPQPk8A=",
-        "path": "/home/zhyie/.suckless",
-        "type": "path"
+        "lastModified": 1776796396,
+        "narHash": "sha256-gLnR5ZNOUNrdriFMqYgNvvoTzy5/IOx5SRsZdQ9win0=",
+        "owner": "zrhive",
+        "repo": "suckless",
+        "rev": "df0773e328f503e9c434481b6552c39161e4c14b",
+        "type": "github"
       },
       "original": {
-        "path": "/home/zhyie/.suckless",
-        "type": "path"
+        "owner": "zrhive",
+        "ref": "main",
+        "repo": "suckless",
+        "type": "github"
       }
     },
     "treefmt-nix": {

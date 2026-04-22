@@ -19,17 +19,19 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     ## THEMES ---------------------------------------------------
     catppuccin.url = "github:catppuccin/nix/release-25.11";
+    ## FLATPAK
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     ## PERSONAL REPO --------------------------------------------
-    suckless.url = "path:/home/zhyie/.suckless";
+    suckless.url = "github:zrhive/suckless/main";
     suckless.flake = false;
     dotfiles.url = "path:./dotfiles";
     dotfiles.flake = false;
-    secrets.url = "path:./.secrets";
+    secrets.url = "git@github.com:zhyie/nix-secrets.git";
     secrets.flake = false;
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    { ... }@inputs:
     let
       ## Hosts and their specifications
       hosts = import ./hosts;
@@ -37,27 +39,23 @@
       ## Set of args to pass in
       args = { inherit inputs hosts users; };
 
+      modules = import ./modules;
       lib = import ./lib args;
-      inherit (lib) mkHost;
-      inherit (nixpkgs.lib)
+      inherit (lib)
         mapAttrs
-        genAttrs
         # listToAttrs
-        attrValues
-        unique
-        # systems
+        mkNixos
+        # mkHome
+        eachSystem
         ;
-      # systems = systems.flakeExposed;
-
-      ## Get the systems within hosts attrs, lib.unique to prevent duplicates
-      systems = unique (attrValues (mapAttrs (_: h: h.system) hosts));
-      eachSystem = f: genAttrs systems (system: f nixpkgs.legacyPackages.${system});
     in
     {
+      inherit lib modules;
+
       ## GENERATE HOSTS|HOMES CONFIGURATION
-      nixosConfigurations = mapAttrs mkHost hosts;
-      # darwinConfigurations = mapAttrs mkHost hosts;
-      # homeConfigurations = listToAttrs (mkHome hosts);
+      nixosConfigurations = mapAttrs mkNixos hosts;
+      # darwinConfigurations = mkDarwin hosts;
+      # homeConfigurations = listToAttrs (mkHome users);
 
       ## EXPORT MODULES
       nixosModules = import ./modules/nixos;

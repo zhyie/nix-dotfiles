@@ -1,6 +1,6 @@
 [submodule "dotfiles"]
 	path = dotfiles
 	url = https://github.com/zrhive/dotfiles.git
-[submodule ".secrets"]
-	path = .secrets
-	url = https://github.com/zhyie/nix-secrets.git
+[submodule "secrets"]
+	path = secrets
+	url = git@github.com:zhyie/nix-secrets.git
