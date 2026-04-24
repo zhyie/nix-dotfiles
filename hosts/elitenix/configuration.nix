@@ -29,10 +29,26 @@
     '';
   };
 
-  modules.nixos.backlight = {
-    min = 5;
-    upKey = 233;
-    downKey = 232;
+  modules.nixos = {
+    # profiles = {
+    #   graphical = [ "xserver" ];
+    # };
+
+    gaming = {
+      games = [
+        "steam"
+        "proton"
+        "bottles"
+        "roblox"
+        "mcpe"
+      ];
+    };
+
+    backlight = {
+      min = 5;
+      upKey = 233;
+      downKey = 232;
+    };
   };
 
   time.timeZone = "Asia/Manila";

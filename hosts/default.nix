@@ -2,7 +2,7 @@
   elitenix = {
     module = [ ./elitenix ];
     userList = [ "zhyie" ];
-    # profiles = [ "graphical" "workstation" ];
+    profileList = [ "gaming" ];
     system = "x86_64-linux";
     stateVersion = "25.11";
   };
