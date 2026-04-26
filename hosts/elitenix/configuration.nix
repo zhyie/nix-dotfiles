@@ -12,13 +12,13 @@
   # Enable gtk settings
   programs.dconf.enable = true;
 
-  # suckless software
-  suckless = {
-    dwm = true;
-    dmenu = true;
-    slstatus = true;
-    st = true;
-  };
+  # # suckless software
+  # suckless = {
+  #   dwm = true;
+  #   dmenu = true;
+  #   slstatus = true;
+  #   st = true;
+  # };
 
   services.xserver = {
     serverFlagsSection = ''

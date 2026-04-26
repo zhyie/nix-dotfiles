@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.hp-elitebook-830g6
     (inputs.nixos-hardware + "/common/gpu/intel/whiskey-lake")
-    (import inputs.suckless)
+    inputs.suckless.nixosModules.suckless
     nixos.hardware
     nixos.security
     nixos.services

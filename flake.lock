@@ -197,12 +197,13 @@
         "narHash": "sha256-vlX9gKFRFiSpoaf49Leh7OpSran7asffuOEJuaAw9Ls=",
         "ref": "main",
         "rev": "97de1589e60202f1e7423b8409942a58e32500ea",
-        "revCount": 5,
+        "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/zhyie/nix-secrets.git"
       },
       "original": {
         "ref": "main",
+        "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/zhyie/nix-secrets.git"
       }
@@ -230,11 +231,11 @@
     "suckless": {
       "flake": false,
       "locked": {
-        "lastModified": 1777020128,
-        "narHash": "sha256-9a/RoWddlp1nvX1NldGP+Re3apYc+kzllxp1cKvV/ic=",
+        "lastModified": 1777135013,
+        "narHash": "sha256-NFPDvBFsnwhmtKmJ3cMUuvClc0mVWVtAE0M2ETmXPs0=",
         "owner": "zrhive",
         "repo": "suckless",
-        "rev": "9303064af428936fe5fd1b9c265c01cbdaa7fa92",
+        "rev": "3721785f1ec149f65831a108e6852842f02b4479",
         "type": "github"
       },
       "original": {

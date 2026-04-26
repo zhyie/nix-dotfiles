@@ -22,12 +22,12 @@
     ## FLATPAK
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     ## PERSONAL REPO --------------------------------------------
-    suckless.url = "github:zrhive/suckless/main";
-    suckless.flake = false;
+    secrets.url = "git+ssh://git@github.com/zhyie/nix-secrets.git?ref=main&shallow=1";
+    secrets.flake = false;
     dotfiles.url = "path:./dotfiles";
     dotfiles.flake = false;
-    secrets.url = "git+ssh://git@github.com/zhyie/nix-secrets.git?ref=main";
-    secrets.flake = false;
+    suckless.url = "github:zrhive/suckless/main";
+    suckless.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
