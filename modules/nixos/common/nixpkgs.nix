@@ -1,13 +1,10 @@
-{ self, ... }:
+{ inputs, ... }:
 {
   nixpkgs = {
     config = {
       allowUnfree = true;
       allowUnfreePredicate = p: true;
     };
-    overlays = [
-      self.overlays.unstable-packages
-      self.overlays.custom-packages
-    ];
+    overlays = builtins.attrValues inputs.self.overlays;
   };
 }
