@@ -1,8 +1,7 @@
-{ pkgs, inputs, ... }:
+{ inputs, ... }:
 {
   users.users.zhyie = {
     extraGroups = [ "gamemode" ];
-    shell = pkgs.bash;
 
     openssh.authorizedKeys.keyFiles = [
       (inputs.secrets + "/keys/zhyie/id_ed25519.pub")

@@ -10,7 +10,7 @@
 
   home.packages = builtins.attrValues {
     inherit (pkgs.unstable) discord;
-    inherit (pkgs) scripts;
+    inherit (pkgs.custom) scripts;
   };
 
   home.file = {
@@ -18,10 +18,16 @@
   };
 
   dotfiles.configFiles = [
+    "nvim"
     "picom"
     "kitty"
     "rofi"
     "yazi"
     "btop"
   ];
+  dotfiles.homeFiles = [
+    ".nanorc"
+  ];
+
+  # vars.path = ".flake";
 }
