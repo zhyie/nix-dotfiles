@@ -1,13 +1,18 @@
 {
+  lib,
   inputs,
+  hostConfig,
   users,
-  userList,
-  home,
   ...
 }:
 let
-  inherit (inputs.nixpkgs.lib) genAttrs;
-  extraSpecialArgs = { inherit inputs home; };
+  inherit (lib) genAttrs;
+  inherit (hostConfig) userList;
+
+  extraSpecialArgs = {
+    inherit inputs;
+    home = inputs.self.homeModules;
+  };
 in
 {
   home-manager = {
@@ -15,10 +20,10 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users = genAttrs userList (user: {
+    users = genAttrs userList (userName: {
       imports = [
-        (import ./home.nix { inherit user; })
-        users.${user}.home
+        (import ./home.nix { inherit hostConfig userName; })
+        users.${userName}.home
       ];
     });
   };

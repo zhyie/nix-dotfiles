@@ -1,47 +1,38 @@
 {
+  lib,
   inputs,
   users,
-  host,
-  cfg,
+  hostName,
+  hostConfig,
   ...
-}:
+}@args:
 let
-  inherit (cfg)
+  inherit (hostConfig)
     module
     system
     userList
     profileList
+    withHome
     ;
-  inherit (inputs.nixpkgs.lib) nixosSystem;
-  nixos = inputs.self.nixosModules;
-  home = inputs.self.homeModules;
+  inherit (lib) nixosSystem;
+
+  inherit (inputs.home-manager.nixosModules) home-manager;
+  mkHomeNixos = import ./mkHome/nixos.nix args;
 
   specialArgs = {
-    inherit
-      inputs
-      host
-      nixos
-      userList
-      ;
+    inherit inputs hostName hostConfig;
+    nixos = inputs.self.nixosModules;
   };
 
-  # hostProfiles = map (profile: nixos.profiles.${profile}) profileList;
-  hostProfiles = map (profile: nixos.profiles.${profile}) (
+  hostProfiles = map (profile: inputs.self.nixosModules.profiles.${profile}) (
     if profileList == null then [ "minimal" ] else [ "minimal" ] ++ profileList
   );
   userModule = map (user: users.${user}.default) userList;
-  home-manager = [
-    inputs.home-manager.nixosModules.home-manager
-    (import ./mkHome/nixos.nix {
-      inherit
-        inputs
-        users
-        userList
-        home
-        ;
-    })
+  homeManager = [
+    home-manager
+    mkHomeNixos
   ];
-  modules = module ++ userModule ++ hostProfiles ++ home-manager;
-  # modules = module ++ userModule ++ home-manager;
+  baseModule = module ++ userModule ++ hostProfiles;
+  modules = if withHome then baseModule ++ homeManager else baseModule;
 in
 nixosSystem { inherit system specialArgs modules; }

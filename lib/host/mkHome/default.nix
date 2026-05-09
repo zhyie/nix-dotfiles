@@ -1,31 +1,28 @@
 {
+  lib,
   inputs,
   users,
-  home,
-  system,
-  userList,
+  userName,
+  hostConfig,
   ...
 }:
 let
-  inherit (inputs.nixpkgs.lib) genAttrs attrValues flatten;
-  inherit (inputs.home-manager.lib) homeManagerConfiguration;
+  inherit (lib) homeManagerConfiguration;
+  inherit (hostConfig) system;
+  userConfig = users.${userName};
+  defaultHome = import ./home.nix { inherit hostConfig userName; };
 
-  pkgs = import inputs.nixpkgs {
-    inherit system;
-    config.allowUnfree = true;
-  };
+  # pkgs = import inputs.nixpkgs { inherit system; };
+  pkgs = inputs.nixpkgs.legacyPackages.${system};
 
   extraSpecialArgs = {
-    inherit (inputs) self;
-    inherit inputs home;
+    inherit inputs userName userConfig;
+    home = inputs.self.homeModules;
   };
 
-  userModules = genAttrs userList (user: [
-    (import ./home.nix { inherit user; })
-    users.${user}.home
-  ]);
-  modules = flatten (attrValues userModules);
+  modules = [
+    defaultHome
+    userConfig.home
+  ];
 in
-homeManagerConfiguration {
-  inherit pkgs extraSpecialArgs modules;
-}
+homeManagerConfiguration { inherit pkgs extraSpecialArgs modules; }
