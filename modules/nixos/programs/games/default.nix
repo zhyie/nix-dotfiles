@@ -31,16 +31,23 @@ in
       };
     })
 
-    (mkIf (elem "bottles" cfg.games) {
+    (mkIf (elem "lutris" cfg.games) {
       environment.systemPackages =
         let
-          bottles = pkgs.unstable.bottles.override { removeWarningPopup = true; };
+          bottles = pkgs.bottles.override { removeWarningPopup = true; };
         in
-        [ bottles ];
+        [
+          bottles
+          pkgs.unstable.heroic
+          pkgs.unstable.faugus-launcher
+        ];
     })
 
     (mkIf (elem "proton" cfg.games) {
-      environment.systemPackages = [ pkgs.unstable.protonup-qt ];
+      environment.systemPackages = [
+        pkgs.unstable.protonup-qt
+        pkgs.unstable.protonup-rs
+      ];
     })
 
     (mkIf (elem "roblox" cfg.games) (nixos.programs.roblox))

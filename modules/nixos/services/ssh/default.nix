@@ -1,4 +1,4 @@
-{ userList, ... }:
+{ hostConfig, ... }:
 {
   services.openssh = {
     enable = true;
@@ -7,7 +7,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-      AllowUsers = userList;
+      AllowUsers = hostConfig.userList;
     };
   };
 

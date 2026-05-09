@@ -1,7 +1,7 @@
-{ host, ... }:
+{ hostName, ... }:
 {
   networking = {
-    hostName = "${host}";
+    inherit hostName;
     networkmanager = {
       enable = true;
       dns = "none";

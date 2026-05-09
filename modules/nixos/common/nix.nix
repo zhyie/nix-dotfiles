@@ -1,38 +1,73 @@
-{ inputs, userList, ... }:
 {
-  nix = {
-    # Eliminating redundant copies of store paths.
-    optimise.automatic = true;
+  inputs,
+  lib,
+  hostConfig,
+  ...
+}:
+{
+  nix =
+    let
+      inherit (lib)
+        filterAttrs
+        isType
+        mapAttrs
+        mapAttrsToList
+        ;
+      flakeInputs = filterAttrs (_: isType "flake") inputs;
+    in
+    {
+      # Eliminating redundant copies of store paths.
+      optimise.automatic = true;
 
-    # Removing unreferenced and obsolete store paths.
-    # Auto clean garbage older than two weeks.
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older then 14d";
+      # Removing unreferenced and obsolete store paths.
+      # Auto clean garbage older than two weeks.
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older then 14d";
+      };
+      settings = {
+        # Enbale eperimental features such as flakes.
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+        # Auto optimising nix store.
+        auto-optimise-store = true;
+
+        substituters = [
+          "https://cache.nixos.org/"
+          "https://nix-community.cachix.org"
+        ];
+        trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
+
+        trusted-users = hostConfig.userList;
+      };
+
+      registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      nixPath = mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+      # nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+
+      channel.enable = false;
     };
 
-    settings = {
-      # Enbale eperimental features such as flakes.
-      experimental-features = [
-        "nix-command"
-        "flakes"
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = p: true;
+      permittedInsecurePackages = [
+        "intel-media-sdk-23.2.2"
       ];
-      # Auto optimising nix store.
-      auto-optimise-store = true;
-
-      substituters = [
-        "https://cache.nixos.org/"
-        "https://nix-community.cachix.org"
-      ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
-
-      trusted-users = userList;
+      # packageOverrides = pkgs: {
+      #   openldap = pkgs.openldap.overrideAttrs {
+      #     doCheck = false;
+      #   };
+      # };
     };
 
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    overlays = builtins.attrValues inputs.self.overlays;
   };
 }
