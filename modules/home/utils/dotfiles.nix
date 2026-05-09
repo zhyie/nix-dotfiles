@@ -1,26 +1,42 @@
-{ config, lib, ... }:
-
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 let
   inherit (lib) mkOption types genAttrs;
+  inherit (types) listOf str;
+  inherit (config.home) homeDirectory;
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  inherit (config.vars) path;
   cfg = config.dotfiles;
-  symlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
-  imports = [ ./variables.nix ];
-
   options.dotfiles = {
     configFiles = mkOption {
-      type = types.listOf types.str;
+      type = listOf str;
       default = [ ];
       description = ''
         List of configs to be set to {option}`xdg.config`.
+      '';
+    };
+    homeFiles = mkOption {
+      type = listOf str;
+      default = [ ];
+      description = ''
+        List of files to be set to {option}`home.file`.
       '';
     };
   };
 
   config = {
     xdg.configFile = genAttrs cfg.configFiles (name: {
-      source = symlink "${config.home.homeDirectory}/.os/dotfiles/${name}";
+      source = mkOutOfStoreSymlink "${homeDirectory}/${path}/dotfiles/${name}";
+    });
+
+    home.file = genAttrs cfg.homeFiles (name: {
+      source = inputs.dotfiles + "${name}";
     });
   };
 }

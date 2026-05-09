@@ -1,7 +1,11 @@
 { pkgs, ... }:
 {
-  programs.nushell = {
-    enable = true;
-    package = pkgs.unstable.nushell;
+  home.packages = [ pkgs.unstable.nushell ];
+  programs = {
+    bash.initExtra = ''
+      if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
+        exec nu
+      fi
+    '';
   };
 }

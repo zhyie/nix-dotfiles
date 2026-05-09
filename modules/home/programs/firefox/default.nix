@@ -1,5 +1,19 @@
-{ pkgs, inputs, ... }:
 {
+  # config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  # home.file.".mozilla/firefox/profile2/chrome" = {
+  #   source =
+  #     let
+  #       inherit (config.lib.file) mkOutOfStoreSymlink;
+  #       inherit (config.home) homeDirectory;
+  #     in
+  #     mkOutOfStoreSymlink (homeDirectory + "/.os/dotfiles/firefox/chrome");
+  # };
+
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
@@ -21,7 +35,7 @@
     profiles.profile2 = {
       id = 0;
       name = "Profile 2";
-      userChrome = builtins.readFile (inputs.dotfiles + "/firefox/chrome/userChrome.css");
+      userChrome = inputs.dotfiles + "/firefox/chrome/userChrome.css";
       settings = {
         "places.history.enabled" = false;
         "privacy.clearSiteData.browsingHistoryAndDownloads" = true;

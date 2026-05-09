@@ -1,7 +1,6 @@
 {
   utils = import ./utils;
   dev = import ./dev;
-  flatpak = import ./flatpak;
 
   # PROGRAMS
   programs = {

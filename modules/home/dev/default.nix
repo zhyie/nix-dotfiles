@@ -1,7 +1,7 @@
 {
   imports = [
     ./direnv
-    ./git
+    # ./git
     ./neovim
     ./nushell
   ];

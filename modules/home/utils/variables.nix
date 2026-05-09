@@ -2,20 +2,12 @@
 
 let
   inherit (lib) mkOption types;
-  inherit (types)
-    nullOr
-    either
-    str
-    path
-    ;
-  # inherit (config.home) homeDirectory;
-  #
-  # cfg = config.vars;
+  inherit (types) str;
 in
 {
   options.vars = {
     path = mkOption {
-      type = nullOr (either str path);
+      type = str;
       default = "flake";
       description = "Path of the nixos flake directory.";
     };
@@ -24,9 +16,12 @@ in
       type = str;
       description = "User name.";
     };
+
+    email = {
+      git = mkOption {
+        type = str;
+        description = "Git email.";
+      };
+    };
   };
-  #
-  # config = {
-  #   flakePath = "${homeDirectory}/${cfg.path}";
-  # };
 }
