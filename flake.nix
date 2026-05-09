@@ -40,12 +40,12 @@
       args = { inherit inputs hosts users; };
 
       modules = import ./modules;
-      lib = import ./lib args;
+      lib = import ./lib args // inputs.nixpkgs.lib // inputs.home-manager.lib;
       inherit (lib)
         mapAttrs
-        # listToAttrs
+        listToAttrs
         mkNixos
-        # mkHome
+        mkHome
         eachSystem
         ;
     in
@@ -54,16 +54,33 @@
 
       ## GENERATE HOSTS|HOMES CONFIGURATION
       nixosConfigurations = mapAttrs mkNixos hosts;
-      # darwinConfigurations = mkDarwin hosts;
-      # homeConfigurations = listToAttrs (mkHome users);
+      # darwinConfigurations = mapAttrs mkDarwin hosts;
+      homeConfigurations = listToAttrs (mkHome hosts);
 
       ## EXPORT MODULES
       nixosModules = import ./modules/nixos;
       homeModules = import ./modules/home;
 
       overlays = import ./overlays { inherit inputs; };
-      formatter = eachSystem (pkgs: pkgs.alejandra);
+      formatter = eachSystem (pkgs: pkgs.nixfmt-tree);
       packages = eachSystem (pkgs: import ./packages { inherit pkgs inputs; });
       devShells = eachSystem (pkgs: import ./shell.nix { inherit pkgs; });
+
+      # checks = eachSystem (pkgs: {
+      #   nixos-eval = mapAttrs (
+      #     host: _: inputs.self.nixosConfigurations.${host}.config.system.build.toplevel
+      #   ) hosts;
+      #   # pkgs = pkgs.runCommand "check-pkgs" ''
+      #   #   ${package}/bin/package > $out
+      #   # '';
+      #   fmt = pkgs.runCommand "check-fmt" ''
+      #     nixfmt --check ${./.}
+      #     touch $out
+      #   '';
+      #   lint = pkgs.runCommand "check-lint" { buildInputs = [ pkgs.statix ]; } ''
+      #     statix check ${./.}
+      #     touch $out
+      #   '';
+      # });
     };
 }
