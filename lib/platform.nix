@@ -1,13 +1,13 @@
 {
-  self,
+  lib,
   inputs,
   hosts,
   ...
 }:
 {
-  isLinux = p: f: if (self.hasSuffix "linux" p) then f else null;
-  isDarwin = p: f: if (self.hasSuffix "darwin" p) then f else null;
+  isLinux = p: f: if (lib.hasSuffix "linux" p) then f else null;
+  isDarwin = p: f: if (lib.hasSuffix "darwin" p) then f else null;
 
-  systemList = self.unique (self.attrValues (self.mapAttrs (_: h: h.system) hosts));
-  eachSystem = f: self.genAttrs self.systemList (system: f inputs.nixpkgs.legacyPackages.${system});
+  systemList = lib.unique (lib.attrValues (lib.mapAttrs (_: h: h.system) hosts));
+  eachSystem = f: lib.genAttrs lib.systemList (system: f inputs.nixpkgs.legacyPackages.${system});
 }

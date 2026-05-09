@@ -1,38 +1,29 @@
 { ... }@args:
+/**
+  args = { inherit inputs hosts users; };
+*/
+let
+  callLibs = f: import f (args // { inherit (args.inputs.self) lib; });
+in
+rec {
+  host = callLibs ./host;
+  platform = callLibs ./platform.nix;
+  config = callLibs ./config.nix;
 
-args.inputs.nixpkgs.lib.makeExtensible (
-  self:
-  let
-    callLibs = file: import file (args // { inherit self; });
-  in
-  {
-    host = callLibs ./host;
-    platform = callLibs ./platform.nix;
-    extract = callLibs ./extract.nix;
-
-    inherit (self.host)
-      mkNixos
-      mkDarwin
-      mkHost
-      mkHome
-      ;
-    inherit (self.platform)
-      isLinux
-      isDarwin
-      systemList
-      eachSystem
-      ;
-    inherit (args.inputs.nixpkgs.lib)
-      mapAttrs
-      genAttrs
-      attrValues
-      attrNames
-      listToAttrs
-      concatLists
-      unique
-      map
-      hasSuffix
-      flatten
-      ;
-  }
-)
+  inherit (host)
+    mkNixos
+    mkDarwin
+    mkHost
+    mkHome
+    ;
+  inherit (platform)
+    isLinux
+    isDarwin
+    systemList
+    eachSystem
+    ;
+  inherit (config)
+    hostConfig
+    userConfig
+    ;
+}
