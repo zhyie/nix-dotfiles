@@ -1,6 +1,6 @@
-{ inputs, pkgs }:
+{ inputs, prev }:
 
-pkgs.firefox.override (old: {
+prev.firefox.override (old: {
   extraPolicies = old.extraPolicies or { } // {
     ## General
     DontCheckDefaultBrowser = true;
