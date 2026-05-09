@@ -1,5 +1,8 @@
 { pkgs, ... }:
 {
+  # Enable gtk settings
+  programs.dconf.enable = true;
+
   environment.systemPackages = builtins.attrValues {
     # Nano editor is installed by default.
     inherit (pkgs)
@@ -7,26 +10,6 @@
       unzip
       xclip
       ;
-  };
-
-  # Enable gtk settings
-  programs.dconf.enable = true;
-
-  # # suckless software
-  # suckless = {
-  #   dwm = true;
-  #   dmenu = true;
-  #   slstatus = true;
-  #   st = true;
-  # };
-
-  services.xserver = {
-    serverFlagsSection = ''
-      Option "BlankTime" "0"
-      Option "StandbyTime" "10"
-      Option "SuspendTime" "20"
-      Option "OffTime" "30"
-    '';
   };
 
   modules.nixos = {
@@ -38,7 +21,7 @@
       games = [
         "steam"
         "proton"
-        "bottles"
+        "lutris"
         "roblox"
         "mcpe"
       ];
@@ -51,11 +34,27 @@
     };
   };
 
+  services.xserver = {
+    serverFlagsSection = ''
+      Option "BlankTime" "0"
+      Option "StandbyTime" "10"
+      Option "SuspendTime" "20"
+      Option "OffTime" "30"
+    '';
+  };
+
+  hardware.intelgpu = {
+    computeRuntime = "legacy";
+    mediaRuntime = "intel-media-sdk";
+    # vaapiDriver = "intel-media-driver";
+    enableHybridCodec = true;
+  };
+
   time.timeZone = "Asia/Manila";
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocales = [ "tl_PH.UTF-8/UTF-8" ];
   console = {
-    font = "sun12x22";
-    keyMap = "us";
+    font = "ter-v20n";
+    packages = [ pkgs.terminus_font ];
   };
   #######################################
   #   OFF LIMIT  SYSTEM STATE VERSION   #
