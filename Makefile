@@ -1,14 +1,17 @@
 HOSTNAME ?= $(shell hostname)
 USERNAME ?= $(shell whoami)
 BACKEXT ?= $(shell date +%Y%m%d)
+USERHOST := $(USERNAME)@$(HOSTNAME)
 
 FBUILD = sudo nixos-rebuild build --flake
 FSWITCH = sudo nixos-rebuild switch --flake
+HSWITCH = home-manager switch --flake
 
 BUILD_CMD = $(FBUILD) .\#$(HOSTNAME)
 SWITCH_CMD = $(FSWITCH) .\#$(HOSTNAME)
+HSWITCH_CMD = $(HSWITCH) .\#$(USERHOST)
 
-LOGBAR = --log-format bar-with-logs
+LOGBAR = --show-trace --log-format bar-with-logs
 
 .PHONY: help
 help:  ## Display available commands
@@ -23,7 +26,16 @@ build: ## Build current host
 	$(BUILD_CMD) $(LOGBAR)
 
 switch: ## Rebuild current host
+	rm ~/.mozilla/firefox/profile2/search.json.mozlz4;
 	git add . && $(SWITCH_CMD) $(LOGBAR)
+
+##########################################
+# Build and Rebuild for Home Manager	 #
+##########################################
+.PHONY: hswitch
+
+hswitch: ## Rebuild home manager
+	git add . && $(HSWITCH_CMD) $(LOGBAR)
 
 ##########################################
 # Build and Rebuild for each host        #
