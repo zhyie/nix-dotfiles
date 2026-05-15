@@ -2,6 +2,7 @@
 {
   imports = [
     home.programs.default
+    home.programs.games
     home.services.default
     home.themes.default
     home.dev
@@ -24,10 +25,10 @@
     "rofi"
     "yazi"
     "btop"
+    "nushell/config.nu"
   ];
   dotfiles.homeFiles = [
     ".nanorc"
   ];
-
-  # vars.path = ".flake";
+  # xdg.configFile."nushell/config.nu".source = {};
 }
