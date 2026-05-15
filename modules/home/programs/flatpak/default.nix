@@ -1,4 +1,4 @@
+{ inputs, ... }:
 {
-  roblox = import ./roblox.nix;
-  mcpe = import ./mcpe.nix;
+  imports = [ inputs.nix-flatpak.homeManagerModules.nix-flatpak ];
 }

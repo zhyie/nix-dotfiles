@@ -1,6 +1,7 @@
 {
   utils = import ./utils;
   dev = import ./dev;
+  common = import ./common;
 
   # PROGRAMS
   programs = {
@@ -14,6 +15,9 @@
     qimgv = import ./programs/qimgv.nix;
     rofi = import ./programs/rofi.nix;
     yazi = import ./programs/yazi.nix;
+
+    flatpak = import ./programs/flatpak;
+    games = import ./programs/games;
   };
 
   # SERVICES
