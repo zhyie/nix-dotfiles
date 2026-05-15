@@ -1,14 +1,13 @@
-{ ... }@args:
+{ inputs, ... }@args:
 /**
-  args = { inherit inputs hosts users; };
+  args = { inherit inputs hosts users modules; };
 */
 let
-  callLibs = f: import f (args // { inherit (args.inputs.self) lib; });
+  callLibs = f: import f (args // { inherit (inputs.self) lib; });
 in
 rec {
   host = callLibs ./host;
   platform = callLibs ./platform.nix;
-  config = callLibs ./config.nix;
 
   inherit (host)
     mkNixos
@@ -21,9 +20,5 @@ rec {
     isDarwin
     systemList
     eachSystem
-    ;
-  inherit (config)
-    hostConfig
-    userConfig
     ;
 }

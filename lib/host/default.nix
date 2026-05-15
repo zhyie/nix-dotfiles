@@ -14,7 +14,6 @@ let
   callHost = f: extraArgs: import f (args // extraArgs);
 in
 {
-  # mkNixos = host: cfg: isLinux cfg.system (import ./mkNixos.nix (args // { inherit host cfg; }));
   mkNixos =
     hostName: hostConfig:
     isLinux hostConfig.system (callHost ./mkNixos.nix { inherit hostName hostConfig; });
@@ -26,18 +25,7 @@ in
   mkHome =
     attrs:
     let
-      # mapHost =
-      #   h: c:
-      #   map (userName: {
-      #     name = userName + "@" + h;
-      #     value =
-      #       if c.withHome then
-      #         nixosConfigurations.${h}.config.home-manager.users.${userName}.home
-      #       else
-      #         callHost ./mkHome { inherit userName h c; };
-      #   }) c.userList;
-      # hostList = mapAttrs (hostName: hostConfig: mapHost hostName hostConfig) attrs;
-      hostList = mapAttrs (
+      hostList =
         hostName: hostConfig:
         map (userName: {
           name = userName + "@" + hostName;
@@ -46,10 +34,9 @@ in
               nixosConfigurations.${hostName}.config.home-manager.users.${userName}
             else
               callHost ./mkHome { inherit userName hostName hostConfig; };
-        }) hostConfig.userList
-      ) attrs;
+        }) hostConfig.userList;
     in
-    concatLists (attrValues hostList);
+    concatLists (attrValues (mapAttrs hostList attrs));
 
   mkHost =
     hostName: hostConfig:

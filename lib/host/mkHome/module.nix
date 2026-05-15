@@ -1,16 +1,17 @@
 {
-  lib,
+  # lib,
   inputs,
-  hostConfig,
   users,
+  hostConfig,
+  userName,
   ...
 }:
 let
-  inherit (lib) genAttrs;
-  inherit (hostConfig) userList;
+  # inherit (lib) genAttrs;
+  # inherit (hostConfig) userList;
 
   extraSpecialArgs = {
-    inherit inputs;
+    inherit inputs userName;
     home = inputs.self.homeModules;
   };
 in
@@ -20,11 +21,17 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users = genAttrs userList (userName: {
+    users.${userName} = {
       imports = [
         (import ./home.nix { inherit hostConfig userName; })
         users.${userName}.home
       ];
-    });
+    };
+    # users = genAttrs userList (userName: {
+    #   imports = [
+    #     (import ./home.nix { inherit hostConfig userName; })
+    #     users.${userName}.home
+    #   ];
+    # });
   };
 }
