@@ -12,25 +12,19 @@
       ;
   };
 
-  modules.nixos = {
-    # profiles = {
-    #   graphical = [ "xserver" ];
-    # };
-
-    gaming = {
-      games = [
-        "steam"
-        "proton"
-        "lutris"
-        "roblox"
-        "mcpe"
-      ];
+  modules = {
+    nixos = {
+      backlight = {
+        min = 5;
+        upKey = 233;
+        downKey = 232;
+      };
     };
 
-    backlight = {
-      min = 5;
-      upKey = 233;
-      downKey = 232;
+    gui = {
+      x11.enable = true;
+      wayland.enable = true;
+      login.manager = "ly";
     };
   };
 
@@ -41,13 +35,6 @@
       Option "SuspendTime" "20"
       Option "OffTime" "30"
     '';
-  };
-
-  hardware.intelgpu = {
-    computeRuntime = "legacy";
-    mediaRuntime = "intel-media-sdk";
-    # vaapiDriver = "intel-media-driver";
-    enableHybridCodec = true;
   };
 
   time.timeZone = "Asia/Manila";
