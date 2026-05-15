@@ -1,6 +1,6 @@
 {
-  inputs,
   lib,
+  inputs,
   hostConfig,
   ...
 }:
@@ -16,22 +16,24 @@
       flakeInputs = filterAttrs (_: isType "flake") inputs;
     in
     {
-      # Eliminating redundant copies of store paths.
+      #: Eliminating redundant copies of store paths.
       optimise.automatic = true;
 
-      # Removing unreferenced and obsolete store paths.
-      # Auto clean garbage older than two weeks.
+      #: Removing unreferenced and obsolete store paths.
+      #: Auto clean garbage older than two weeks.
       gc = {
         automatic = true;
         dates = "weekly";
         options = "--delete-older then 14d";
       };
+
       settings = {
-        # Enbale eperimental features such as flakes.
+        #: Enable experimental features such as flakes.
         experimental-features = [
           "nix-command"
           "flakes"
         ];
+
         # Auto optimising nix store.
         auto-optimise-store = true;
 
@@ -39,6 +41,7 @@
           "https://cache.nixos.org/"
           "https://nix-community.cachix.org"
         ];
+
         trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -51,9 +54,11 @@
       nixPath = mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
       # nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
+      #: Disable nix channels.
       channel.enable = false;
     };
 
+  #: Nixpkgs configs.
   nixpkgs = {
     config = {
       allowUnfree = true;
@@ -61,13 +66,9 @@
       permittedInsecurePackages = [
         "intel-media-sdk-23.2.2"
       ];
-      # packageOverrides = pkgs: {
-      #   openldap = pkgs.openldap.overrideAttrs {
-      #     doCheck = false;
-      #   };
-      # };
     };
 
+    #: nixpkgs overlays
     overlays = builtins.attrValues inputs.self.overlays;
   };
 }

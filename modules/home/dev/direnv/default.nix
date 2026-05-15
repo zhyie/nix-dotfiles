@@ -1,6 +1,6 @@
-{ inputs, ... }:
+{ ... }:
 {
-  imports = [ inputs.direnv-instant.homeModules.direnv-instant ];
+  imports = [ ./direnv-instant.nix ];
 
   programs = {
     direnv = {
@@ -8,7 +8,5 @@
       silent = true;
       nix-direnv.enable = true;
     };
-
-    direnv-instant.enable = true;
   };
 }

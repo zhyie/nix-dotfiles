@@ -1,6 +1,4 @@
 {
-  imports = [
-    ./sudo
-    ./sops
-  ];
+  sops = import ./sops;
+  sudo = import ./sudo;
 }

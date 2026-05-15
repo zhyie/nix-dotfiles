@@ -1,9 +1,9 @@
 {
-  imports = [
+  display-managers = import ./display-managers;
+  flatpak = import ./flatpak;
+  default = [
     ./avahi
     # ./dnscrypt
-    ./lightdm
     ./ssh
-    ./fail2ban
   ];
 }

@@ -35,7 +35,7 @@
     profiles.profile2 = {
       id = 0;
       name = "Profile 2";
-      userChrome = inputs.dotfiles + "/firefox/chrome/userChrome.css";
+      userChrome = builtins.readFile "${inputs.dotfiles}/firefox/chrome/userChrome.css";
       settings = {
         "places.history.enabled" = false;
         "privacy.clearSiteData.browsingHistoryAndDownloads" = true;

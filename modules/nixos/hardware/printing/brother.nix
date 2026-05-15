@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 let
-  ip = "192.168.1.13";
-  printer = "Brother";
   model = "MFC-J200";
 in
 {

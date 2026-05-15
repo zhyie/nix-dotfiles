@@ -2,7 +2,7 @@
 
 let
   inherit (lib) getExe;
-  picom = pkgs.unstable.picom;
+  inherit (pkgs.unstable) picom;
 in
 {
   home.packages = [ picom ];

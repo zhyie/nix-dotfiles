@@ -4,5 +4,6 @@
     # ./git
     ./neovim
     ./nushell
+    ./hyfetch.nix
   ];
 }

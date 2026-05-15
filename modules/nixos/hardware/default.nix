@@ -5,7 +5,6 @@
     ./bluetooth
     ./power
     ./backlight
-    ./laptop
     # ./printing
   ];
 }

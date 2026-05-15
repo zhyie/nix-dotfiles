@@ -1,5 +1,6 @@
 {
   nixos = import ./nixos;
   home = import ./home;
-  # profiles = import ./profiles;
+  common = import ./common;
+  profiles = import ./profiles;
 }
