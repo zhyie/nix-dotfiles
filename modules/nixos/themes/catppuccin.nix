@@ -5,10 +5,5 @@
   catppuccin = {
     enable = true;
     flavor = "macchiato";
-
-    tty = {
-      enable = true;
-      flavor = "mocha";
-    };
   };
 }
