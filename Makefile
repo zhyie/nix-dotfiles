@@ -26,6 +26,7 @@ build: ## Build current host
 	$(BUILD_CMD) $(LOGBAR)
 
 switch: ## Rebuild current host
+	cp ~/.mozilla/firefox/profile2/search.json.mozlz4.backup ~/.mozilla/firefox/profile2/search.json.mozlz4;
 	rm ~/.mozilla/firefox/profile2/search.json.mozlz4;
 	git add . && $(SWITCH_CMD) $(LOGBAR)
 
