@@ -29,7 +29,7 @@
         # Laptop runs hot when on power but not on battery
         # This tells tlp to always run in battery mode
         TLP_DEFAULT_MODE = "BAT";
-        # TLP_PERSISTENT_DEFAULT = 1;
+        TLP_PERSISTENT_DEFAULT = 1;
       };
     };
   };
@@ -38,7 +38,7 @@
   config = {
     services.tlp = {
       enable = true;
-      inherit (config.modules.nixos.tlp) settings;
+      settings = config.modules.nixos.tlp.settings;
     };
   };
 }

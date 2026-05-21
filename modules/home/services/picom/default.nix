@@ -1,11 +1,6 @@
 { lib, pkgs, ... }:
-
-let
-  inherit (lib) getExe;
-  inherit (pkgs.unstable) picom;
-in
 {
-  home.packages = [ picom ];
+  home.packages = [ pkgs.picom ];
 
   systemd.user.services.picom = {
     Unit = {
@@ -17,7 +12,7 @@ in
       WantedBy = [ "graphical-session.target" ];
     };
     Service = {
-      ExecStart = "${getExe picom}";
+      ExecStart = "${lib.getExe pkgs.picom}";
       Restart = "always";
       RestartSec = 3;
     };

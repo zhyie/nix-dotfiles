@@ -13,20 +13,6 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #: DEVELOPMENT ----------------------------------------------
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    direnv-instant = {
-      url = "github:Mic92/direnv-instant";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-    };
-    git-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     #: SECURITY -------------------------------------------------
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -36,14 +22,18 @@
     #   url = "github:nix-community/lanzaboote/v1.0.0";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    #: THEMES ---------------------------------------------------
+    #: DEVELOPMENT ----------------------------------------------
+    direnv-instant = {
+      url = "github:Mic92/direnv-instant";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #: MISC -----------------------------------------------------
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     catppuccin = {
       url = "github:catppuccin/nix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #: FLATPAK
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    #: PERSONAL REPO --------------------------------------------
+    #: ZHYIE's --------------------------------------------------
     secrets = {
       url = "git+ssh://git@github.com/zhyie/nix-secrets.git?ref=main&shallow=1";
       flake = false;
@@ -66,16 +56,11 @@
       users = import ./users;
       modules = import ./modules;
       #: SET OF ARGS TO PASS IN
-      args = {
-        inherit
-          inputs
-          hosts
-          users
-          modules
-          ;
-      };
+      args = { inherit inputs hosts users; };
 
-      lib = import ./lib args // inputs.nixpkgs.lib // inputs.home-manager.lib;
+      #: libs
+      lib' = import ./lib args;
+      lib = lib' // inputs.nixpkgs.lib // inputs.home-manager.lib;
       inherit (lib)
         mapAttrs
         listToAttrs
@@ -83,11 +68,9 @@
         mkHome
         eachSystem
         ;
-
-      treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./checks/treefmt.nix);
     in
     {
-      inherit lib modules;
+      inherit lib lib' modules;
 
       #: GENERATE HOSTS|HOMES CONFIGURATION
       nixosConfigurations = mapAttrs mkNixos hosts;
@@ -98,25 +81,17 @@
       nixosModules = modules.nixos;
       homeModules = modules.home;
 
+      #: PACKAGES AND OVERLAYS
       overlays = import ./overlays { inherit inputs; };
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
       packages = eachSystem (pkgs: import ./packages { inherit pkgs inputs; });
+
+      #: CUSTOM TREEFMT FORMATTER
+      formatter = eachSystem (pkgs: pkgs.callPackage ./checks/formatter.nix { inherit inputs; });
+
+      #: SHELL ENVIRONMENT
       devShells = eachSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
-      checks = eachSystem (
-        pkgs:
-        {
-          formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check inputs.self;
-          # nixosEval =
-          #   let
-          #     system = lib.filterAttrs (_: c: c.pkgs.system == pkgs.system) inputs.self.nixosConfigurations;
-          #   in
-          #   mapAttrs (_: c: c.config.system.build.toplevel) system;
-          # nixosEval = mapAttrs (
-          #   host: _: inputs.self.nixosConfigurations.${host}.config.system.build.toplevel
-          # ) hosts;
-        }
-        // mapAttrs (host: _: inputs.self.nixosConfigurations.${host}.config.system.build.toplevel) hosts
-      );
+      #: CHECKS
+      checks = eachSystem (pkgs: import ./checks { inherit inputs pkgs; });
     };
 }

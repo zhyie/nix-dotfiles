@@ -14,6 +14,9 @@ let
   callHost = f: extraArgs: import f (args // extraArgs);
 in
 {
+  homeModule = import ./mkHome/module.nix;
+  homeDefault = import ./mkHome/home.nix;
+
   mkNixos =
     hostName: hostConfig:
     isLinux hostConfig.system (callHost ./mkNixos.nix { inherit hostName hostConfig; });
@@ -31,20 +34,10 @@ in
           name = userName + "@" + hostName;
           value =
             if hostConfig.withHome then
-              nixosConfigurations.${hostName}.config.home-manager.users.${userName}
+              nixosConfigurations.${hostName}.config.home-manager.users.${userName}.home
             else
               callHost ./mkHome { inherit userName hostName hostConfig; };
         }) hostConfig.userList;
     in
     concatLists (attrValues (mapAttrs hostList attrs));
-
-  mkHost =
-    hostName: hostConfig:
-    let
-      extraArgs = { inherit hostName hostConfig; };
-    in
-    if lib.hasSuffix "linux" hostConfig.system then
-      callHost import ./mkNixos.nix extraArgs
-    else
-      callHost ./host/mkDarwin.nix extraArgs;
 }

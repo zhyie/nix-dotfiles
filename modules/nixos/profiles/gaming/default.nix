@@ -1,10 +1,16 @@
-{ pkgs, ... }:
 {
-  imports = [ ./gaming.nix ];
-
-  modules.gaming = {
-    env = "nixos";
-  };
+  config,
+  lib,
+  pkgs,
+  nixos,
+  hostConfig,
+  ...
+}:
+{
+  imports = [
+    ./options.nix
+    nixos.services.flatpak
+  ];
 
   #: Hardware accelerated graphics drivers
   hardware.graphics = {
@@ -24,6 +30,7 @@
         };
       };
     };
+
     #: Session micro-compositor
     gamescope = {
       enable = true;
@@ -31,5 +38,15 @@
     };
   };
 
+  #: Overlay for monitoring FPS, hardware loads, and more
   environment.systemPackages = [ pkgs.mangohud ];
+
+  modules.flatpak.enable =
+    let
+      inherit (lib) genAttrs attrValues any;
+      inherit (hostConfig) userList;
+      userAttrs = genAttrs userList (u: config.home-manager.users.${u}.modules.flatpak.enable);
+      flatpak = attrValues userAttrs;
+    in
+    any (c: c == true) flatpak;
 }

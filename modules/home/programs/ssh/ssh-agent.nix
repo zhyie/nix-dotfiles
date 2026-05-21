@@ -1,8 +1,8 @@
-{ ... }:
+{ config, ... }:
 {
   services.ssh-agent = {
     enable = true;
     enableBashIntegration = true;
-    enableNushellIntegration = true;
+    enableNushellIntegration = config.programs.nushell.enable;
   };
 }

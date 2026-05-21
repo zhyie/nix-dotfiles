@@ -1,7 +1,3 @@
-{ ... }:
 {
-  imports = [ ./opts.nix ];
-
-  # Enable backlight.
-  programs.light.enable = true;
+  light = import ./light.nix;
 }

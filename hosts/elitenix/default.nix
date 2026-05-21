@@ -1,16 +1,20 @@
 { inputs, nixos, ... }:
 {
   imports = [
+    #: Host configuration
     ./configuration.nix
     ./hardware-configuration.nix
+
+    #: Extra hardware modules
     inputs.nixos-hardware.nixosModules.hp-elitebook-830g6
-    # inputs.nixos-hardware.nixosModules.common-gpu-intel
-    (inputs.nixos-hardware + "/common/gpu/intel/whiskey-lake")
+    "${inputs.nixos-hardware}/common/gpu/intel/whiskey-lake"
+
+    #: DWM + suckless tools
     inputs.suckless.nixosModules.suckless
-    nixos.hardware
+
+    #: Pre-configured modules
     nixos.xserver
     nixos.themes.console
     nixos.themes.nmtui
-  ]
-  ++ nixos.services.default;
+  ];
 }

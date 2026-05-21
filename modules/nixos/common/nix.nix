@@ -34,23 +34,28 @@
           "flakes"
         ];
 
-        # Auto optimising nix store.
+        #: Auto optimising nix store.
         auto-optimise-store = true;
 
+        #: Jobs and cores for builds
+        max-jobs = 2;
+        cores = 4;
+
+        #: Binary caches
         substituters = [
           "https://cache.nixos.org/"
           "https://nix-community.cachix.org"
         ];
-
         trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
-
         trusted-users = hostConfig.userList;
       };
 
+      #: Flake registry
       registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      #: Nix expression search path
       nixPath = mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
       # nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 

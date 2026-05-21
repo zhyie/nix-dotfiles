@@ -1,9 +1,8 @@
 { lib, ... }:
 {
-  imports = [ ./gui.nix ];
+  imports = [ ./options.nix ];
 
   modules.gui = {
-    x11.enable = lib.mkDefault true;
-    login.manager = lib.mkDefault "ly";
+    xserver.enable = lib.mkDefault true;
   };
 }

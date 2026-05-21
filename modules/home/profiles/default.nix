@@ -1,3 +1,0 @@
-{
-  workstation = import ./workstation.nix;
-}

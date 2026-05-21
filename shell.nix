@@ -1,8 +1,12 @@
 { pkgs }:
 {
   default = pkgs.mkShellNoCC {
-    packages = builtins.attrValues {
-      inherit (pkgs) git nixfmt deadnix;
-    };
+    packages = [
+      pkgs.home-manager
+      pkgs.nixfmt
+      pkgs.git
+    ];
   };
+
+  sops = pkgs.mkShellNoCC { packages = [ pkgs.sops ]; };
 }

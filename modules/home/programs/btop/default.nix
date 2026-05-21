@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ ... }:
 {
   programs.btop = {
     enable = true;
-    package = pkgs.unstable.btop;
   };
+
+  programs.htop.enable = true;
 }

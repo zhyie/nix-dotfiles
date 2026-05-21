@@ -1,5 +1,7 @@
-{ ... }:
+{ nixos, ... }:
 {
+  imports = [ nixos.services.avahi ];
+
   # Enable bluetooth support.
   hardware.bluetooth = {
     enable = true;

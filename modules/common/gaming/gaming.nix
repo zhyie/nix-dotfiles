@@ -5,9 +5,13 @@ let
     mkEnableOption
     mkOption
     types
+    genAttrs
     optionals
     mapAttrsToList
-    genAttrs
+    attrValues
+    any
+    flatten
+    mkDefault
     ;
   inherit (types)
     str
@@ -87,7 +91,6 @@ in
 
   config =
     let
-      inherit (lib) attrValues any flatten;
       cfg = config.modules.gaming;
 
       installPkgs =
@@ -101,7 +104,11 @@ in
       modules.gaming.packages.nixpkgs = installPkgs "nixpkgs";
       modules.gaming.packages.flatpaks = installPkgs "flatpak";
 
-      modules.flatpak.enable = any checkFlatpak gameConfig;
-      services.flatpak.packages = cfg.packages.flatpaks;
+      modules.flatpak.enable = mkDefault (any checkFlatpak gameConfig);
+
+      services.flatpak = {
+        enable = config.modules.flatpak.enable;
+        packages = cfg.packages.flatpaks;
+      };
     };
 }

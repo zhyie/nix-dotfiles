@@ -1,9 +1,4 @@
-{ hostName, hostConfig, ... }:
-
-let
-  inherit (hostConfig) userList;
-  userHost = map (userName: userName + "@" + hostName) userList;
-in
+{ hostName, userName, ... }:
 {
   programs.ssh = {
     enable = true;
@@ -11,7 +6,10 @@ in
 
     matchBlocks."*" = {
       addKeysToAgent = "yes";
-      IdentityFile = [ "id_ed25519" ] ++ userHost;
+      identityFile = [
+        "id_ed25519"
+        "${userName}_${hostName}"
+      ];
       forwardAgent = false;
       compression = false;
       serverAliveInterval = 0;

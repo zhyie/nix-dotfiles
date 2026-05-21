@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  # Enable gtk settings
-  programs.dconf.enable = true;
-
   environment.systemPackages = builtins.attrValues {
     # Nano editor is installed by default.
     inherit (pkgs)
@@ -22,9 +19,8 @@
     };
 
     gui = {
-      x11.enable = true;
+      xserver.enable = true;
       wayland.enable = true;
-      login.manager = "ly";
     };
   };
 

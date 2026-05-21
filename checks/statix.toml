@@ -1,0 +1,6 @@
+disabled = [
+  "manual_inherit_from",
+  "empty_pattern",
+  "redundant_pattern_bind",
+  "repeated_keys",
+]

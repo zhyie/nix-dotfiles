@@ -31,6 +31,7 @@ let
 
   specialArgs = {
     inherit inputs hostName hostConfig;
+    inherit (inputs.self) lib';
     nixos = inputs.self.nixosModules;
   };
 in

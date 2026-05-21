@@ -1,4 +1,6 @@
 {
-  sops = import ./sops;
-  sudo = import ./sudo;
+  sudo = import ./sudo.nix;
+  sops = import ./sops.nix;
+
+  fail2ban = import ./fail2ban.nix;
 }

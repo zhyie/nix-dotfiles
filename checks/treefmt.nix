@@ -3,10 +3,12 @@
 
   programs = {
     nixfmt.enable = true;
+
     deadnix = {
       enable = true;
       no-lambda-arg = true;
     };
+
     statix = {
       enable = true;
       disabled-lints = [

@@ -5,7 +5,11 @@
   modules.gaming.games =
     let
       inherit (lib) mkDefault;
-      inherit (pkgs.unstable) protonup-qt heroic;
+      inherit (pkgs.unstable)
+        protonup-qt
+        heroic
+        faugus-launcher
+        ;
     in
     {
       /**
@@ -36,7 +40,7 @@
       };
       faugus = {
         version = mkDefault "nixpkgs";
-        packages = mkDefault [ pkgs.unstable.faugus-launcher ];
+        packages = mkDefault [ faugus-launcher ];
       };
       roblox = {
         version = mkDefault "flatpak";

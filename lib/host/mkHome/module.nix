@@ -2,16 +2,23 @@
   # lib,
   inputs,
   users,
+  hostName,
   hostConfig,
   userName,
   ...
 }:
 let
-  # inherit (lib) genAttrs;
-  # inherit (hostConfig) userList;
+  userConfig = users.${userName};
 
   extraSpecialArgs = {
-    inherit inputs userName;
+    inherit
+      inputs
+      userName
+      userConfig
+      hostName
+      hostConfig
+      ;
+    inherit (inputs.self) lib';
     home = inputs.self.homeModules;
   };
 in
@@ -24,14 +31,8 @@ in
     users.${userName} = {
       imports = [
         (import ./home.nix { inherit hostConfig userName; })
-        users.${userName}.home
+        userConfig.home
       ];
     };
-    # users = genAttrs userList (userName: {
-    #   imports = [
-    #     (import ./home.nix { inherit hostConfig userName; })
-    #     users.${userName}.home
-    #   ];
-    # });
   };
 }

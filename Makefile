@@ -49,7 +49,7 @@ elitenix: ## Host: @elitenix rebuild
 ##########################################
 # Nix Flakes                             #
 ##########################################
-.PHONY: flake show check update meta
+.PHONY: flake show check update meta fmt
 
 flake: ## Display the flake outputs
 	nix flake show
@@ -63,10 +63,11 @@ update: ## Update flake dependencies
 meta: ## Display flake dependencies
 	nix flake metadata
 
+
 ##########################################
 # Nix Utils                              #
 ##########################################
-.PHONY: clean
+.PHONY: clean gen fmt
 
 clean: ## Clean nix store and older generations
 	sudo nix-collect-garbage -d;
@@ -76,10 +77,13 @@ clean: ## Clean nix store and older generations
 gen: ## Display generations
 	sudo nixos-rebuild list-generations
 
+fmt: ga ## Run formatter for the project directory
+	nix fmt
+
 ##########################################
 # Git Utils                              #
 ##########################################
-.PHONY: git commit github
+.PHONY: git commit github ga
 
 git: ## Display git status
 	git status
@@ -89,3 +93,6 @@ commit: ## Commit changes to branch
 
 github: ## Push to commit to github master
 	git push github master
+
+ga:
+	git add .

@@ -1,21 +1,27 @@
 { home, pkgs, ... }:
 {
   imports = [
+    home.common
     home.programs.default
     home.programs.games
     home.services.default
     home.themes.default
     home.dev
-    home.utils
+    ./variables.nix
+    ./osConfig.nix
   ];
+
+  modules = {
+    dev.enable = true;
+    flatpak = {
+      enable = true;
+      packages = [ "libreoffice" ];
+    };
+  };
 
   home.packages = builtins.attrValues {
     inherit (pkgs.unstable) discord;
     inherit (pkgs.custom) scripts;
-  };
-
-  home.file = {
-    ".gitconfig".source = ./.gitconfig;
   };
 
   dotfiles.configFiles = [
@@ -26,9 +32,9 @@
     "yazi"
     "btop"
     "nushell/config.nu"
+    "niri"
   ];
   dotfiles.homeFiles = [
     ".nanorc"
   ];
-  # xdg.configFile."nushell/config.nu".source = {};
 }

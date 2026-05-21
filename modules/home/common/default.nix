@@ -1,3 +1,11 @@
 {
-  imports = [ ./modules.nix ];
+  imports = [
+    ./common.nix
+    ./dotfiles.nix
+
+    ./bash.nix
+    ./kitty.nix
+
+    # ./libreoffice.nix
+  ];
 }

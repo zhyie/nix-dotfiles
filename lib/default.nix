@@ -12,8 +12,9 @@ rec {
   inherit (host)
     mkNixos
     mkDarwin
-    mkHost
     mkHome
+    homeModule
+    homeDefault
     ;
   inherit (platform)
     isLinux
