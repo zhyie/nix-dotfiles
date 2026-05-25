@@ -1,16 +1,10 @@
-{ inputs, ... }:
+{ osConfig, inputs, ... }:
 {
   imports = [
     inputs.self.modules.common.modules
     inputs.self.modules.common.variables
   ];
 
-  # options.modules = {
-  #   wayland = {
-  #     enable = { };
-  #   };
-  #   xserver = {
-  #     enable = { };
-  #   };
-  # };
+  modules.xserver.enable = osConfig.modules.xserver.enable;
+  modules.wayland.enable = osConfig.modules.wayland.enable;
 }

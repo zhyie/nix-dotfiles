@@ -5,15 +5,14 @@
   nixos,
   ...
 }:
-let
-  inherit (lib) mkIf;
-  cfg = config.modules.gaming;
-in
 {
   imports = [
     inputs.self.modules.common.gaming
+    inputs.self.modules.common.flatpak
     nixos.services.flatpak
   ];
 
-  config = mkIf (cfg.env == "nixos") { environment.systemPackages = cfg.packages.nixpkgs; };
+  config = lib.mkIf (config.modules.gaming.env == "nixos") {
+    environment.systemPackages = config.modules.gaming.packages.nixpkgs;
+  };
 }

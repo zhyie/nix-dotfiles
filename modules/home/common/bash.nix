@@ -24,11 +24,11 @@
       "..." = "cd ../../";
       "...." = "cd ../../../";
       "....." = "cd ../../../../";
-      "dots" = "cd ~/.dotfiles";
+      "dots" = "cd ~/flake";
       "gs" = "git status";
       "ga" = "git add";
       "gc" = "git commit";
-      "gp" = "git push origin";
+      "gp" = "git push";
     };
 
     bashrcExtra = ''

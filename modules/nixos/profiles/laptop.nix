@@ -5,7 +5,7 @@
     nixos.hardware.touchpad
     nixos.hardware.mouse
     nixos.hardware.power
-    nixos.hardware.backlight
+    nixos.hardware.light
     nixos.hardware.bluetooth
   ];
 

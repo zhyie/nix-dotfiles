@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.modules.nixos.backlight = {
+  options.modules.nixos.light = {
     step = lib.mkOption {
       type = lib.types.int;
       default = 5;
@@ -14,7 +14,7 @@
       '';
     };
 
-    min = lib.mkOption {
+    minimum = lib.mkOption {
       type = lib.types.numbers.between 0 100;
       default = 0.1;
       description = ''
@@ -22,47 +22,49 @@
         display going dark.
       '';
     };
-    upKey = lib.mkOption {
-      type = lib.types.ints.unsigned;
-      description = ''
-        Key code for increasing screen brightness.
-      '';
-    };
-    downKey = lib.mkOption {
-      type = lib.types.ints.unsigned;
-      description = ''
-        Key code for decreasing screen brightness.
-      '';
+
+    keys = {
+      increase = lib.mkOption {
+        type = lib.types.ints.unsigned;
+        description = ''
+          Key code for increasing screen brightness.
+        '';
+      };
+      decrease = lib.mkOption {
+        type = lib.types.ints.unsigned;
+        description = ''
+          Key code for decreasing screen brightness.
+        '';
+      };
     };
   };
 
   config = {
-    # Enable backlight.
+    #: Enable backlight.
     programs.light.enable = true;
+
+    #: Keybinds of function keys for
+    #: controliing screen brightness
     services.actkbd = {
       enable = true;
       bindings =
         let
-          cfg = config.modules.nixos.backlight;
-          light = "${pkgs.light}/bin/light";
-          step = toString cfg.step;
-          min = toString cfg.min;
+          cfg = config.modules.nixos.light;
+          light = lib.getExe pkgs.light;
+          step = lib.toString cfg.step;
+          minimum = lib.toString cfg.minimum;
         in
         [
-          # brightness down
-          # -N set minimum brightness
+          #: Decrease screen brightness
+          #: `-N` flag set the minimum brightness
           {
-            # keys = [ 232 ];
-            # keys = cfg.downKey;
-            keys = [ cfg.downKey ];
+            keys = [ cfg.keys.decrease ];
             events = [ "key" ];
-            command = "${light} -N ${min} && ${light} -U ${step}";
+            command = "${light} -N ${minimum} && ${light} -U ${step}";
           }
-          # brightness up
+          #: Increase screen brightness
           {
-            # keys = [ 233 ];
-            # keys = cfg.upKey;
-            keys = [ cfg.upKey ];
+            keys = [ cfg.keys.increase ];
             events = [ "key" ];
             command = "${light} -A ${step}";
           }

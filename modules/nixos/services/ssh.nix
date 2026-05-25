@@ -9,7 +9,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-      AllowUsers = hostConfig.userList;
+      AllowUsers = hostConfig.users;
     };
   };
 

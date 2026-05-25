@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 {
   /**
     FIXME: Niri modules enabled `services.gnome.gnome-keyring`

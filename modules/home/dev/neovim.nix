@@ -9,24 +9,36 @@
     viAlias = true;
     withNodeJs = true;
 
-    extraLuaPackages = p: [ p.luacheck ];
-    extraPackages = builtins.attrValues {
-      inherit (pkgs)
-        ripgrep
-        fzf
-        xclip
-        git
-        tree-sitter
-        lua-language-server
-        stylua
-        clang
-        clang-tools
-        nixd
-        nixfmt
-        deadnix
-        statix
-        ;
-    };
+    extraLuaPackages = p: [
+      p.luacheck
+      p.luarocks
+    ];
+
+    extraPackages =
+      builtins.attrValues {
+        inherit (pkgs)
+          ripgrep
+          fzf
+          xclip
+          git
+          tree-sitter
+          lua-language-server
+          stylua
+          clang
+          clang-tools
+          nixd
+          nixfmt
+          deadnix
+          statix
+          bash-language-server
+          yaml-language-server
+          tombi
+          ;
+      }
+      ++ [
+        pkgs.lua54Packages.luarocks
+        pkgs.luajitPackages.luarocks
+      ];
 
     plugins = [
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [

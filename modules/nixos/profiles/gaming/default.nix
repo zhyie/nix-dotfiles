@@ -1,16 +1,6 @@
+{ pkgs, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  nixos,
-  hostConfig,
-  ...
-}:
-{
-  imports = [
-    ./options.nix
-    nixos.services.flatpak
-  ];
+  imports = [ ./options.nix ];
 
   #: Hardware accelerated graphics drivers
   hardware.graphics = {
@@ -40,13 +30,4 @@
 
   #: Overlay for monitoring FPS, hardware loads, and more
   environment.systemPackages = [ pkgs.mangohud ];
-
-  modules.flatpak.enable =
-    let
-      inherit (lib) genAttrs attrValues any;
-      inherit (hostConfig) userList;
-      userAttrs = genAttrs userList (u: config.home-manager.users.${u}.modules.flatpak.enable);
-      flatpak = attrValues userAttrs;
-    in
-    any (c: c == true) flatpak;
 }

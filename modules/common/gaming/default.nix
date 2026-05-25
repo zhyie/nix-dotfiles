@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  imports = [ ./gaming.nix ];
+  imports = [ ./options.nix ];
 
   modules.gaming.games =
     let

@@ -8,7 +8,7 @@
   imports =
     let
       inherit (lib) elem optionals;
-      userZhyie = elem "zhyie" hostConfig.userList;
+      userZhyie = elem "zhyie" hostConfig.users;
     in
     [
       nixos.common

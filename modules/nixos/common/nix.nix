@@ -7,13 +7,7 @@
 {
   nix =
     let
-      inherit (lib)
-        filterAttrs
-        isType
-        mapAttrs
-        mapAttrsToList
-        ;
-      flakeInputs = filterAttrs (_: isType "flake") inputs;
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
     in
     {
       #: Eliminating redundant copies of store paths.
@@ -37,11 +31,13 @@
         #: Auto optimising nix store.
         auto-optimise-store = true;
 
-        #: Jobs and cores for builds
+        #: Jobs and cores for builds.
         max-jobs = 2;
         cores = 4;
 
-        #: Binary caches
+        #: URLs and public keys of binary caches.
+        #: Give additional rights to users such as
+        #: ability to specify additional binary caches.
         substituters = [
           "https://cache.nixos.org/"
           "https://nix-community.cachix.org"
@@ -50,30 +46,42 @@
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
-        trusted-users = hostConfig.userList;
+        trusted-users = hostConfig.users;
+
+        #: Empty the path of global flake registry.
+        flake-registry = "";
+
+        #: Keep the outputs of non-garbage derivations.
+        keep-outputs = true;
+
+        #: Disable warn about dirty Git trees.
+        warn-dirty = false;
+
+        #: Nix will conform to the XDG Base Directory Specification.
+        # use-xdg-base-directories = true;
       };
 
-      #: Flake registry
-      registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-      #: Nix expression search path
-      nixPath = mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-      # nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+      #: Flake registries.
+      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
 
-      #: Disable nix channels.
+      #: Nix expression search path.
+      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+
+      #: Disable the use of nix channel.
       channel.enable = false;
     };
 
-  #: Nixpkgs configs.
+  #: Nixpkgs configurations.
   nixpkgs = {
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = p: true;
+      allowUnfreePredicate = _: true;
       permittedInsecurePackages = [
         "intel-media-sdk-23.2.2"
       ];
     };
 
-    #: nixpkgs overlays
-    overlays = builtins.attrValues inputs.self.overlays;
+    #: Overlays to apply to Nixpkgs.
+    overlays = lib.attrValues inputs.self.overlays;
   };
 }

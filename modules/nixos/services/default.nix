@@ -1,13 +1,10 @@
-rec {
-  display-managers = import ./display-managers;
-  inherit (display-managers) lemurs lightdm ly;
-
+{
   #: Misc
-  duckdns = import ./duckdns;
-  flatpak = import ./flatpak;
+  flatpak = import ./flatpak.nix;
 
   #: Networking
   avahi = import ./avahi.nix;
   dnscrypt = import ./dnscrypt.nix;
+  duckdns = import ./duckdns.nix;
   ssh = import ./ssh.nix;
 }
