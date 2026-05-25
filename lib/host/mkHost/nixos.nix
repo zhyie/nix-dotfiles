@@ -1,4 +1,5 @@
 {
+  fn,
   lib,
   inputs,
   users,
@@ -12,16 +13,14 @@ let
   inherit (hostConfig)
     module
     system
-    userList
     profiles
     withHome
     ;
 
-  homeModule = map (userName: import ./mkHome/module.nix (args // { inherit userName; })) userList;
-  # homeModule = import ./mkHome/module.nix args;
+  homeModule = map (userName: fn.homeModule (args // { inherit userName; })) hostConfig.users;
   homeManager = [ inputs.home-manager.nixosModules.home-manager ] ++ homeModule;
 
-  userModule = map (user: users.${user}.default) userList;
+  userModule = map (user: users.${user}.default) hostConfig.users;
   hostProfiles = map (profile: inputs.self.nixosModules.profiles.${profile}) (
     if profiles == null then [ "base" ] else [ "base" ] ++ profiles
   );
@@ -31,7 +30,7 @@ let
 
   specialArgs = {
     inherit inputs hostName hostConfig;
-    inherit (inputs.self) lib';
+    inherit (inputs.self) fn;
     nixos = inputs.self.nixosModules;
   };
 in

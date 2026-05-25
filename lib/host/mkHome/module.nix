@@ -1,5 +1,5 @@
 {
-  # lib,
+  fn,
   inputs,
   users,
   hostName,
@@ -9,6 +9,7 @@
 }:
 let
   userConfig = users.${userName};
+  home = import ./home.nix { inherit userName hostConfig; };
 
   extraSpecialArgs = {
     inherit
@@ -18,21 +19,33 @@ let
       hostName
       hostConfig
       ;
-    inherit (inputs.self) lib';
+    inherit (inputs.self) fn;
     home = inputs.self.homeModules;
   };
+  useGlobalPkgs = true;
+  useUserPackages = true;
+  backupFileExtension = "backup";
 in
 {
   home-manager = {
-    inherit extraSpecialArgs;
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-    users.${userName} = {
-      imports = [
-        (import ./home.nix { inherit hostConfig userName; })
-        userConfig.home
-      ];
-    };
-  };
+    inherit
+      extraSpecialArgs
+      useGlobalPkgs
+      useUserPackages
+      backupFileExtension
+      ;
+  }
+  //
+    fn.isPlatformElse "droid"
+      {
+        config = home;
+      }
+      {
+        users.${userName} = {
+          imports = [
+            home
+            userConfig.home
+          ];
+        };
+      };
 }
