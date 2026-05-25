@@ -1,40 +1,46 @@
 { home, pkgs, ... }:
 {
   imports = [
-    home.common
-    home.programs.default
-    home.programs.games
-    home.services.default
-    home.themes.default
-    home.dev
     ./variables.nix
     ./osConfig.nix
+
+    home.common
+    home.dev
+    home.themes
+
+    home.profiles.graphical
+    home.profiles.gaming
   ];
 
   modules = {
     dev.enable = true;
+
     flatpak = {
       enable = true;
-      packages = [ "libreoffice" ];
+      apps = {
+        libreoffice.enable = true;
+      };
     };
   };
 
   home.packages = builtins.attrValues {
-    inherit (pkgs.unstable) discord;
     inherit (pkgs.custom) scripts;
+    inherit (pkgs) discord;
   };
 
-  dotfiles.configFiles = [
-    "nvim"
-    "picom"
-    "kitty"
-    "rofi"
-    "yazi"
-    "btop"
-    "nushell/config.nu"
-    "niri"
-  ];
-  dotfiles.homeFiles = [
-    ".nanorc"
-  ];
+  dotfiles = {
+    configFiles = [
+      "nvim"
+      "picom"
+      "kitty"
+      "rofi"
+      "yazi"
+      "btop"
+      "nushell/config.nu"
+      "niri"
+    ];
+    homeFiles = [
+      ".nanorc"
+    ];
+  };
 }
