@@ -13,7 +13,6 @@
     inputs.suckless.nixosModules.suckless
 
     #: Pre-configured modules
-    nixos.xserver
     nixos.themes.console
     nixos.themes.nmtui
   ];

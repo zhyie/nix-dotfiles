@@ -11,17 +11,36 @@
 
   modules = {
     nixos = {
-      backlight = {
-        min = 5;
-        upKey = 233;
-        downKey = 232;
+      #: Backlight
+      light = {
+        minimum = 5;
+        keys = {
+          increase = 233;
+          decrease = 232;
+        };
       };
     };
 
-    gui = {
+    graphical = {
       xserver.enable = true;
       wayland.enable = true;
+      display.manager = "ly";
     };
+
+    # graphical = {
+    #   xserver = {
+    #     dwm = true;
+    #   };
+    #   wayland = {
+    #     niri = true;
+    #   };
+    #   display.manager = "ly";
+    # };
+    # graphical = {
+    #   xserver = [ "dwm" ];
+    #   wayland = [ "niri" ];
+    #   display.manager = "ly";
+    # };
   };
 
   services.xserver = {
