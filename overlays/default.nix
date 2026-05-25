@@ -1,14 +1,31 @@
 { inputs }:
 {
-  # Unstable nixpkgs
-  unstable-packages = final: _: {
-    unstable = import inputs.nixpkgs-unstable {
-      inherit (final) config;
-      inherit (final.stdenv.hostPlatform) system;
-    };
-  };
+  #: Nixpkgs
+  nix-packages =
+    final: _:
+    let
+      importOverlay =
+        p:
+        import p {
+          inherit (final) config;
+          inherit (final.stdenv.hostPlatform) system;
+        };
+    in
+    {
+      unstable = importOverlay inputs.nixos-unstable;
+      stable = importOverlay inputs.nixos-stable;
+      # unstable = import inputs.nixpkgs-unstable {
+      #   inherit (final) config;
+      #   inherit (final.stdenv.hostPlatform) system;
+      # };
 
-  # Custom built packages
+      # stable = import inputs.nixpkgs-stable {
+      #   inherit (final) config;
+      #   inherit (final.stdenv.hostPlatform) system;
+      # };
+    };
+
+  #: Custom built packages
   custom-packages = final: _: {
     custom = inputs.self.packages.${final.stdenv.hostPlatform.system};
   };
@@ -17,4 +34,6 @@
     firefox = import ./firefox.nix { inherit inputs prev; };
     openldap = prev.openldap.overrideAttrs { doCheck = false; };
   };
+
+  droid = inputs.nix-on-droid.overlays.default;
 }
