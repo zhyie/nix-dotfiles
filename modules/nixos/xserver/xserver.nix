@@ -1,8 +1,7 @@
-{ pkgs, lib, ... }:
+{ lib, ... }:
 {
   services.xserver = {
     enable = true;
-    excludePackages = [ pkgs.xterm ];
     /**
       wallpaper via desktop manager
       images in `~/.background-image`

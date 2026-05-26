@@ -1,5 +1,5 @@
 {
-  fn,
+  lib',
   lib,
   inputs,
   ...
@@ -7,9 +7,10 @@
 
 let
   inherit (inputs.self) nixosConfigurations;
-  inherit (fn)
-    callHost
-    genNixos
+  inherit (lib')
+    # callHost
+    isLinux
+    isNixosPlatform
     genDarwin
     genDroid
     ;
@@ -20,14 +21,12 @@ let
     map
     ;
 in
-{
+rec {
   callHost = f: extraArgs: import f (args // extraArgs);
   homeModule = import ./mkHome/module.nix;
   homeDefault = import ./mkHome/home.nix;
 
-  mkNixos =
-    hostName: hostConfig:
-    genNixos hostConfig.platform (callHost ./mkHost/nixos.nix { inherit hostName hostConfig; });
+  mkNixos = hostName: hostConfig: callHost ./mkHost/nixos.nix { inherit hostName hostConfig; };
 
   mkDarwin =
     hostName: hostConfig:
@@ -52,4 +51,17 @@ in
         }) hostConfig.users;
     in
     concatLists (attrValues (mapAttrs hostList attrs));
+
+  mkHost =
+    hostName: hostConfig:
+    let
+      extraArgs = { inherit hostName hostConfig; };
+    in
+    if isLinux hostConfig.system then
+      if isNixosPlatform hostConfig.platform then
+        callHost ./mkHost/nixos.nix extraArgs
+      else
+        callHost ./mkHost/droid.nix extraArgs
+    else
+      callHost ./mkHost/darwin.nix extraArgs;
 }

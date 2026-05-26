@@ -1,4 +1,16 @@
+{ config, ... }:
 {
+  assertions = [
+    {
+      assertion = config.graphical.xserver.enable;
+      message = ''
+        LightDM relies on X11. Enable X11 through any of these options:
+          - `modules.graphical.xserver.enable = true;`
+          - `services.xserver.enable = true;`
+      '';
+    }
+  ];
+
   services.xserver = {
     enable = true;
     displayManager = {

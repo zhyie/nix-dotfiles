@@ -1,31 +1,50 @@
 {
-  fn,
   lib,
   inputs,
   hosts,
   ...
 }:
-{
-  isPlatform =
-    platform: value: function:
-    if value == platform then function else null;
+
+let
+  inherit (lib)
+    hasSuffix
+    mapAttrs
+    genAttrs
+    attrValues
+    unique
+    optionalAttrs
+    filterAttrs
+    ;
+in
+rec {
+  isPlatform = platform: value: if value == platform then false else false;
 
   isPlatformElse =
     platform: value: function: elseFunction:
     if value == platform then function else elseFunction;
 
-  genNixos = platform: fn.isPlatform "nixos" platform;
-  genDarwin = platform: fn.isPlatform "darwin" platform;
-  genWsl = platform: fn.isPlatform "wsl" platform;
-  genDroid = platform: fn.isPlatform "droid" platform;
+  isNixosPlatform = platform: if platform == "nixos" then true else false;
+  isDarwinPlatform = platform: if platform == "darwin" then true else false;
+  isWslPlatform = platform: if platform == "wsl" then true else false;
+  isDroidPlatform = platform: if platform == "droid" then true else false;
 
-  isLinux = platform: lib.hasSuffix "linux" platform;
-  isDarwin = platform: lib.hasSuffix "darwin" platform;
+  genNixos = platform: optionalAttrs (platform == "nixos");
+  genDarwin = platform: optionalAttrs (platform == "darwin");
+  genWsl = platform: optionalAttrs (platform == "wsl");
+  genDroid = platform: optionalAttrs (platform == "droid");
 
-  forLinux = platform: function: if fn.isLinux platform then function else null;
-  forDarwin = platform: function: if fn.isDarwin platform then function else null;
+  filterNixos = attrs: filterAttrs (_: c: c.platform == "nixos") attrs;
+  filterDarwin = attrs: filterAttrs (_: c: c.platform == "darwin") attrs;
+  filterWsl = attrs: filterAttrs (_: c: c.platform == "wsl") attrs;
+  filterDroid = attrs: filterAttrs (_: c: c.platform == "droid") attrs;
 
-  systemList = lib.unique (lib.attrValues (lib.mapAttrs (_: host: host.system) hosts));
+  isLinux = platform: hasSuffix "linux" platform;
+  isDarwin = platform: hasSuffix "darwin" platform;
+
+  forLinux = platform: function: if isLinux platform then function else null;
+  forDarwin = platform: function: if isDarwin platform then function else null;
+
+  systemList = unique (attrValues (mapAttrs (_: host: host.system) hosts));
   eachSystem =
-    function: lib.genAttrs fn.systemList (system: function inputs.nixpkgs.legacyPackages.${system});
+    function: genAttrs systemList (system: function inputs.nixpkgs.legacyPackages.${system});
 }

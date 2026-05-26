@@ -9,7 +9,7 @@
   imports = [ inputs.nix-flatpak.nixosModules.nix-flatpak ];
 
   #: Enable nixos flatpak when home-manager flatpak is enabled.
-  modules.flatpak.enable = lib.any (c: c == true) (
+  modules.flatpak.enable = lib.any (c: c) (
     lib.attrValues (
       lib.genAttrs hostConfig.users (u: config.home-manager.users.${u}.modules.flatpak.enable)
     )

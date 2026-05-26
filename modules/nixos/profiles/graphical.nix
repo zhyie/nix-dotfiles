@@ -1,10 +1,11 @@
 {
   config,
   lib,
+  pkgs,
   inputs,
   nixos,
   ...
-}@args:
+}:
 
 let
   inherit (lib)
@@ -13,17 +14,19 @@ let
     types
     mkMerge
     mkIf
-    elem
-    ;
-  inherit (types)
-    listOf
-    str
-    enum
-    nullOr
     ;
 
+  args = {
+    inherit
+      config
+      lib
+      pkgs
+      inputs
+      nixos
+      ;
+  };
   cfg = config.modules.graphical;
-  importModule = module: module args;
+  isEnable = attr: lib.any (c: c) (lib.attrValues attr);
 in
 {
   imports = [
@@ -34,41 +37,24 @@ in
   options.modules.graphical = {
     xserver = {
       enable = mkEnableOption "Enable X11 server.";
-      wm = mkOption {
-        type = listOf str;
-        default = [ ];
-        description = "Wayland compositor(s) to use.";
-      };
-      dwm = lib.mkEnableOption "Enable dwm.";
+      dwm = mkEnableOption "Enable dwm.";
     };
+
     wayland = {
       enable = mkEnableOption "Enable wayland server.";
-      wm = mkOption {
-        type = listOf str;
-        default = [ "niri" ];
-        description = "Wayland compositor(s) to use.";
-      };
-      niri = lib.mkEnableOption "Enable niri.";
+      niri = mkEnableOption "Enable niri.";
     };
-    # _xserver = lib.mkOption {
-    #   type = lib.types.listOf lib.types.str;
-    #   default = [ "dwm" ];
-    #   description = "Xserver graphical environment.";
-    # };
-    # _wayland = lib.mkOption {
-    #   type = lib.types.listOf lib.types.str;
-    #   default = [ "niri" ];
-    #   description = "Xserver graphical environment.";
-    # };
 
     display = {
       enable = mkEnableOption "Enable display manager.";
       manager = mkOption {
-        type = nullOr (enum [
-          "lightdm"
-          "lemurs"
-          "ly"
-        ]);
+        type = types.nullOr (
+          types.enum [
+            "lightdm"
+            "lemurs"
+            "ly"
+          ]
+        );
         default = null;
         description = "Display manager to use.";
       };
@@ -80,36 +66,38 @@ in
   */
   config = mkMerge [
     {
+      #: Enable global options.
       modules.graphical.enable = true;
       modules.xserver.enable = cfg.xserver.enable;
       modules.wayland.enable = cfg.wayland.enable;
 
       programs.dconf.enable = true;
     }
-    # (
-    #   mkIf cfg._xserver != [ ] {
-    #     modules.xserver.enable = true;
-    #   }
-    # )
 
     /**
       DISPLAY SERVERS
     */
     #: XSERVER
-    (mkIf cfg.xserver.enable (importModule nixos.xserver.default))
+    (mkIf (isEnable cfg.xserver) (nixos.xserver.default args))
+    # (mkIf cfg.xserver.enable (nixos.xserver.default args))
     (mkIf (cfg.xserver.enable && config.modules.laptop.enable) (
-      (importModule nixos.xserver.xautolock) // (importModule nixos.xserver.xscreensaver)
+      (nixos.xserver.xautolock args) // (nixos.xserver.xscreensaver args)
     ))
     #: WAYLAND
-    (mkIf cfg.wayland.enable nixos.wayland.default)
-    (mkIf (elem "niri" cfg.wayland.wm) (importModule nixos.wayland.niri))
+    (mkIf (isEnable cfg.wayland) (nixos.xserver.default args))
+    # (mkIf cfg.wayland.enable (nixos.wayland.default args))
+    (mkIf cfg.wayland.niri (nixos.wayland.niri args))
 
     /**
       DISPLAY MANAGERS
     */
-    (mkIf (cfg.display.manager == "lightdm" && cfg.xserver.enable) nixos.display-managers.lightdm)
-    (mkIf (cfg.display.manager != "lightdm") nixos.display-managers.default)
-    (mkIf (cfg.display.manager == "lemurs") nixos.display-managers.lemurs)
-    (mkIf (cfg.display.manager == "ly") (importModule nixos.display-managers.ly))
+    #: Display manager that relies on xserver.
+    (mkIf (cfg.display.manager == "lightdm" && cfg.xserver.enable) (
+      nixos.display-managers.lightdm args
+    ))
+    #: Independent display manager.
+    (mkIf (cfg.display.manager != "lightdm") (nixos.display-managers.default args))
+    (mkIf (cfg.display.manager == "lemurs") (nixos.display-managers.lemurs args))
+    (mkIf (cfg.display.manager == "ly") (nixos.display-managers.ly args))
   ];
 }

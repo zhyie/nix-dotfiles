@@ -1,5 +1,5 @@
 {
-  fn,
+  lib',
   lib,
   inputs,
   users,
@@ -17,7 +17,7 @@ let
     withHome
     ;
 
-  homeModule = map (userName: fn.homeModule (args // { inherit userName; })) hostConfig.users;
+  homeModule = map (userName: lib'.homeModule (args // { inherit userName; })) hostConfig.users;
   homeManager = [ inputs.home-manager.nixosModules.home-manager ] ++ homeModule;
 
   userModule = map (user: users.${user}.default) hostConfig.users;
@@ -29,8 +29,12 @@ let
   modules = if withHome then baseModules ++ homeManager else baseModules;
 
   specialArgs = {
-    inherit inputs hostName hostConfig;
-    inherit (inputs.self) fn;
+    inherit
+      inputs
+      hostName
+      hostConfig
+      lib'
+      ;
     nixos = inputs.self.nixosModules;
   };
 in

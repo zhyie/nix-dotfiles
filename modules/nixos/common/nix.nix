@@ -48,6 +48,9 @@
         ];
         trusted-users = hostConfig.users;
 
+        #: Bump download size buffer to 500MB
+        download-buffer-size = 524288000;
+
         #: Empty the path of global flake registry.
         flake-registry = "";
 
@@ -58,7 +61,7 @@
         warn-dirty = false;
 
         #: Nix will conform to the XDG Base Directory Specification.
-        # use-xdg-base-directories = true;
+        use-xdg-base-directories = true;
       };
 
       #: Flake registries.

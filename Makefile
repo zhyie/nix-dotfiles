@@ -18,38 +18,26 @@ help:  ## Display available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) |  awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 ##########################################
-# Build and Rebuild for General          #
+# Builds and Rebuilds					 #
 ##########################################
-.PHONY: build switch
+.PHONY: build switch hswitch elitenix
 
 build: ## Build current host
 	$(BUILD_CMD) $(LOGBAR)
 
 switch: ## Rebuild current host
-	cp ~/.mozilla/firefox/profile2/search.json.mozlz4.backup ~/.mozilla/firefox/profile2/search.json.mozlz4;
-	rm ~/.mozilla/firefox/profile2/search.json.mozlz4;
 	git add . && $(SWITCH_CMD) $(LOGBAR)
 
-##########################################
-# Build and Rebuild for Home Manager	 #
-##########################################
-.PHONY: hswitch
-
-hswitch: ## Rebuild home manager
+hswitch: ## Rebuild current user's home
 	git add . && $(HSWITCH_CMD) $(LOGBAR)
 
-##########################################
-# Build and Rebuild for each host        #
-##########################################
-.PHONY: elitenix
-
-elitenix: ## Host: @elitenix rebuild
+elitenix: ## Rebuild @elitenix
 	$(FSWITCH) '.\#elitenix'
 
 ##########################################
 # Nix Flakes                             #
 ##########################################
-.PHONY: flake show check update meta fmt
+.PHONY: flake show check update meta uplocal
 
 flake: ## Display the flake outputs
 	nix flake show
@@ -63,11 +51,13 @@ update: ## Update flake dependencies
 meta: ## Display flake dependencies
 	nix flake metadata
 
+upz: ## Update zhyie's repo
+	nix flake update dotfiles secrets
 
 ##########################################
 # Nix Utils                              #
 ##########################################
-.PHONY: clean gen fmt
+.PHONY: clean gen hook
 
 clean: ## Clean nix store and older generations
 	sudo nix-collect-garbage -d;
@@ -77,8 +67,8 @@ clean: ## Clean nix store and older generations
 gen: ## Display generations
 	sudo nixos-rebuild list-generations
 
-fmt: ga ## Run formatter for the project directory
-	nix fmt
+hook: ga ## Run pre-commit for the project directory
+	nix develop -c pre-commit run -a
 
 ##########################################
 # Git Utils                              #

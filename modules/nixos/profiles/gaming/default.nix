@@ -1,6 +1,15 @@
 { pkgs, ... }:
 {
-  imports = [ ./options.nix ];
+  imports = [
+    ./options.nix
+    # inputs.self.modules.common.gaming
+    # inputs.self.modules.common.flatpak
+    # nixos.services.flatpak
+  ];
+
+  # config = lib.mkIf (config.modules.gaming.env == "nixos") {
+  #   environment.systemPackages = config.modules.gaming.packages.nixpkgs;
+  # };
 
   #: Hardware accelerated graphics drivers
   hardware.graphics = {

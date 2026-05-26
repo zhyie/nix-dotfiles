@@ -22,25 +22,12 @@
     };
 
     graphical = {
+      # xserver.dwm = true;
       xserver.enable = true;
       wayland.enable = true;
+      wayland.niri = true;
       display.manager = "ly";
     };
-
-    # graphical = {
-    #   xserver = {
-    #     dwm = true;
-    #   };
-    #   wayland = {
-    #     niri = true;
-    #   };
-    #   display.manager = "ly";
-    # };
-    # graphical = {
-    #   xserver = [ "dwm" ];
-    #   wayland = [ "niri" ];
-    #   display.manager = "ly";
-    # };
   };
 
   services.xserver = {

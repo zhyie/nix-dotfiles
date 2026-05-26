@@ -22,17 +22,14 @@
           xclip
           git
           tree-sitter
-          lua-language-server
-          stylua
-          clang
-          clang-tools
-          nixd
-          nixfmt
-          deadnix
-          statix
-          bash-language-server
-          yaml-language-server
-          tombi
+          # lua-language-server
+          # stylua
+          # clang
+          # clang-tools
+          # nixd
+          # nixfmt
+          # deadnix
+          # statix
           ;
       }
       ++ [

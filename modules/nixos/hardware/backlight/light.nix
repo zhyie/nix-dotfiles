@@ -51,8 +51,8 @@
         let
           cfg = config.modules.nixos.light;
           light = lib.getExe pkgs.light;
-          step = lib.toString cfg.step;
-          minimum = lib.toString cfg.minimum;
+          step = toString cfg.step;
+          minimum = toString cfg.minimum;
         in
         [
           #: Decrease screen brightness

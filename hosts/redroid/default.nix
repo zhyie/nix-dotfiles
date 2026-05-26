@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./configuration ];
+  imports = [ ./configuration.nix ];
 }

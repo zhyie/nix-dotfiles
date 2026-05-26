@@ -22,7 +22,7 @@
           trash-cli
           ;
       }
-      ++ lib.optionals (config.modules.xserver.enable) [ pkgs.xclip ]
-      ++ lib.optionals (config.modules.wayland.enable) [ pkgs.wl-clipboard ];
+      ++ lib.optionals config.modules.xserver.enable [ pkgs.xclip ]
+      ++ lib.optionals config.modules.wayland.enable [ pkgs.wl-clipboard ];
   };
 }
