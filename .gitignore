@@ -1,6 +1,9 @@
-# build outputs
+#: build outputs
 result
 result-*
 
-# direnv output
+#: direnv output
 .direnv
+
+#: pre-commit config file
+.pre-commit-config.yaml

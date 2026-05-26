@@ -1,5 +1,9 @@
 {
-  nixos = import ./nixos;
+  common = import ./common;
+
   home = import ./home;
-  # profiles = import ./profiles;
+  nixos = import ./nixos;
+
+  # wsl = import ./wsl;
+  droid = import ./droid;
 }

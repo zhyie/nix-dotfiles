@@ -3,6 +3,7 @@
   inputs,
   users,
   userName,
+  hostName,
   hostConfig,
   ...
 }:
@@ -16,7 +17,13 @@ let
   pkgs = inputs.nixpkgs.legacyPackages.${system};
 
   extraSpecialArgs = {
-    inherit inputs userName userConfig;
+    inherit
+      inputs
+      userName
+      userConfig
+      hostName
+      hostConfig
+      ;
     home = inputs.self.homeModules;
   };
 

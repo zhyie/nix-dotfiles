@@ -1,4 +1,6 @@
 {
-  minimal = import ../common;
-  gaming = import ./gaming.nix;
+  base = import ./base.nix;
+  laptop = import ./laptop.nix;
+  graphical = import ./graphical.nix;
+  gaming = import ./gaming;
 }

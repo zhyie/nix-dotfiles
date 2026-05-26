@@ -16,9 +16,9 @@ let
   scripts' = attrNames (readDir dir);
   scripts = map (s: replaceStrings [ ".sh" ] [ "" ] s) scripts';
   mkScript = name: writeScriptBin name (readFile (dir + "/${name}.sh"));
-  drv = map (script: mkScript script) scripts;
+  paths = map mkScript scripts;
 in
 symlinkJoin {
   name = "scripts";
-  paths = drv;
+  inherit paths;
 }

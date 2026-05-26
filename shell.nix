@@ -1,15 +1,21 @@
-{ pkgs }:
-{
-  default = pkgs.mkShellNoCC {
-    packages = builtins.attrValues {
-      inherit (pkgs)
-        git
-        tree
-        nixfmt
-        nixfmt-tree
-        statix
-        deadnix
-        ;
-    };
-  };
+{ pkgs, self }:
+
+let
+  inherit (self.checks.${pkgs.stdenv.hostPlatform.system}.git-hooks)
+    shellHook
+    enabledPackages
+    ;
+in
+pkgs.mkShellNoCC {
+  inherit shellHook;
+  buildInputs = enabledPackages;
+
+  packages = [
+    pkgs.home-manager
+    pkgs.nh
+
+    pkgs.macchina
+    pkgs.bat
+    pkgs.statix
+  ];
 }

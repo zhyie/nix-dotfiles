@@ -1,29 +1,51 @@
-{ ... }@args:
+{ inputs, ... }@args:
 /**
-  args = { inherit inputs hosts users; };
+  args = { inherit inputs hosts users modules; };
 */
 let
-  callLibs = f: import f (args // { inherit (args.inputs.self) lib; });
+  callLibs = f: import f (args // { inherit (inputs.self) lib'; });
 in
 rec {
   host = callLibs ./host;
   platform = callLibs ./platform.nix;
-  config = callLibs ./config.nix;
 
   inherit (host)
+    callHost
+    mkHost
+
     mkNixos
     mkDarwin
-    mkHost
+    mkDroid
     mkHome
+
+    homeModule
+    homeDefault
     ;
   inherit (platform)
+    isPlatform
+    isPlatformElse
+
+    isNixosPlatform
+    isDarwinPlatform
+    isWslPlatform
+    isDroidPlatform
+
+    genNixos
+    genDarwin
+    genWsl
+    genDroid
+
+    filterNixos
+    filterDarwin
+    filterWsl
+    filterDroid
+
     isLinux
     isDarwin
+    forLinux
+    forDarwin
+
     systemList
     eachSystem
-    ;
-  inherit (config)
-    hostConfig
-    userConfig
     ;
 }

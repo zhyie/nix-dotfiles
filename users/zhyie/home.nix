@@ -1,33 +1,46 @@
 { home, pkgs, ... }:
 {
   imports = [
-    home.programs.default
-    home.services.default
-    home.themes.default
+    ./variables.nix
+    ./osConfig.nix
+
+    home.common
     home.dev
-    home.utils
+    home.themes
+
+    home.profiles.graphical
+    home.profiles.gaming
   ];
+
+  modules = {
+    dev.enable = true;
+
+    flatpak = {
+      enable = true;
+      apps = {
+        libreoffice.enable = true;
+      };
+    };
+  };
 
   home.packages = builtins.attrValues {
-    inherit (pkgs.unstable) discord;
     inherit (pkgs.custom) scripts;
+    inherit (pkgs) discord;
   };
 
-  home.file = {
-    ".gitconfig".source = ./.gitconfig;
+  dotfiles = {
+    configFiles = [
+      "nvim"
+      "picom"
+      "kitty"
+      "rofi"
+      "yazi"
+      "btop"
+      "nushell/config.nu"
+      "niri"
+    ];
+    homeFiles = [
+      ".nanorc"
+    ];
   };
-
-  dotfiles.configFiles = [
-    "nvim"
-    "picom"
-    "kitty"
-    "rofi"
-    "yazi"
-    "btop"
-  ];
-  dotfiles.homeFiles = [
-    ".nanorc"
-  ];
-
-  # vars.path = ".flake";
 }

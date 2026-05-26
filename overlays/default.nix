@@ -1,14 +1,13 @@
 { inputs }:
 {
-  # Unstable nixpkgs
-  unstable-packages = final: _: {
-    unstable = import inputs.nixpkgs-unstable {
-      inherit (final) config;
-      inherit (final.stdenv.hostPlatform) system;
-    };
+  #: Nixpkgs
+  nix-packages = final: _: {
+    unstable = inputs.nixos-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
+    stable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
+    droid = inputs.nix-on-droid.overlays.default;
   };
 
-  # Custom built packages
+  #: Custom built packages
   custom-packages = final: _: {
     custom = inputs.self.packages.${final.stdenv.hostPlatform.system};
   };

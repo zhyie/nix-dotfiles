@@ -1,6 +1,6 @@
 { lib, hostConfig, ... }:
 {
-  users.users = lib.genAttrs hostConfig.userList (user: {
+  users.users = lib.genAttrs hostConfig.users (user: {
     description = "${user}";
     isNormalUser = true;
     extraGroups = [

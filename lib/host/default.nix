@@ -1,63 +1,67 @@
-{ lib, inputs, ... }@args:
+{
+  lib',
+  lib,
+  inputs,
+  ...
+}@args:
 
 let
   inherit (inputs.self) nixosConfigurations;
-  inherit (lib)
+  inherit (lib')
+    # callHost
     isLinux
-    isDarwin
+    isNixosPlatform
+    genDarwin
+    genDroid
+    ;
+  inherit (lib)
     concatLists
     mapAttrs
     attrValues
     map
     ;
-
-  callHost = f: extraArgs: import f (args // extraArgs);
 in
-{
-  # mkNixos = host: cfg: isLinux cfg.system (import ./mkNixos.nix (args // { inherit host cfg; }));
-  mkNixos =
-    hostName: hostConfig:
-    isLinux hostConfig.system (callHost ./mkNixos.nix { inherit hostName hostConfig; });
+rec {
+  callHost = f: extraArgs: import f (args // extraArgs);
+  homeModule = import ./mkHome/module.nix;
+  homeDefault = import ./mkHome/home.nix;
+
+  mkNixos = hostName: hostConfig: callHost ./mkHost/nixos.nix { inherit hostName hostConfig; };
 
   mkDarwin =
     hostName: hostConfig:
-    isDarwin hostConfig.system (callHost ./mkDarwin.nix { inherit hostName hostConfig; });
+    genDarwin hostConfig.platform (callHost ./mkHost/darwin.nix { inherit hostName hostConfig; });
+
+  mkNixOnDroid =
+    hostName: hostConfig:
+    genDroid hostConfig.platform (callHost ./mkHost/droid.nix { inherit hostName hostConfig; });
 
   mkHome =
     attrs:
     let
-      # mapHost =
-      #   h: c:
-      #   map (userName: {
-      #     name = userName + "@" + h;
-      #     value =
-      #       if c.withHome then
-      #         nixosConfigurations.${h}.config.home-manager.users.${userName}.home
-      #       else
-      #         callHost ./mkHome { inherit userName h c; };
-      #   }) c.userList;
-      # hostList = mapAttrs (hostName: hostConfig: mapHost hostName hostConfig) attrs;
-      hostList = mapAttrs (
+      hostList =
         hostName: hostConfig:
         map (userName: {
           name = userName + "@" + hostName;
           value =
             if hostConfig.withHome then
-              nixosConfigurations.${hostName}.config.home-manager.users.${userName}
+              nixosConfigurations.${hostName}.config.home-manager.users.${userName}.home
             else
               callHost ./mkHome { inherit userName hostName hostConfig; };
-        }) hostConfig.userList
-      ) attrs;
+        }) hostConfig.users;
     in
-    concatLists (attrValues hostList);
+    concatLists (attrValues (mapAttrs hostList attrs));
 
   mkHost =
     hostName: hostConfig:
     let
       extraArgs = { inherit hostName hostConfig; };
     in
-    if lib.hasSuffix "linux" hostConfig.system then
-      callHost import ./mkNixos.nix extraArgs
+    if isLinux hostConfig.system then
+      if isNixosPlatform hostConfig.platform then
+        callHost ./mkHost/nixos.nix extraArgs
+      else
+        callHost ./mkHost/droid.nix extraArgs
     else
-      callHost ./host/mkDarwin.nix extraArgs;
+      callHost ./mkHost/darwin.nix extraArgs;
 }

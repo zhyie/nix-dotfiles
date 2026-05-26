@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  # Enable gtk settings
-  programs.dconf.enable = true;
-
   environment.systemPackages = builtins.attrValues {
     # Nano editor is installed by default.
     inherit (pkgs)
@@ -12,25 +9,24 @@
       ;
   };
 
-  modules.nixos = {
-    # profiles = {
-    #   graphical = [ "xserver" ];
-    # };
-
-    gaming = {
-      games = [
-        "steam"
-        "proton"
-        "lutris"
-        "roblox"
-        "mcpe"
-      ];
+  modules = {
+    nixos = {
+      #: Backlight
+      light = {
+        minimum = 5;
+        keys = {
+          increase = 233;
+          decrease = 232;
+        };
+      };
     };
 
-    backlight = {
-      min = 5;
-      upKey = 233;
-      downKey = 232;
+    graphical = {
+      # xserver.dwm = true;
+      xserver.enable = true;
+      wayland.enable = true;
+      wayland.niri = true;
+      display.manager = "ly";
     };
   };
 
@@ -41,13 +37,6 @@
       Option "SuspendTime" "20"
       Option "OffTime" "30"
     '';
-  };
-
-  hardware.intelgpu = {
-    computeRuntime = "legacy";
-    mediaRuntime = "intel-media-sdk";
-    # vaapiDriver = "intel-media-driver";
-    enableHybridCodec = true;
   };
 
   time.timeZone = "Asia/Manila";
