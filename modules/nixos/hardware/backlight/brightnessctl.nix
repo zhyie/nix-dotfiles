@@ -4,12 +4,12 @@
 
   modules.backlight = {
     enable = true;
-    package = pkgs.light;
+    package = pkgs.brightnessctl;
 
     flags = {
-      minimum = "-N";
-      increase = "-A";
-      decrease = "-U";
+      minimum = "-n";
+      increase = "-s";
+      decrease = "-s";
     };
   };
 }

@@ -9,7 +9,7 @@
     enable = true;
     package = pkgs.unstable.yazi.override { _7zz = pkgs._7zz-rar; };
     shellWrapperName = "y";
-    enableBashIntegration = true;
+    enableBashIntegration = config.programs.bash.enable;
     enableNushellIntegration = config.programs.nushell.enable;
     extraPackages =
       builtins.attrValues {

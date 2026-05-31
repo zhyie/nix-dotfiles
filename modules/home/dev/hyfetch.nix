@@ -18,7 +18,7 @@
         color_align = {
           mode = "horizontal";
         };
-        backend = "neofetch";
+        backend = "macchina";
         pride_month_disable = false;
       };
     };
@@ -26,4 +26,6 @@
     #: Initialize on login shell
     bash.initExtra = "${lib.getExe pkgs.hyfetch}";
   };
+
+  home.packages = [ pkgs.macchina ];
 }

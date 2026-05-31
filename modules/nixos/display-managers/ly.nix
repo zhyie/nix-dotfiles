@@ -15,7 +15,7 @@
 
       bigclock = "en";
       bigclock_seconds = true;
-      clock = "%a, %b %d %H:%M:%S";
+      clock = "%A, %B %d %Y";
     };
   };
 }

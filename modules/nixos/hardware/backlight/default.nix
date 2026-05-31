@@ -1,3 +1,6 @@
 {
-  light = import ./light.nix;
+  default = ./backlight.nix;
+
+  brightnessctl = ./brightnessctl.nix;
+  light = ./light.nix;
 }

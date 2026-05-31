@@ -4,7 +4,7 @@
 
   services.openssh = {
     enable = true;
-    ports = [ 7238 ];
+    ports = [ 8022 ];
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;

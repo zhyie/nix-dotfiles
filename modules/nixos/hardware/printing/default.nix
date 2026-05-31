@@ -1,3 +1,3 @@
 {
-  brother = import ./brother.nix;
+  brother = ./brother.nix;
 }

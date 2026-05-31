@@ -42,7 +42,7 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 7238 ];
+      allowedTCPPorts = [ 8022 ];
     };
   };
 }

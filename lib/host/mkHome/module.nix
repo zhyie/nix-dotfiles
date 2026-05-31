@@ -26,6 +26,7 @@ let
   useGlobalPkgs = true;
   useUserPackages = true;
   backupFileExtension = "backup";
+  overwriteBackup = true;
 in
 {
   home-manager = {
@@ -34,6 +35,7 @@ in
       useGlobalPkgs
       useUserPackages
       backupFileExtension
+      overwriteBackup
       ;
   }
   // lib'.isPlatformElse "droid" hostConfig.platform { inherit config; } {

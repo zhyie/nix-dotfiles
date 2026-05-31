@@ -1,16 +1,21 @@
 {
   description = "zhyie's Nix Flake Configuration";
 
+  nixConfig = {
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
+  };
+
   inputs = {
     self.submodules = true;
 
     #: NIXOS AND NIXPKGS ----------------------------------------
     nixpkgs.follows = "nixos-stable";
     nixpkgs-droid.follows = "nixpkgs";
-    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-    # nixos-2405.url = "github:NixOS/nixpkgs/nixos-24.05";
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-droid";
@@ -20,14 +25,14 @@
     #: HOME MANAGER ---------------------------------------------
     home-manager.follows = "home-manager-stable";
     home-manager-droid.follows = "home-manager";
+    home-manager-master = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # home-manager-2405 = {
-    #   url = "github:nix-community/home-manager/release-24.05";
-    #   inputs.nixpkgs.follows = "nixos-2405";
-    # };
 
     #: HARDWARE AND SECURITY ------------------------------------
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -52,11 +57,14 @@
 
     #: MISC -----------------------------------------------------
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     catppuccin = {
       url = "github:catppuccin/nix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     #: ZHYIE's --------------------------------------------------
     secrets = {
       url = "git+ssh://git@github.com/zhyie/nix-secrets.git?ref=main&shallow=1";
@@ -121,12 +129,7 @@
       packages = eachSystem (pkgs: import ./packages { inherit pkgs inputs; });
 
       #: FORMATTER
-      formatter = eachSystem (
-        pkgs:
-        pkgs.writeShellScriptBin "git-hooks" ''
-          ${pkgs.lib.getExe pkgs.pre-commit} run --all-files
-        ''
-      );
+      formatter = eachSystem (pkgs: self.packages.${pkgs.stdenv.hostPlatform.system}.git-hooks);
 
       #: CHECKS
       checks = eachSystem (
@@ -168,28 +171,25 @@
       );
 
       #: SHELL ENVIRONMENT
-      devShells = eachSystem (pkgs: {
-        default =
-          let
-            inherit (self.checks.${pkgs.stdenv.hostPlatform.system}.git-hooks)
-              shellHook
-              enabledPackages
-              ;
-          in
-          pkgs.mkShellNoCC {
-            inherit shellHook;
-            buildInputs = enabledPackages;
+      devShell = eachSystem (
+        pkgs:
+        let
+          inherit (self.checks.${pkgs.stdenv.hostPlatform.system}.git-hooks)
+            shellHook
+            enabledPackages
+            ;
+        in
+        pkgs.mkShellNoCC {
+          inherit shellHook;
 
-            packages = [
-              pkgs.home-manager
-              pkgs.nh
+          packages = enabledPackages ++ [
+            inputs.home-manager-master.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-              pkgs.macchina
-              pkgs.bat
-              pkgs.statix
-              pkgs.prek
-            ];
-          };
-      });
+            pkgs.macchina
+            pkgs.bat
+            pkgs.brightnessctl
+          ];
+        }
+      );
     };
 }

@@ -1,5 +1,5 @@
 {
-  mouse = import ./mouse.nix;
-  touchpad = import ./touchpad.nix;
-  trackpoint = import ./trackpoint.nix;
+  mouse = ./mouse.nix;
+  touchpad = ./touchpad.nix;
+  trackpoint = ./trackpoint.nix;
 }
