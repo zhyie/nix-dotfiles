@@ -28,7 +28,6 @@
         heroic.enable = mkDefault true;
         faugus.enable = mkDefault true;
         roblox.enable = mkDefault true;
-        mcpe.enable = mkDefault true;
       };
   };
 }
