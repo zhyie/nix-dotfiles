@@ -1,5 +1,5 @@
 {
-  default = import ./catppuccin.nix;
-  console = import ./console.nix;
-  nmtui = import ./nmtui.nix;
+  default = ./catppuccin.nix;
+  console = ./console.nix;
+  nmtui = ./nmtui.nix;
 }
