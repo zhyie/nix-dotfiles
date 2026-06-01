@@ -2,11 +2,9 @@
 {
   imports = [
     ./variables.nix
-
     home.common
     home.dev
     home.themes
-
     home.profiles.graphical
     home.profiles.gaming
   ];
