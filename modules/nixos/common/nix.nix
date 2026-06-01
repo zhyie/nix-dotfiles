@@ -7,7 +7,7 @@
 {
   nix =
     let
-      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+      flakeInputs = lib.filterAttrs (n: v: (n != "self") && (lib.isType "flake" v)) inputs;
     in
     {
       #: Eliminating redundant copies of store paths.
@@ -68,7 +68,7 @@
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
 
       #: Nix expression search path.
-      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+      nixPath = lib.mapAttrsToList (n: v: "${n}=flake:${v.outPath}") flakeInputs;
 
       #: Disable the use of nix channel.
       channel.enable = false;
