@@ -4,8 +4,8 @@
     extraGroups = [ "gamemode" ];
 
     openssh.authorizedKeys.keyFiles = [
-      (inputs.secrets + "/keys/zhyie/id_ed25519.pub")
-      (inputs.secrets + "/keys/zhyie/zhyie_elitenix.pub")
+      (inputs.secrets + "/zhyie/id_ed25519.pub")
+      (inputs.secrets + "/zhyie/zhyie_elitenix.pub")
     ];
   };
 }
