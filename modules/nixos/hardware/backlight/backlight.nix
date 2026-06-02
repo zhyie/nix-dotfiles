@@ -55,6 +55,17 @@
           description = "Flag to pass to decrease brightness.";
         };
       };
+
+      commands = {
+        increase = mkOption {
+          type = types.lines;
+          description = "Command to increase brightness.";
+        };
+        decrease = mkOption {
+          type = types.lines;
+          description = "Command to decrease brightness.";
+        };
+      };
     };
 
   config =
@@ -64,37 +75,44 @@
     {
       environment.systemPackages = [ cfg.package ];
 
+      modules.backlight.commands =
+        let
+          cmd = lib.getExe cfg.package;
+          step = toString cfg.step;
+          minimum = toString cfg.minimum;
+
+          flagMin = cfg.flags.minimum;
+          flagInc = cfg.flags.increase;
+          flagDec = cfg.flags.decrease;
+        in
+        {
+          increase = "${cmd} ${flagInc} ${step}%+";
+          decrease = "${cmd} ${flagMin} ${minimum} && ${cmd} ${flagDec} ${step}%-";
+        };
+
       #: Keybinds of function keys for
       #: controliing screen brightness
       services.actkbd = {
         enable = true;
 
-        bindings =
-          let
-            cmd = lib.getExe cfg.package;
-            step = toString cfg.step;
-            minimum = toString cfg.minimum;
+        bindings = [
+          #: Increase screen brightness
+          {
+            keys = [ cfg.keycodes.increase ];
+            events = [ "key" ];
+            # command = "${cmd} ${flagInc} ${step}%+";
+            command = cfg.commands.increase;
+          }
 
-            flagMin = cfg.flags.minimum;
-            flagInc = cfg.flags.increase;
-            flagDec = cfg.flags.decrease;
-          in
-          [
-            #: Decrease screen brightness
-            #: `-N` flag set the minimum brightness
-            {
-              keys = [ cfg.keycodes.decrease ];
-              events = [ "key" ];
-              command = "${cmd} ${flagMin} ${minimum} && ${cmd} ${flagDec} ${step}%-";
-            }
-
-            #: Increase screen brightness
-            {
-              keys = [ cfg.keycodes.increase ];
-              events = [ "key" ];
-              command = "${cmd} ${flagInc} ${step}%+";
-            }
-          ];
+          #: Decrease screen brightness
+          #: `-N` flag set the minimum brightness
+          {
+            keys = [ cfg.keycodes.decrease ];
+            events = [ "key" ];
+            # command = "${cmd} ${flagMin} ${minimum} && ${cmd} ${flagDec} ${step}%-";
+            command = cfg.commands.decrease;
+          }
+        ];
       };
     };
 }
