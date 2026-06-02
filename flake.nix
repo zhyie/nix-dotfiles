@@ -16,7 +16,6 @@
     nixpkgs-droid.follows = "nixpkgs";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
-    nixos-2511.url = "github:NixOS/nixpkgs/nixos-25.11";
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-droid";
@@ -32,10 +31,6 @@
     };
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager-2511 = {
-      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -67,7 +62,7 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     catppuccin = {
-      url = "github:catppuccin/nix/release-25.11";
+      url = "github:catppuccin/nix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
