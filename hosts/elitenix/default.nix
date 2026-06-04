@@ -10,7 +10,7 @@
     (inputs.nixos-hardware + "/common/gpu/intel/whiskey-lake")
 
     #: DWM + suckless tools
-    inputs.suckless.nixosModules.flexipatch
+    # inputs.suckless.nixosModules.default
 
     #: Pre-configured modules
     nixos.themes.console

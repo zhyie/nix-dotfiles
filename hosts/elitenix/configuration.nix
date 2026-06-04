@@ -16,6 +16,9 @@
       decrease = 232;
     };
 
+    laptop.enable = true;
+    gaming.enable = true;
+
     graphical = {
       # xserver.dwm = true;
       xserver.enable = true;
@@ -25,12 +28,24 @@
     };
   };
 
-  suckless = {
-    dwm.enable = true;
-    dmenu.enable = true;
-    st.enable = true;
-    slstatus.enable = true;
-  };
+  # suckless = {
+  #   dwm = {
+  #     enable = true;
+  #     package = pkgs.dwm;
+  #   };
+  #   dmenu = {
+  #     enable = true;
+  #     package = pkgs.dmenu;
+  #   };
+  #   st = {
+  #     enable = true;
+  #     package = pkgs.st;
+  #   };
+  #   slstatus = {
+  #     enable = true;
+  #     package = pkgs.slstatus;
+  #   };
+  # };
 
   services.xserver = {
     serverFlagsSection = ''
