@@ -1,16 +1,11 @@
 {
   zhyie = {
-    default = import ./zhyie;
-    home = import ./zhyie/home.nix;
-    profiles = [
-      "dev"
-      "gaming"
-    ];
+    user = ./zhyie;
+    home = ./zhyie/home.nix;
   };
 
   cherry = {
-    default = import ./cherry;
-    home = import ./cherry/home.nix;
-    profileList = [ "dev" ];
+    user = ./cherry;
+    home = ./cherry/home.nix;
   };
 }
