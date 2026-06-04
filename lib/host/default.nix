@@ -1,40 +1,20 @@
-{
-  lib',
-  lib,
-  inputs,
-  ...
-}@args:
+{ lib, inputs, ... }@args:
 
 let
   inherit (inputs.self) nixosConfigurations;
-  inherit (lib')
-    # callHost
-    isLinux
-    isNixosPlatform
-    genDarwin
-    genDroid
-    ;
-  inherit (lib)
-    concatLists
-    mapAttrs
-    attrValues
-    map
-    ;
+  inherit (lib) concatLists mapAttrs attrValues;
 in
 rec {
   callHost = f: extraArgs: import f (args // extraArgs);
+
   homeModule = import ./mkHome/module.nix;
   homeDefault = import ./mkHome/home.nix;
 
   mkNixos = hostName: hostConfig: callHost ./mkHost/nixos.nix { inherit hostName hostConfig; };
 
-  mkDarwin =
-    hostName: hostConfig:
-    genDarwin hostConfig.platform (callHost ./mkHost/darwin.nix { inherit hostName hostConfig; });
+  mkDarwin = hostName: hostConfig: callHost ./mkHost/darwin.nix { inherit hostName hostConfig; };
 
-  mkNixOnDroid =
-    hostName: hostConfig:
-    genDroid hostConfig.platform (callHost ./mkHost/droid.nix { inherit hostName hostConfig; });
+  mkNixOnDroid = hostName: hostConfig: callHost ./mkHost/droid.nix { inherit hostName hostConfig; };
 
   mkHome =
     attrs:
@@ -51,17 +31,4 @@ rec {
         }) hostConfig.users;
     in
     concatLists (attrValues (mapAttrs hostList attrs));
-
-  mkHost =
-    hostName: hostConfig:
-    let
-      extraArgs = { inherit hostName hostConfig; };
-    in
-    if isLinux hostConfig.system then
-      if isNixosPlatform hostConfig.platform then
-        callHost ./mkHost/nixos.nix extraArgs
-      else
-        callHost ./mkHost/droid.nix extraArgs
-    else
-      callHost ./mkHost/darwin.nix extraArgs;
 }

@@ -11,40 +11,20 @@ rec {
 
   inherit (host)
     callHost
-    mkHost
-
+    homeModule
+    homeDefault
     mkNixos
     mkDarwin
     mkDroid
     mkHome
-
-    homeModule
-    homeDefault
     ;
   inherit (platform)
-    isPlatform
-    isPlatformElse
-
-    isNixosPlatform
-    isDarwinPlatform
-    isWslPlatform
-    isDroidPlatform
-
-    genNixos
-    genDarwin
-    genWsl
-    genDroid
-
     filterNixos
     filterDarwin
     filterWsl
     filterDroid
-
     isLinux
     isDarwin
-    forLinux
-    forDarwin
-
     systemList
     eachSystem
     ;

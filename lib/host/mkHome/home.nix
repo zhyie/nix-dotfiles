@@ -1,6 +1,3 @@
-#: More informations and options in
-#: https://nix-community.github.io/home-manager
-
 { hostConfig, userName }:
 {
   #: Information for the Home Manager

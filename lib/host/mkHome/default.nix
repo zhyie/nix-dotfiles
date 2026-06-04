@@ -2,21 +2,22 @@
   lib,
   inputs,
   users,
+  modules,
   userName,
   hostName,
   hostConfig,
   ...
 }:
-let
-  inherit (lib) homeManagerConfiguration;
-  inherit (hostConfig) system;
-  userConfig = users.${userName};
-  defaultHome = import ./home.nix { inherit hostConfig userName; };
 
-  # pkgs = import inputs.nixpkgs { inherit system; };
-  pkgs = inputs.nixpkgs.legacyPackages.${system};
+let
+  userConfig = users.${userName};
+  homeDefault = import ./home.nix { inherit hostConfig userName; };
+in
+lib.homeManagerConfiguration {
+  pkgs = inputs.nixpkgs.legacyPackages.${hostConfig.system};
 
   extraSpecialArgs = {
+    inherit (modules) home;
     inherit
       inputs
       userName
@@ -24,12 +25,10 @@ let
       hostName
       hostConfig
       ;
-    home = inputs.self.homeModules;
   };
 
   modules = [
-    defaultHome
+    homeDefault
     userConfig.home
   ];
-in
-homeManagerConfiguration { inherit pkgs extraSpecialArgs modules; }
+}
