@@ -39,6 +39,7 @@ in
             homeDefault
             userConfig.home
             modules.common
+            modules.home.profiles.base
           ];
         };
       }
