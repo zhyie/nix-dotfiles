@@ -13,6 +13,9 @@
     # inputs.suckless.nixosModules.default
 
     #: Pre-configured modules
+    nixos.profiles.laptop
+    nixos.profiles.graphical
+    nixos.profiles.gaming
     nixos.themes.console
     nixos.themes.nmtui
   ];
