@@ -13,7 +13,6 @@
     dev.enable = true;
 
     flatpak = {
-      enable = true;
       apps = {
         libreoffice.enable = true;
       };
