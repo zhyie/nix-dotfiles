@@ -1,10 +1,9 @@
 {
-  btop = import ./btop.nix;
-  feh = import ./feh.nix;
-  firefox = import ./firefox;
-  medias = import ./medias.nix;
-  rofi = import ./rofi.nix;
-  yazi = import ./yazi.nix;
+  btop = ./btop.nix;
+  feh = ./feh.nix;
+  medias = ./medias.nix;
+  rofi = ./rofi.nix;
+  yazi = ./yazi.nix;
 
-  flatpak = import ./flatpak.nix;
+  firefox = ./firefox;
 }

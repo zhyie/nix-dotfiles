@@ -1,7 +1,7 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   services.displayManager.ly = {
-    enable = true;
+    enable = lib.mkIf (config.modules.graphical.display.manager == "ly") true;
 
     settings = {
       brightness_up_cmd = config.modules.backlight.commands.increase;

@@ -1,7 +1,7 @@
 {
-  default = import ./display-managers.nix;
+  default = ./display-managers.nix;
 
-  lemurs = import ./lemurs.nix;
-  lightdm = import ./lightdm.nix;
-  ly = import ./ly.nix;
+  lemurs = ./lemurs.nix;
+  lightdm = ./lightdm.nix;
+  ly = ./ly.nix;
 }

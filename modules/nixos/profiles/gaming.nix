@@ -2,16 +2,11 @@
   config,
   lib,
   pkgs,
-  inputs,
   nixos,
   ...
 }:
 {
-  imports = [
-    inputs.self.modules.common.gaming
-    inputs.self.modules.common.flatpak
-    nixos.services.flatpak
-  ];
+  imports = [ nixos.services.flatpak ];
 
   #: Hardware accelerated graphics drivers
   hardware.graphics = {
@@ -39,12 +34,11 @@
     };
   };
 
-  #: Overlay for monitoring FPS, hardware loads, and more
   environment.systemPackages =
+    #: Intall enabled games
     lib.concatMap (game: lib.optionals (game.enable && game.version == "nixpkgs") game.packages) (
       lib.attrValues config.modules.gaming.games
     )
-    ++ [
-      pkgs.mangohud
-    ];
+    #: Overlay for monitoring FPS, hardware loads, and more
+    ++ [ pkgs.mangohud ];
 }

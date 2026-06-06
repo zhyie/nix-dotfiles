@@ -1,7 +1,6 @@
 {
-  default = import ./xserver.nix;
-  xautolock = import ./xautolock.nix;
-  xscreensaver = import ./xscreensaver.nix;
+  default = ./xserver.nix;
+  screensaverlock = ./screensaverlock.nix;
 
-  dwm = import ./dwm.nix;
+  dwm = ./dwm.nix;
 }

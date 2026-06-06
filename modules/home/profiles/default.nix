@@ -1,5 +1,5 @@
 {
-  dev = import ../dev;
-  graphical = import ./graphical.nix;
-  gaming = import ./gaming.nix;
+  dev = ../dev;
+  graphical = ./graphical.nix;
+  gaming = ./gaming.nix;
 }

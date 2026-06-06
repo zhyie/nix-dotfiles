@@ -1,6 +1,6 @@
 {
   common = import ./common;
-  dev = import ./dev;
+  dev = ./dev;
   profiles = import ./profiles;
   security = import ./security;
 

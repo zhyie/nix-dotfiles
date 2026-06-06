@@ -1,16 +1,25 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (pkgs) xlockmore libnotify systemd;
+  inherit (config.modules) xserver laptop;
 in
 {
-  environment.systemPackages = [
+  environment.systemPackages = lib.optionals (xserver.enable && laptop.enable) [
     xlockmore
-    libnotify
   ];
 
+  services.xscreensaver = {
+    enable = xserver.enable && laptop.enable;
+  };
+
   services.xserver.xautolock = {
-    enable = true;
+    enable = xserver.enable && laptop.enable;
     time = 20;
     locker = "${xlockmore}/bin/xlock";
     nowlocker = "${xlockmore}/bin/xlock";

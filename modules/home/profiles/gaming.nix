@@ -1,33 +1,18 @@
 {
   config,
   lib,
-  inputs,
   home,
   ...
 }:
 {
-  imports = [
-    inputs.self.modules.common.gaming
-
-    #: FLatpaks
-    inputs.self.modules.common.flatpak
-    home.programs.flatpak
-  ];
+  imports = [ home.services.flatpak ];
 
   home.packages = config.modules.gaming.packages.nixpkgs;
 
-  modules.gaming = {
-    env = "home";
-
-    games =
-      let
-        inherit (lib) mkDefault;
-      in
-      {
-        proton.enable = mkDefault true;
-        heroic.enable = mkDefault true;
-        faugus.enable = mkDefault true;
-        roblox.enable = mkDefault true;
-      };
+  modules.gaming.games = {
+    proton.enable = lib.mkDefault true;
+    heroic.enable = lib.mkDefault true;
+    faugus.enable = lib.mkDefault true;
+    roblox.enable = lib.mkDefault true;
   };
 }

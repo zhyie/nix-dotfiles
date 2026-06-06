@@ -1,4 +1,4 @@
 {
-  ssh = import ./ssh;
-  sops = import ./sops.nix;
+  ssh = ./ssh;
+  sops = ./sops.nix;
 }

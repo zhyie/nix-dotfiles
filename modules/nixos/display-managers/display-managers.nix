@@ -1,7 +1,7 @@
-{ ... }:
+{ config, lib, ... }:
 {
   services.displayManager = {
-    enable = true;
+    enable = lib.mkIf (config.modules.graphical.display.manager != "") true;
     /**
       Commented option.
       Display manager, lemurs and ly

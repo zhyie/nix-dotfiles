@@ -1,7 +1,7 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
   services.xserver = {
-    enable = true;
+    enable = config.modules.xserver.enable;
     autoRepeatDelay = 300;
     autoRepeatInterval = 45;
 

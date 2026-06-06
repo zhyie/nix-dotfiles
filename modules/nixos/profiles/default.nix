@@ -1,6 +1,7 @@
 {
-  base = import ./base.nix;
-  laptop = import ./laptop.nix;
-  graphical = import ./graphical.nix;
-  gaming = import ./gaming;
+  base = ./base.nix;
+  laptop = ./laptop.nix;
+
+  gaming = ./gaming.nix;
+  graphical = ./graphical.nix;
 }

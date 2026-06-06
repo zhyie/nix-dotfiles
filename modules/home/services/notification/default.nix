@@ -1,4 +1,4 @@
 {
-  dunst = import ./dunst.nix;
-  mako = import ./mako.nix;
+  dunst = ./dunst.nix;
+  mako = ./mako.nix;
 }

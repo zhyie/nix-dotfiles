@@ -1,6 +1,6 @@
-{ ... }:
+{ config, lib, ... }:
 {
   services.displayManager.lemurs = {
-    enable = true;
+    enable = lib.mkIf (config.modules.graphical.display.manager == "lemurs") true;
   };
 }

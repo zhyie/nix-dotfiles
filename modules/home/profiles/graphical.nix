@@ -1,4 +1,4 @@
-{ inputs, home, ... }:
+{ home, ... }:
 {
   imports = [
     #: Programs
@@ -12,6 +12,7 @@
     #: Services
     home.services.dunst
     home.services.flameshot
+    home.services.flatpak
     home.services.picom
     home.services.udiskie
 
@@ -20,9 +21,5 @@
 
     #: Security
     home.security.ssh
-
-    #: FLatpaks
-    inputs.self.modules.common.flatpak
-    home.programs.flatpak
   ];
 }

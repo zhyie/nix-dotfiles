@@ -1,4 +1,4 @@
 {
-  default = import ./wayland.nix;
-  niri = import ./niri.nix;
+  default = ./wayland.nix;
+  niri = ./niri.nix;
 }

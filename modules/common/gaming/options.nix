@@ -5,16 +5,16 @@ let
 in
 {
   options.modules.gaming = {
-    enable = mkEnableOption "Enable gaming modules.";
-
     #: Placeholders for the list of packages to install.
     packages = {
       nixpkgs = mkOption {
-        type = types.nullOr (types.listOf types.package);
+        type = types.listOf types.package;
+        default = [ ];
         description = "Final list of packages.";
       };
       flatpaks = mkOption {
-        type = types.nullOr (types.listOf types.str);
+        type = types.listOf types.str;
+        default = [ ];
         description = "Final list of packages.";
       };
     };
@@ -37,7 +37,7 @@ in
                 description = "Package version to use.";
               };
               packages = mkOption {
-                type = types.nullOr (types.listOf (types.either types.package types.str));
+                type = types.listOf (types.either types.package types.str);
                 default = [ ];
                 description = "List of packages for this game.";
               };
@@ -51,9 +51,11 @@ in
   };
 
   config = {
-    service.flatpak = {
-      enable = lib.mkDefault lib.any (game: game.enable && game.version == "flatpak") (
-        lib.attrValues config.modules.gaming.games
+    services.flatpak = {
+      enable = lib.mkDefault (
+        lib.any (game: game.enable && game.version == "flatpak") (
+          lib.attrValues config.modules.gaming.games
+        )
       );
 
       packages = lib.concatMap (

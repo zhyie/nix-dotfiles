@@ -7,15 +7,8 @@
 }:
 {
   imports = [
-    # inputs.nix-flatpak.nixosModules.nix-flatpak
-    nixos.services.ssh
+    nixos.security.ssh
   ];
-
-  #: portal definitions and DE provided configurations get linked
-  # environment.pathsToLink = lib.optionals config.services.flatpak.enable [
-  #   "/share/xdg-desktop-portal"
-  #   "/share/applications"
-  # ];
 
   /**
     Set pre-configured nanorc with lib.mkDefault,

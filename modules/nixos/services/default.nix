@@ -1,9 +1,5 @@
 {
-  #: Misc
-  flatpak = import ./flatpak.nix;
-
-  #: Networking
-  avahi = import ./avahi.nix;
-  dnscrypt = import ./dnscrypt.nix;
-  ssh = import ./ssh.nix;
+  avahi = ./avahi.nix;
+  dnscrypt = ./dnscrypt.nix;
+  flatpak = ./flatpak.nix;
 }

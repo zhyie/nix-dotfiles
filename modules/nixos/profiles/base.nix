@@ -4,15 +4,16 @@
   hostConfig,
   ...
 }:
+
+let
+  inherit (lib) elem optionals;
+in
 {
-  imports =
-    let
-      inherit (lib) elem optionals;
-      userZhyie = elem "zhyie" hostConfig.users;
-    in
-    [
-      nixos.common
-      nixos.security.sops
-    ]
-    ++ (optionals userZhyie [ nixos.security.sudo ]);
+  imports = [
+    nixos.common
+    nixos.security.sops
+  ]
+  ++ (optionals (elem "zhyie" hostConfig.users) [ nixos.security.sudo ])
+  #
+  ;
 }
