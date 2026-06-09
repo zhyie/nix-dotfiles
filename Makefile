@@ -16,16 +16,16 @@ help:  ## Display available commands
 .PHONY: build switch hswitch elitenix
 
 build: ## Build current host
-	$(NIXOS_BUILD) .\#$(HOSTNAME)
+	$(NIXOS_BUILD) '.#$(HOSTNAME)'
 
 switch: ga ## Rebuild current host
-	$(NIXOS_SWITCH) .\#$(HOSTNAME) --show-trace
+	$(NIXOS_SWITCH) '.#$(HOSTNAME)' --show-trace
 
 hswitch: ga ## Rebuild current user's home
-	$(HOME_SWITCH) .\#$(USERNAME)@$(HOSTNAME) --show-trace
+	$(HOME_SWITCH) '.#$(USERNAME)@$(HOSTNAME)' --show-trace
 
 elitenix: ## Build @elitenix
-	$(NIXOS_BUILD) '.\#elitenix'
+	$(NIXOS_BUILD) '.#elitenix'
 
 ##############################
 ## Nix Flakes
