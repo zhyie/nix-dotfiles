@@ -1,7 +1,7 @@
 { inputs, lib, ... }:
 
 let
-  flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+  flakeInputs = lib.filterAttrs (n: v: (n != "self") && (lib.isType "flake" v)) inputs;
 in
 {
   #: Nix configuration.
@@ -21,7 +21,7 @@ in
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
 
     #: Nix expression search path.
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+    nixPath = lib.mapAttrsToList (n: v: "${n}=flake:${v.outPath}") flakeInputs;
 
     #: URLs and public keys of binary caches.
     substituters = [ "https://nix-community.cachix.org" ];
