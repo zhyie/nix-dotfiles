@@ -1,16 +1,7 @@
 {
   description = "zhyie's Nix Flake Configuration";
 
-  nixConfig = {
-    extra-substituters = [ "https://noctalia.cachix.org" ];
-    extra-trusted-public-keys = [
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-    ];
-  };
-
   inputs = {
-    # self.submodules = true;
-
     #: NIXOS AND NIXPKGS ----------------------------------------
     nixpkgs.follows = "nixos-stable";
     nixpkgs-droid.follows = "nixpkgs";
@@ -58,15 +49,6 @@
 
     #: MISC -----------------------------------------------------
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixos-unstable";
-      inputs.noctalia-qs.inputs.treefmt-nix.follows = "direnv-instant/treefmt-nix";
-    };
-    catppuccin = {
-      url = "github:catppuccin/nix/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     #: ZHYIE's --------------------------------------------------
     secrets = {
@@ -110,7 +92,6 @@
       #: GENERATE HOSTS|HOMES CONFIGURATION
       nixosConfigurations = mapAttrs lib.mkNixos (lib.filterNixos hosts);
       nixOnDroidConfigurations = mapAttrs lib.mkDroid (lib.filterDroid hosts);
-      # darwinConfigurations = mapAttrs lib.mkDarwin (lib.filterDarwin hosts);
       homeConfigurations = listToAttrs (lib.mkHome hosts);
 
       #: EXPORT MODULES
@@ -122,12 +103,7 @@
       packages = lib.eachSystem (pkgs: import ./packages { inherit pkgs inputs; });
 
       #: FORMATTER
-      formatter = lib.eachSystem (pkgs: packages.${pkgs.stdenv.hostPlatform.system}.git-hooks);
-
-      #: SHELL ENVIRONMENT
-      devShells = lib.eachSystem (pkgs: {
-        default = import ./shell.nix { inherit self pkgs; };
-      });
+      formatter = lib.eachSystem (pkgs: packages.${pkgs.stdenv.hostPlatform.system}.treefmt);
 
       #: CHECKS
       checks = lib.eachSystem (
@@ -135,8 +111,42 @@
         mapAttrs (h: _: nixosConfigurations.${h}.config.system.build.toplevel) nixosConfigurations
         // mapAttrs (h: _: homeConfigurations.${h}.activationPackage) homeConfigurations
         // {
-          git-hooks = import ./hooks.nix { inherit inputs pkgs; };
+          git-hooks = inputs.git-hooks.lib.${pkgs.stdenv.hostPlatform.system}.run {
+            src = ./.;
+            package = pkgs.prek;
+
+            excludes = [
+              "^(dotfiles|secrets)/.*"
+              "^hosts/.*/hardware-configuration.nix$"
+            ];
+
+            hooks.nix-fmt = {
+              enable = true;
+              description = "Nix Treefmt";
+              entry = "nix fmt";
+              files = "\\.nix$";
+            };
+          };
         }
       );
+
+      #: SHELL ENVIRONMENT
+      devShells = lib.eachSystem (pkgs: {
+        default = pkgs.mkShellNoCC {
+          inherit (checks.${pkgs.stdenv.hostPlatform.system}.git-hooks) shellHook;
+
+          packages = [
+            self.packages.${pkgs.stdenv.hostPlatform.system}.hm
+            pkgs.nixd
+            pkgs.nixfmt
+            pkgs.statix
+            pkgs.deadnix
+
+            pkgs.bat
+            pkgs.gitui
+          ];
+        };
+
+      });
     };
 }

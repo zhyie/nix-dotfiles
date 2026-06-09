@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "catppuccin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1780143400,
-        "narHash": "sha256-jN9RJ4OeuLdCxZ1G0d4zqy0HuHnqODxxgN6pQoYfAH8=",
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "096f4670cf078d810a931fae59b57db4cc3fb4d3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "ref": "release-26.05",
-        "repo": "nix",
-        "type": "github"
-      }
-    },
     "direnv-instant": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -385,56 +364,8 @@
         "type": "gitlab"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixos-unstable"
-        ],
-        "noctalia-qs": "noctalia-qs"
-      },
-      "locked": {
-        "lastModified": 1780371321,
-        "narHash": "sha256-WCaU6npdMdjZSZHe3XATNDFijmzRnsV8V+iR80e5deg=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "3aab45a2f34fd47666b05892b95054952e788de1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "type": "github"
-      }
-    },
-    "noctalia-qs": {
-      "inputs": {
-        "nixpkgs": [
-          "noctalia",
-          "nixpkgs"
-        ],
-        "systems": "systems",
-        "treefmt-nix": [
-          "direnv-instant",
-          "treefmt-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1780194487,
-        "narHash": "sha256-M+YtjKCTkHrkplNaKVyaxfa8hAWjRF6wFOUBAZvxQ4U=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-qs",
-        "rev": "07398e12b54f194e3a2d47c87e3fd10b8eeaa27d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-qs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
-        "catppuccin": "catppuccin",
         "direnv-instant": "direnv-instant",
         "dotfiles": "dotfiles",
         "git-hooks": "git-hooks",
@@ -457,7 +388,6 @@
         "nixpkgs-droid": [
           "nixpkgs"
         ],
-        "noctalia": "noctalia",
         "secrets": "secrets",
         "sops-nix": "sops-nix",
         "suckless": "suckless"
@@ -524,32 +454,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1780504348,
-        "narHash": "sha256-kPMfdmdPjT1Vf+mGizjXP5cIXYGfFl499o7UZydV6Gs=",
+        "lastModified": 1780939512,
+        "narHash": "sha256-rsNYvo4HD0yOpGx1nI55yHMSqO3a9Vl2UkQ49BdTwJ0=",
         "owner": "zrhive",
         "repo": "suckless",
-        "rev": "a63949d104e7eb1ff8bef9820417c1506402ee0f",
+        "rev": "d51eda163e15706ab6aa9ea8ed357f6eafa3889c",
         "type": "github"
       },
       "original": {
         "owner": "zrhive",
         "ref": "main",
         "repo": "suckless",
-        "type": "github"
-      }
-    },
-    "systems": {
-      "locked": {
-        "lastModified": 1689347949,
-        "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
-        "owner": "nix-systems",
-        "repo": "default-linux",
-        "rev": "31732fcf5e8fea42e59c2488ad31a0e651500f68",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default-linux",
         "type": "github"
       }
     },
