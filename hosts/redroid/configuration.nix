@@ -10,6 +10,7 @@
     };
   };
 
+  time.timeZone = "Asia/Manila";
   #######################################
   #   OFF LIMIT  SYSTEM STATE VERSION   #
   #######################################
