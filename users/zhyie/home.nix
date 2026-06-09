@@ -1,7 +1,6 @@
 { home, pkgs, ... }:
 {
   imports = [
-    ./variables.nix
     home.themes
     home.profiles.dev
     home.profiles.graphical
@@ -11,10 +10,8 @@
   modules = {
     dev.enable = true;
 
-    flatpak = {
-      apps = {
-        libreoffice.enable = true;
-      };
+    flatpak.apps = {
+      libreoffice.enable = true;
     };
   };
 
@@ -34,8 +31,14 @@
       "nushell/config.nu"
       "niri"
     ];
+
     homeFiles = [
       ".nanorc"
     ];
+  };
+
+  variables = {
+    user.name = "zhyie";
+    git.email = "128297362+zhyie@users.noreply.github.com";
   };
 }

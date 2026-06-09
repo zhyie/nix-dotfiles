@@ -1,7 +1,10 @@
-{ config, inputs, ... }:
+{ inputs, ... }:
 {
   users.users.zhyie = {
-    extraGroups = [ "gamemode" ];
+    extraGroups = [
+      "gamemode"
+      "lpadmin"
+    ];
 
     openssh.authorizedKeys.keyFiles = [
       (inputs.secrets + "/zhyie/id_ed25519.pub")
