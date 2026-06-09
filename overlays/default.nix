@@ -16,6 +16,4 @@
     firefox = import ./firefox.nix { inherit inputs prev; };
     openldap = prev.openldap.overrideAttrs { doCheck = false; };
   };
-
-  suckless = inputs.suckless.overlays.default;
 }

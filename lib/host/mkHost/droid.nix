@@ -16,8 +16,13 @@ let
   homeModules = homeModule (args // { inherit userName; });
 in
 inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-  pkgs = inputs.nixpkgs-droid.legacyPackages.${hostConfig.system};
   modules = if hostConfig.withHome then baseModules ++ homeModules else baseModules;
+
+  pkgs = import inputs.nixpkgs-droid {
+    overlays = builtins.attrValues inputs.self.overlays ++ [
+      inputs.nix-on-droid.overlays.default
+    ];
+  };
 
   extraSpecialArgs = {
     inherit (modules) droid;

@@ -29,11 +29,11 @@ in
   };
 
   #: Nixpkgs configuraiton.
-  nixpkgs = {
-    #: Allow unfree packages.
-    config.allowUnfree = true;
+  # nixpkgs = {
+  #   #: Allow unfree packages.
+  #   config.allowUnfree = true;
 
-    #: Overlays to apply to Nixpkgs.
-    overlays = lib.attrValues inputs.self.overlays;
-  };
+  #   #: Overlays to apply to Nixpkgs.
+  #   overlays = lib.attrValues inputs.self.overlays ++ [ inputs.self.overlays.nix-packages.droid ];
+  # };
 }
