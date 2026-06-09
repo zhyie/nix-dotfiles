@@ -4,22 +4,22 @@
     enable = true;
     enableDefaultConfig = false;
 
-    matchBlocks = {
+    settings = {
       "${userName}" = {
-        addKeysToAgent = "yes";
-        identityFile = [
+        AddKeysToAgent = "yes";
+        IdentityFile = [
           "id_ed25519"
           "${userName}_${hostName}"
         ];
-        forwardAgent = true;
-        userKnownHostsFile = "~/.ssh/known_hosts";
+        ForwardAgent = true;
+        UserKnownHostsFile = "~/.ssh/known_hosts";
       };
 
       "github.com" = {
-        addKeysToAgent = "yes";
-        identityFile = [ "github" ];
-        forwardAgent = true;
-        userKnownHostsFile = "~/.ssh/known_hosts";
+        HostName = "github.com";
+        User = "git";
+        IdentityFile = "~/.ssh/github";
+        AddKeysToAgent = "yes";
       };
     };
   };

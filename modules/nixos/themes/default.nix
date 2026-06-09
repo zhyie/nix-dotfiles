@@ -1,4 +1,4 @@
-rec {
-  catppuccin = import ./catppuccin;
-  inherit (catppuccin) console nmtui;
+{
+  console = ./console.nix;
+  nmtui = ./nmtui.nix;
 }

@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   environment = {
+    etcBackupExtension = ".bak";
+
     packages = builtins.attrValues {
       inherit (pkgs)
         #: common packages
@@ -22,18 +24,10 @@
         zip
         unzip
 
-        neovim
-        git
+        nano
+        gitMinimal
         openssh
         ;
-
     };
-
-    sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-    };
-
-    etcBackupExtension = ".bak";
   };
 }

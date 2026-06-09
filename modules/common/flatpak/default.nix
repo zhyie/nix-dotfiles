@@ -1,13 +1,13 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkDefault optional elem;
+  inherit (lib) optional elem;
   inherit (config.modules.flatpak) appList;
 
   #: appIDs
   libreoffice = "org.libreoffice.LibreOffice";
-  sober = mkDefault "org.vinegarhq.Sober";
-  mcpe = mkDefault "io.mrarm.mcpelauncher";
+  sober = "org.vinegarhq.Sober";
+  mcpe = "io.mrarm.mcpelauncher";
 in
 {
   imports = [ ./options.nix ];
@@ -29,11 +29,11 @@ in
         `id`      app ID
       ----------------------------
     */
-    libreoffice.id = mkDefault libreoffice;
-    libreOffice.id = mkDefault "org.libreoffice.LibreOffice";
+    libreoffice.id = libreoffice;
+    libreOffice.id = "org.libreoffice.LibreOffice";
 
-    sober.id = mkDefault "org.vinegarhq.Sober";
-    roblox.id = mkDefault "org.vinegarhq.Sober";
+    sober.id = "org.vinegarhq.Sober";
+    roblox.id = "org.vinegarhq.Sober";
 
     mcpe.id = mcpe;
   };

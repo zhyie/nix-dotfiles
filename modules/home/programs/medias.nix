@@ -8,6 +8,7 @@
       smplayer
       ffmpeg
       yt-dlp
+      mpd
       ;
   };
 }

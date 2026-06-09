@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ droid, ... }:
 {
-  imports = [ inputs.self.modules.droid.common ];
+  imports = [ droid.common ];
 }

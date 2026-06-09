@@ -17,5 +17,5 @@ rec {
 
   #: Printing
   printing = import ./printing;
-  inherit (printing) brother;
+  inherit (printing) brother epson;
 }

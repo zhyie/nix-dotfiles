@@ -1,9 +1,8 @@
 { config, pkgs, ... }:
 {
   programs.git = {
-    # enable = config.modules.dev.enable;
     enable = true;
-    package = pkgs.gitMinimal;
+    package = if config.modules.dev.enable then pkgs.git else pkgs.gitMinimal;
 
     settings = {
       user = {

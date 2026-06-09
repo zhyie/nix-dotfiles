@@ -33,6 +33,7 @@ in
   config = {
     xdg.configFile = genAttrs cfg.configFiles (file: {
       source = mkOutOfStoreSymlink "${homeDirectory}/${flake.name}/dotfiles/${file}";
+      force = true;
     });
 
     home.file = genAttrs cfg.homeFiles (file: {

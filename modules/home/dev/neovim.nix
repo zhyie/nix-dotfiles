@@ -4,10 +4,12 @@
 
   programs.neovim = {
     enable = config.modules.dev.enable;
-    package = pkgs.neovim-unwrapped;
     defaultEditor = true;
     viAlias = true;
-    withNodeJs = true;
+    # withNodeJs = true;
+    withPython3 = false;
+    withRuby = false;
+    sideloadInitLua = true;
 
     extraPackages = [
       pkgs.lua54Packages.luacheck

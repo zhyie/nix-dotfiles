@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
   services.xserver = {
-    enable = config.modules.xserver.enable;
+    enable = lib.mkDefault config.modules.xserver.enable;
     autoRepeatDelay = 300;
     autoRepeatInterval = 45;
 

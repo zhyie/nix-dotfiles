@@ -8,14 +8,14 @@
 {
   imports = [
     nixos.services.flatpak
-    nixos.display-managers.default
-    nixos.display-managers.lightdm
-    nixos.display-managers.lemurs
-    nixos.display-managers.ly
-    nixos.xserver.default
-    nixos.xserver.screensaverlock
-    nixos.wayland.default
-    nixos.wayland.niri
+    nixos.sessions.display-managers.default
+    nixos.sessions.display-managers.lightdm
+    nixos.sessions.display-managers.lemurs
+    nixos.sessions.display-managers.ly
+    nixos.sessions.xserver.default
+    nixos.sessions.xserver.screensaverlock
+    nixos.sessions.wayland.default
+    nixos.sessions.wayland.niri
   ];
 
   options.modules.graphical = {
@@ -57,6 +57,19 @@
         modules.wayland.enable = isEnable graphical.wayland;
 
         programs.dconf.enable = lib.mkDefault true;
+        xdg.portal = {
+          enable = lib.mkDefault true;
+
+          config.niri = {
+            default = [ "gtk" ];
+          };
+
+          # Recommended by upstream, required for screencast support
+          # https://github.com/YaLTeR/niri/wiki/Important-Software#portals
+          # extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+          extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        };
+
         environment.systemPackages =
           lib.optionals (xserver.enable || wayland.enable) [
             pkgs.libnotify

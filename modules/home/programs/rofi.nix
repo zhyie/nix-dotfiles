@@ -7,6 +7,8 @@
           inherit (pkgs)
             rofi-calc
             rofi-emoji
+            rofi-top
+            rofi-file-browser
             ;
         };
       };
@@ -15,10 +17,9 @@
     ++ (builtins.attrValues {
       inherit (pkgs)
         rofi-power-menu
+        rofi-bluetooth
+        rofi-network-manager
         rofi-mpd
-        rofi-rbw-x11
-        rofi-obsidian
-        keepmenu
         ;
     });
 }

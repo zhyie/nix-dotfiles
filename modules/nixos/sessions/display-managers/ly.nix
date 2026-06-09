@@ -6,8 +6,11 @@
     settings = {
       brightness_up_cmd = config.modules.backlight.commands.increase;
       brightness_down_cmd = config.modules.backlight.commands.decrease;
-      clock = "%H:%M:%S | %A, %B %d %Y";
       battery_id = "BAT0";
+
+      bigclock = "en";
+      bigclock_seconds = true;
+      clock = "%A, %B %d %Y";
       show_tty = true;
 
       auth_fails = 5;

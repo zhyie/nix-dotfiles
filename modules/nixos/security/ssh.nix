@@ -1,9 +1,4 @@
-{
-  config,
-  nixos,
-  hostConfig,
-  ...
-}:
+{ inputs, nixos, ... }:
 {
   imports = [ nixos.security.fail2ban ];
 
@@ -14,9 +9,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-      AllowUsers = hostConfig.users;
+      AllowUsers = builtins.attrNames (import "${inputs.self}/users");
     };
   };
-
-  programs.ssh.startAgent = config.services.openssh.enable;
 }

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 {
   options.modules.flatpak = {
     packages = lib.mkOption {
@@ -72,20 +67,14 @@
     services.flatpak = {
       update.onActivation = true;
 
-      enable =
+      enable = lib.mkDefault (
         lib.any (app: app.enable) (lib.attrValues config.modules.flatpak.apps)
-        || config.modules.flatpak.appList != [ ];
+        || config.modules.flatpak.appList != [ ]
+      );
 
       packages = lib.concatMap (app: lib.optional app.enable app.id) (
         lib.attrValues config.modules.flatpak.apps
       );
-    };
-
-    #: portal frontend service for Flatpak
-    xdg.portal = {
-      enable = lib.mkDefault config.services.flatpak.enable;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      config.common.default = "*";
     };
   };
 }

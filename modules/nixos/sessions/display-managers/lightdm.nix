@@ -3,7 +3,7 @@
   services.xserver.displayManager.lightdm = {
     enable = lib.mkIf (
       config.modules.graphical.display.manager == "lightdm"
-      || lib.any (c: c) (lib.attrValues config.modules.graphical.xserver)
+      && lib.any (c: c) (lib.attrValues config.modules.graphical.xserver)
     ) true;
 
     #: GTK Greeters

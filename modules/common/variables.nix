@@ -1,31 +1,22 @@
 { config, lib, ... }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkOption
-    types
-    mkIf
-    mkDefault
-    ;
-  inherit (types) str path;
-
-  cfg = config.variables;
+  inherit (lib) mkOption types;
 in
 {
   options.variables = {
-    enable = mkEnableOption "Let modules use defined variables.";
+    enable = lib.mkEnableOption "Let modules use defined variables.";
 
     #: Flake variables
     flake = {
       name = mkOption {
-        type = str;
+        type = types.str;
         default = "flake";
         description = "Name of the path of nixos flake directory.";
       };
       path = mkOption {
-        type = path;
-        default = null;
+        type = types.path;
+        default = "${config.home.homeDirectory}/${config.variables.flake.name}";
         description = "Path of the nixos flake directory.";
       };
     };
@@ -33,11 +24,11 @@ in
     #: Global user variables
     user = {
       name = mkOption {
-        type = str;
+        type = types.str;
         description = "User name.";
       };
       email = mkOption {
-        type = str;
+        type = types.str;
         description = "User email.";
       };
     };
@@ -45,25 +36,25 @@ in
     #: Variables that git will use
     git = {
       user = mkOption {
-        type = str;
+        type = types.str;
+        default = config.variables.user.name;
         description = "Git user name.";
       };
       email = mkOption {
-        type = str;
+        type = types.str;
+        default = config.variables.user.email;
         description = "Git user email.";
       };
     };
   };
 
   #: CONFIG ------------------------------
-  config = mkIf cfg.enable {
-    variables = {
-      git = {
-        user = mkDefault cfg.user.name;
-        email = mkDefault cfg.user.email;
-        # user = if cfg.git.user == null then mkDefault cfg.user.name else cfg.git.user;
-        # email = if cfg.git.email == null then mkDefault cfg.user.email else cfg.git.email;
-      };
-    };
-  };
+  # config = {
+  #   variables = {
+  #     git = {
+  #       user = lib.mkDefault config.variables.user.name;
+  #       email = lib.mkDefault config.variables.user.email;
+  #     };
+  #   };
+  # };
 }
