@@ -1,24 +1,19 @@
 {
+  inputs,
   writeScriptBin,
   symlinkJoin,
-  inputs,
 }:
-let
-  inherit (builtins)
-    attrNames
-    readDir
-    readFile
-    replaceStrings
-    map
-    ;
 
-  dir = inputs.dotfiles + "/scripts";
-  scripts' = attrNames (readDir dir);
-  scripts = map (s: replaceStrings [ ".sh" ] [ "" ] s) scripts';
-  mkScript = name: writeScriptBin name (readFile (dir + "/${name}.sh"));
-  paths = map mkScript scripts;
+let
+  directory = inputs.dotfiles + "/scripts";
+
+  scripts = map (script: builtins.replaceStrings [ ".sh" ] [ "" ] script) (
+    builtins.attrNames (builtins.readDir directory)
+  );
+
+  mkScript = name: writeScriptBin name (builtins.readFile "${directory}/${name}.sh");
 in
 symlinkJoin {
   name = "scripts";
-  inherit paths;
+  paths = map mkScript scripts;
 }

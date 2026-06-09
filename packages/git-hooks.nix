@@ -1,13 +1,16 @@
 {
-  inputs,
+  checks,
   lib,
   stdenv,
   writeShellScriptBin,
 }:
 
 let
-  inherit (inputs.self.checks.${stdenv.hostPlatform.system}.git-hooks) config;
+  inherit (checks.${stdenv.hostPlatform.system}.git-hooks.config)
+    package
+    configFile
+    ;
 in
 writeShellScriptBin "git-hooks" ''
-  ${lib.getExe config.package} run --all-files --config ${config.configFile}
+  ${lib.getExe package} run --all-files --config ${configFile}
 ''
