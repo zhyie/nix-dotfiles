@@ -12,7 +12,7 @@ rec {
   mkDarwin =
     hostName: hostConfig: callHost ./mkHost/darwin.nix { inherit hostName hostConfig homeModule; };
 
-  mkNixOnDroid =
+  mkDroid =
     hostName: hostConfig: callHost ./mkHost/droid.nix { inherit hostName hostConfig homeModule; };
 
   mkHome =
