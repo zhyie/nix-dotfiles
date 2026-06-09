@@ -27,13 +27,14 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    overwriteBackup = true;
   }
   // (
     if hostConfig.platform == "droid" then
       { config = homeDefault; }
     else
       {
+        overwriteBackup = true;
+
         users.${userName} = {
           imports = [
             homeDefault

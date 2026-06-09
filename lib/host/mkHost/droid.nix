@@ -11,15 +11,12 @@
 let
   userName = builtins.head hostConfig.users;
   userModule = [ users.${userName}.user ];
+  baseModules = hostConfig.module ++ userModule;
 
   homeModules = homeModule (args // { inherit userName; });
-
-  baseModules = hostConfig.module ++ userModule;
 in
-inputs.nixpkgs.lib.nixOnDroidConfiguration {
+inputs.nix-on-droid.lib.nixOnDroidConfiguration {
   pkgs = inputs.nixpkgs-droid.legacyPackages.${hostConfig.system};
-  home-manager-path = inputs.home-manager-droid.outPath;
-
   modules = if hostConfig.withHome then baseModules ++ homeModules else baseModules;
 
   extraSpecialArgs = {
@@ -31,3 +28,6 @@ inputs.nixpkgs.lib.nixOnDroidConfiguration {
       ;
   };
 }
+// (inputs.nixpkgs.lib.optionalAttrs hostConfig.withHome {
+  home-manager-path = inputs.home-manager-droid.outPath;
+})
