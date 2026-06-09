@@ -4,7 +4,7 @@
   inputs = {
     #: NIXOS AND NIXPKGS ----------------------------------------
     nixpkgs.follows = "nixos-stable";
-    nixpkgs-droid.follows = "nixpkgs";
+    nixpkgs-droid.follows = "nixos-stable";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
     nix-on-droid = {
@@ -16,11 +16,7 @@
 
     #: HOME MANAGER ---------------------------------------------
     home-manager.follows = "home-manager-stable";
-    home-manager-droid.follows = "home-manager";
-    home-manager-master = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixos-unstable";
-    };
+    home-manager-droid.follows = "home-manager-stable";
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -143,7 +139,7 @@
             pkgs.deadnix
 
             pkgs.bat
-            pkgs.gitui
+            pkgs.lazygit
           ];
         };
 
