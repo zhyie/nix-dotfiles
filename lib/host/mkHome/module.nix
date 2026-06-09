@@ -30,7 +30,14 @@ in
   }
   // (
     if hostConfig.platform == "droid" then
-      { config = homeDefault; }
+      {
+        config = {
+          imports = [
+            homeDefault
+            userConfig.home
+          ];
+        };
+      }
     else
       {
         overwriteBackup = true;

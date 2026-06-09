@@ -18,11 +18,13 @@ in
 inputs.nix-on-droid.lib.nixOnDroidConfiguration {
   modules = if hostConfig.withHome then baseModules ++ homeModules else baseModules;
 
-  pkgs = import inputs.nixpkgs-droid {
-    overlays = builtins.attrValues inputs.self.overlays ++ [
-      inputs.nix-on-droid.overlays.default
-    ];
-  };
+  pkgs = inputs.nixpkgs-droid.legacyPackages.${hostConfig.system};
+  # pkgs = import inputs.nixpkgs-droid {
+  #   inherit (hostConfig) system;
+  #   overlays = builtins.attrValues inputs.self.overlays ++ [
+  #     inputs.nix-on-droid.overlays.default
+  #   ];
+  # };
 
   extraSpecialArgs = {
     inherit (modules) droid;
