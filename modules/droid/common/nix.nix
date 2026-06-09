@@ -14,7 +14,7 @@ in
       auto-optimise-store = true
       flake-registry = ""
       keep-outputs = true
-      use-xdg-base-directories = true;
+      use-xdg-base-directories = true
     '';
 
     #: Flake registries.
