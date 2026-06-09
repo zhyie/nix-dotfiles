@@ -4,6 +4,7 @@ BACKEXT ?= $(shell date +%Y%m%d)
 
 NIXOS_BUILD := sudo nixos-rebuild build --flake
 NIXOS_SWITCH := sudo nixos-rebuild switch --flake
+DROID_SWITCH := nix-on-droid switch --flake
 HOME_SWITCH := home-manager switch --flake
 
 .PHONY: help
@@ -20,6 +21,9 @@ build: ## Build current host
 
 switch: ga ## Rebuild current host
 	$(NIXOS_SWITCH) '.#$(HOSTNAME)' --show-trace
+
+dswitch: ga ## Rebuild current host for droid
+	$(DROID_SWITCH) '.#$(HOSTNAME)' --show-trace
 
 hswitch: ga ## Rebuild current user's home
 	$(HOME_SWITCH) '.#$(USERNAME)@$(HOSTNAME)' --show-trace
