@@ -12,6 +12,12 @@ in
 {
   imports = [ ./options.nix ];
 
+  services.flatpak = {
+    update.onActivation = true;
+    uninstallUnmanaged = true;
+    uninstallUnused = true;
+  };
+
   modules.flatpak.apps = {
     /**
       ----------------------------

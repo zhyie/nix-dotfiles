@@ -65,8 +65,6 @@
   config = {
     #: FLATPAK
     services.flatpak = {
-      update.onActivation = true;
-
       enable = lib.mkDefault (
         lib.any (app: app.enable) (lib.attrValues config.modules.flatpak.apps)
         || config.modules.flatpak.appList != [ ]
