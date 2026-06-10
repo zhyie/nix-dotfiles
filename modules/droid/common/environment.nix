@@ -5,26 +5,23 @@
 
     packages = builtins.attrValues {
       inherit (pkgs)
-        #: common packages
+        util-linuxMinimal
         procps
-        killall
-        diffutils
         findutils
-        utillinux
-        tzdata
-        hostname
-        man
-        gnugrep
+        ripgrep
+        gnumake
         gnupg
-        gnused
+
         gnutar
-        bzip2
         gzip
-        xz
         zip
         unzip
 
-        nano
+        man
+        hostname
+        tzdata
+
+        nvim
         gitMinimal
         openssh
         ;
