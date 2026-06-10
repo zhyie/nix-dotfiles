@@ -11,9 +11,8 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
 
-      auto-optimise-store = true
       flake-registry = ""
-      keep-outputs = true
+      warn-dirty = false
     '';
 
     #: Flake registries.
