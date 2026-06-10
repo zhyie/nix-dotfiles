@@ -119,18 +119,38 @@
         "type": "github"
       }
     },
-    "home-manager-stable": {
+    "home-manager-master": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1780361225,
-        "narHash": "sha256-wnV9ttf4fPWNonBIQmvlrSlNpQYgx5HgWWd007mwIFA=",
+        "lastModified": 1781064232,
+        "narHash": "sha256-+7cIaqM6ucKf5fDyMnkwehxG8tBdaU51TZOMtxacXmI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e28654b71096e08c019d4861ca26acb646f583d8",
+        "rev": "1ffdc28076a1809ee7c0cf08f06af18f31c480cd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager-release": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781063120,
+        "narHash": "sha256-1UIF/mDJluwJQjmmcZ2j1L2+mjYsefe82QCLj0TYSOg=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "baa46aeb6d02e0ba13de67cd35e3d57aedfacf01",
         "type": "github"
       },
       "original": {
@@ -289,6 +309,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-droid": {
+      "locked": {
+        "lastModified": 1769018530,
+        "narHash": "sha256-MJ27Cy2NtBEV5tsK+YraYr2g851f3Fl1LpNHDzDX15c=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "88d3861acdd3d2f0e361767018218e51810df8a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "88d3861",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-for-bootstrap": {
       "locked": {
         "lastModified": 1720244366,
@@ -349,12 +385,13 @@
         "dotfiles": "dotfiles",
         "git-hooks": "git-hooks",
         "home-manager": [
-          "home-manager-stable"
+          "home-manager-release"
         ],
         "home-manager-droid": [
-          "home-manager-stable"
+          "home-manager-master"
         ],
-        "home-manager-stable": "home-manager-stable",
+        "home-manager-master": "home-manager-master",
+        "home-manager-release": "home-manager-release",
         "nix-flatpak": "nix-flatpak",
         "nix-on-droid": "nix-on-droid",
         "nixos-hardware": "nixos-hardware",
@@ -363,9 +400,7 @@
         "nixpkgs": [
           "nixos-stable"
         ],
-        "nixpkgs-droid": [
-          "nixos-stable"
-        ],
+        "nixpkgs-droid": "nixpkgs-droid",
         "secrets": "secrets",
         "sops-nix": "sops-nix",
         "suckless": "suckless"
