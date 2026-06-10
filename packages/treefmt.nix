@@ -6,22 +6,13 @@
   nixfmt,
   deadnix,
   statix,
-  # writeShellScriptBin,
 }:
 
-# let
-# statixFix = writeShellScriptBin "statix-fix" ''
-#   for file in "$@"; do
-#     ${statix}/bin/statix fix --config ${self}/statix.toml -- "$file"
-#   done
-# '';
-# in
 treefmt.withConfig {
   runtimeInputs = [
     nixfmt
     deadnix
     statix
-    # statixFix
   ];
 
   settings = {
@@ -44,8 +35,6 @@ treefmt.withConfig {
       };
 
       statix = {
-        # command = "statix-fix";
-        # includes = [ "*.nix" ];
         command = "${lib.getExe bash}";
         includes = [ "*.nix" ];
         options = [
