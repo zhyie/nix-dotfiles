@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  home.packages = [ pkgs.picom-pijulius ];
+  home.packages = [ pkgs.picom ];
 
   systemd.user.services.picom = {
     Unit = {
