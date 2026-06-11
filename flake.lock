@@ -396,13 +396,13 @@
         "rev": "455e30e3b804d230411f209ef080f9bbf87f9ecf",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/zhyie/nix-secrets.git"
+        "url": "ssh://git@gitlab.com/zrhive/nix-secrets.git"
       },
       "original": {
         "ref": "main",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/zhyie/nix-secrets.git"
+        "url": "ssh://git@gitlab.com/zrhive/nix-secrets.git"
       }
     },
     "sops-nix": {

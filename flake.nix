@@ -48,7 +48,7 @@
 
     #: ZHYIE's --------------------------------------------------
     secrets = {
-      url = "git+ssh://git@github.com/zhyie/nix-secrets.git?ref=main&shallow=1";
+      url = "git+ssh://git@gitlab.com/zrhive/nix-secrets.git?ref=main&shallow=1";
       flake = false;
     };
     dotfiles = {
