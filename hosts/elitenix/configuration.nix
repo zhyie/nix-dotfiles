@@ -1,45 +1,19 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = builtins.attrValues {
-    # Nano editor is installed by default.
-    inherit (pkgs)
-      wget
-      unzip
-      xclip
-      ;
-  };
-
   modules = {
-    #: Backlight
+    laptop.enable = true;
+    gaming.enable = true;
+
     backlight.keycodes = {
       increase = 233;
       decrease = 232;
     };
-
-    laptop.enable = true;
-    gaming.enable = true;
 
     graphical = {
       xserver.dwm = true;
       wayland.niri = true;
       display.manager = "ly";
     };
-  };
-
-  suckless.tools = {
-    dwm.enable = true;
-    dmenu.enable = true;
-    st.enable = true;
-    slstatus.enable = true;
-  };
-
-  services.xserver = {
-    serverFlagsSection = ''
-      Option "BlankTime" "0"
-      Option "StandbyTime" "10"
-      Option "SuspendTime" "20"
-      Option "OffTime" "30"
-    '';
   };
 
   #: Prevents overheating on Intel CPUs
