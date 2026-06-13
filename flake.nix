@@ -5,8 +5,8 @@
     #: NIXOS AND NIXPKGS ----------------------------------------
     nixpkgs.follows = "nixos-stable";
     nixpkgs-droid.url = "github:NixOS/nixpkgs/88d3861";
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixos-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixos-stable.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz";
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid";
       inputs.nixpkgs.follows = "nixpkgs-droid";
@@ -17,12 +17,8 @@
     #: HOME MANAGER ---------------------------------------------
     home-manager.follows = "home-manager-release";
     home-manager-droid = {
-      follows = "home-manager-master";
+      follows = "home-manager-release";
       inputs.nixpkgs.follows = "nixpkgs-droid";
-    };
-    home-manager-master = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-release = {
       url = "github:nix-community/home-manager/release-26.05";

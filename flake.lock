@@ -119,26 +119,6 @@
         "type": "github"
       }
     },
-    "home-manager-master": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1781064232,
-        "narHash": "sha256-+7cIaqM6ucKf5fDyMnkwehxG8tBdaU51TZOMtxacXmI=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "1ffdc28076a1809ee7c0cf08f06af18f31c480cd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "home-manager-release": {
       "inputs": {
         "nixpkgs": [
@@ -250,34 +230,28 @@
     },
     "nixos-stable": {
       "locked": {
-        "lastModified": 1780203844,
-        "narHash": "sha256-K5sT4jTpGs15ADhviMKNBH38REpPf5Q6mM1+N6cArVE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b51242d7d43689db2f3be91bd05d5b24fbb469c4",
-        "type": "github"
+        "lastModified": 1780902259,
+        "narHash": "sha256-YMnBf9lk/LYgvqfmSSJuOGigtRs5Lsy26pJHVlR9yMY=",
+        "rev": "bd0ff2d3eac24699c3664d5966b9ef36f388e2ca",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.1550.bd0ff2d3eac2/nixexprs.tar.xz"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-26.05",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz"
       }
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1780243769,
-        "narHash": "sha256-x5UQuRsH3MqI0U9afaXSNqzTPSeZlRLvFAav2Ux1pNw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "331800de5053fcebacf6813adb5db9c9dca22a0c",
-        "type": "github"
+        "lastModified": 1780749050,
+        "narHash": "sha256-G5B1h4sOH4DN/RZ85xYi6zPm2MHdOrNMeUmMslZ28Qs=",
+        "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1011622.a799d3e3886d/nixexprs.tar.xz"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
     "nixpkgs": {
@@ -388,9 +362,8 @@
           "home-manager-release"
         ],
         "home-manager-droid": [
-          "home-manager-master"
+          "home-manager-release"
         ],
-        "home-manager-master": "home-manager-master",
         "home-manager-release": "home-manager-release",
         "nix-flatpak": "nix-flatpak",
         "nix-on-droid": "nix-on-droid",
@@ -467,11 +440,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781168963,
-        "narHash": "sha256-UfV8VR0lhHnvT4GyqPCh4JZqJALzHQtWjqneTBCjJF8=",
+        "lastModified": 1781340680,
+        "narHash": "sha256-0hREI6lyp4xyeOkJAlnktKQR3Sd3298pUYEKwpG+gY0=",
         "owner": "zrhive",
         "repo": "suckless",
-        "rev": "b77329f620de212f8e51f7625892774032426fa7",
+        "rev": "1cec8ffc91e13dd94e1548a0baba51b5aa37d8ab",
         "type": "gitlab"
       },
       "original": {
