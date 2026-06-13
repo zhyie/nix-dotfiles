@@ -10,9 +10,9 @@
     nixos.services.flatpak
     nixos.sessions.display-managers.default
     nixos.sessions.display-managers.lightdm
-    nixos.sessions.display-managers.lemurs
     nixos.sessions.display-managers.ly
     nixos.sessions.xserver.default
+    nixos.sessions.xserver.dwm
     nixos.sessions.xserver.screensaverlock
     nixos.sessions.wayland.default
     nixos.sessions.wayland.niri
@@ -59,10 +59,6 @@
         programs.dconf.enable = lib.mkDefault true;
         xdg.portal = {
           enable = lib.mkDefault true;
-
-          config.niri = {
-            default = [ "gtk" ];
-          };
 
           # Recommended by upstream, required for screencast support
           # https://github.com/YaLTeR/niri/wiki/Important-Software#portals
