@@ -1,9 +1,6 @@
-{ inputs, nixos, ... }:
+{ inputs, ... }:
 {
-  imports = [ nixos.security.fail2ban ];
-
   services.openssh = {
-    enable = true;
     ports = [ 8022 ];
     settings = {
       PasswordAuthentication = false;

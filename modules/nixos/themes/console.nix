@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   console = {
-    font = "ter-v20n";
+    font = "ter-120n";
     packages = [ pkgs.terminus_font ];
 
     colors = [
