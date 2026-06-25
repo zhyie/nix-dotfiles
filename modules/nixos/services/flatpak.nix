@@ -10,9 +10,12 @@
 
   #: Enable nixos flatpak when home-manager flatpak is enabled.
   services.flatpak.enable = lib.any (c: c) (
-    lib.attrValues (
-      lib.genAttrs hostConfig.users (u: config.home-manager.users.${u}.services.flatpak.enable)
-    )
+    if config ? home-manager then
+      lib.attrValues (
+        lib.genAttrs hostConfig.users (u: config.home-manager.users.${u}.services.flatpak.enable)
+      )
+    else
+      [ ]
   );
 
   #: portal definitions and DE provided configurations get linked
