@@ -100,7 +100,6 @@
           {
             keys = [ cfg.keycodes.increase ];
             events = [ "key" ];
-            # command = "${cmd} ${flagInc} ${step}%+";
             command = cfg.commands.increase;
           }
 
@@ -109,7 +108,6 @@
           {
             keys = [ cfg.keycodes.decrease ];
             events = [ "key" ];
-            # command = "${cmd} ${flagMin} ${minimum} && ${cmd} ${flagDec} ${step}%-";
             command = cfg.commands.decrease;
           }
         ];

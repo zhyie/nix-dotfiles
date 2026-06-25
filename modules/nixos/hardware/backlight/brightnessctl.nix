@@ -3,7 +3,6 @@
   imports = [ ./backlight.nix ];
 
   modules.backlight = {
-    enable = true;
     package = pkgs.brightnessctl;
 
     flags = {

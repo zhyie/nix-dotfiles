@@ -14,9 +14,13 @@
     nixos.services.avahi
   ];
 
-  modules.laptop.enable = true;
+  modules = {
+    laptop.enable = true;
+    backlight.enable = true;
+  };
 
   services = {
+    libinput.enable = true;
     pipewire.enable = true;
     bluetooth.enable = true;
     avahi.enable = true;

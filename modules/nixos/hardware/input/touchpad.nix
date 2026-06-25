@@ -2,8 +2,6 @@
 {
   # Enable input devices support.
   services.libinput = {
-    enable = true;
-
     # Touchpad Settings
     touchpad = {
       accelProfile = "adaptive";
