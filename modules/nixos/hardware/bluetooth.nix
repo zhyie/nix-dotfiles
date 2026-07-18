@@ -1,10 +1,7 @@
-{ nixos, ... }:
+{ ... }:
 {
-  imports = [ nixos.services.avahi ];
-
   # Enable bluetooth support.
   hardware.bluetooth = {
-    enable = true;
     powerOnBoot = false; # Power up the Bluetooth controller on boot.
 
     input = {

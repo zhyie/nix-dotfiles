@@ -19,10 +19,11 @@
     backlight.enable = true;
   };
 
+  hardware.bluetooth.enable = true;
+
   services = {
     libinput.enable = true;
     pipewire.enable = true;
-    bluetooth.enable = true;
     avahi.enable = true;
 
     #: POWER KEY AND LID HANDLER

@@ -4,6 +4,8 @@
     #: Host configuration
     ./configuration.nix
     ./hardware-configuration.nix
+    ./iso.nix
+    # ./disko.nix
 
     #: Extra hardware modules
     inputs.nixos-hardware.nixosModules.hp-elitebook-830g6
