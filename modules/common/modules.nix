@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
 let
   moduleList = [
@@ -23,8 +23,4 @@ in
         description = "List of pre-configured modules to enable.";
       };
     };
-
-  config = lib.genAttrs config.modules.modules {
-    enable = true;
-  };
 }
